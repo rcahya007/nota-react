@@ -1,7 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../container/Home/Home";
 
 const Navigation = () => {
+    const {state} = useContext(AuthContext);
+    // const navigate = useNavigate()
+    // // console.log(state.user.user[0].email)
+
+    // useEffect(()=>{
+    //     if(!state.isAuth){
+    //         navigate('/')
+    //     }
+    // },[state,navigate])
+
     return(
         <div>
             <header className="text-gray-600 body-font bg-zinc-700">
@@ -15,6 +26,14 @@ const Navigation = () => {
                     <p className="mr-5 text-white hover:text-amber-500 font-bold">BARANG</p>
                     <p className="mr-5 text-white hover:text-amber-500 font-bold">NOTA TRANSAKSI</p>
                     </nav>
+                    {
+                        state.user === null ? 
+                        null :
+                        <p className="text-white pr-4">
+                            Hallo {state.user.name}
+                        </p>
+                    }
+                    
                     <Link to='/'>
                         <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Logout
                         <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">

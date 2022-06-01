@@ -1,21 +1,59 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { UserCircleIcon, LockClosedIcon } from '@heroicons/react/solid';
-import { Link, useNavigate } from 'react-router-dom';
-import {useForm} from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../Home/Home';
 
 
 const LoginForm = () => {
-        const { register, handleSubmit, formState: { errors }, } = useForm()
-
+        const {fungsi} = useContext(AuthContext);
         const navigate = useNavigate();
+
+        const tampungData = {
+            name: "",
+            password: "",
+            isSubmitting: false,
+            errorMessage: null,
+        }
+
+        const [data, setData] = useState(tampungData);
         
-        const onSubmit = async (data, e) => {
-            e.preventDefault()
-            console.log(data);
-            await axios.post('http://localhost:5000/login',{name: data.name,passoword: data.passoword});
-            console.
-            navigate('/dashboard')
+        const handleChange = (e) =>{
+            setData({
+                ...data,
+                [e.target.name] : e.target.value
+            })
+        }
+
+
+        const onSubmit = async (e) => {
+            e.preventDefault();
+            setData({
+                ...data,
+                name: data.name,
+                password: data.password,
+                isSubmitting: true,
+                errorMessage: null,
+            })
+            try {
+                await axios.post('http://localhost:5000/login', {
+                    name: data.name,
+                    password: data.password
+                })
+                .then(res=>{
+                    if(res.status === 200){
+                        fungsi({
+                            type: "LOGIN",
+                            payload: res.data
+                        })
+                        navigate('/dashboard')
+                    }
+                })
+            } catch (error) {
+                if(error.response){
+                    console.log(error.response.data.msg)
+                }
+            }
         };
 
 
@@ -26,32 +64,24 @@ const LoginForm = () => {
                     <div className='flex items-center justify-center min-h-screen'>
                         <section className="text-gray-600 body-font w-4/5">
                             <div className="container px-5 py-24 mx-auto items-center justify-center flex">
-                            <form action="">
+                            <form onSubmit={onSubmit}>
                                 <div className="sm:w-auto border-r-2 flex flex-col items-center justify-center">
                                     <div className='flex leading-10 bg-white rounded-md mb-2 mx-16'>
                                         <p className='p-2'>
                                         <UserCircleIcon className="w-8 h-8 text-black" />
                                         </p>
-                                        <input type="text" className='rounded-r-md text-lg ml-2 pl-2 focus:outline-none' placeholder='Username' name='username' {...register("name",{ required: true })}/>
-                                    </div>
-                                    <div className='text-white mb-2' >
-                                        {errors.name && <p>Username Required</p>}
+                                        <input type="text" className='rounded-r-md text-lg ml-2 pl-2 focus:outline-none' placeholder='Username' name='name' onChange={handleChange}/>
                                     </div>
                                     <div className='flex blog leading-10 bg-white rounded-md mb-2'>
                                         <p className='p-2'>
                                         <LockClosedIcon className='w-8 h-8 text-black' />
                                         </p>
-                                        <input type="password" className='rounded-r-md text-lg ml-2 pl-2 focus:outline-none' placeholder='Password' name='password' {...register("password",{ required: true })} />
-                                    </div>
-                                    <div className='text-white mb-2' >
-                                        {errors.password && <p>Password Required</p>}
+                                        <input type="password" className='rounded-r-md text-lg ml-2 pl-2 focus:outline-none' placeholder='Password' name='password' onChange={handleChange}/>
                                     </div>
                                     <div className='mt-5'>
-                                        <Link to="/dashboard">
-                                            <button className='px-8 py-2 bg-white text-l text-black rounded-lg font-sans font-bold hover:bg-slate-700 hover:text-white' onClick={handleSubmit(onSubmit)}>
+                                            <button className='px-8 py-2 bg-white text-l text-black rounded-lg font-sans font-bold hover:bg-slate-700 hover:text-white' >
                                                 MASUK
                                             </button>
-                                        </Link>
                                     </div>
                                 </div>
                             </form>

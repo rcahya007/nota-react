@@ -34,7 +34,7 @@ export const Login = async (req, res) => {
                 name: req.body.name
             }
         });
-        console.log(user[0].password)
+        // console.log(req.body.password)
         const cekPass = user[0].password;
         if (cekPass === req.body.password && user){
             res.json({msg: "Data yang dimasukkan Betul", user: user})
@@ -42,8 +42,7 @@ export const Login = async (req, res) => {
             res.status(404).json({msg: "Password Salah"})
         }
     } catch (error) {
-        // res.status(404).json({msg: "Nama Tidak Ada!"});
-        console.log(req)
+        res.status(404).json({msg: "Nama Tidak Ada!"});
     }
     
 

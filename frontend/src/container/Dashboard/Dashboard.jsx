@@ -1,18 +1,29 @@
-import React from "react";
-import { Component } from "react/cjs/react.production.min";
+import React, {useEffect} from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import ContentDashboard from "../../component/ContentDashboard/ContentDashboard";
 import Navigation from "../../component/Navigation/Navigation";
+import { AuthContext } from "../Home/Home";
 
-class Dashboard extends Component{
-    render(){
-        return(
-            <div>
-                <title>DASHBOARD | Kodehack</title>
-                <Navigation />
-                <ContentDashboard />
-            </div>
-        )
-    }
+const Dashboard = () => {
+
+    const {state} = useContext(AuthContext);
+    const navigate = useNavigate()
+    console.log(state);
+
+    useEffect(()=>{
+        if(!state.isAuth){
+            navigate('/')
+        }
+    },[state,navigate])
+
+    return(
+        <div>
+            <title>DASHBOARD | Kodehack</title>
+            <Navigation />
+            <ContentDashboard />
+        </div>
+    )
 }
 
 export default Dashboard;
