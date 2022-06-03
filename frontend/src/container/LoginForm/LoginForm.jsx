@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { UserCircleIcon, LockClosedIcon } from '@heroicons/react/solid';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,8 +6,16 @@ import { AuthContext } from '../Home/Home';
 
 
 const LoginForm = () => {
-        const {fungsi} = useContext(AuthContext);
+        const {state ,fungsi} = useContext(AuthContext);
         const navigate = useNavigate();
+
+        useEffect(()=>{
+            {
+                if(state.isAuth){
+                    navigate('/dashboard')
+                }
+            }
+        },[state,navigate])
 
         const tampungData = {
             name: "",
@@ -52,6 +60,11 @@ const LoginForm = () => {
             } catch (error) {
                 if(error.response){
                     console.log(error.response.data.msg)
+                    setData({
+                        ...data,
+                        errorMessage: error.response.data.msg
+                    })
+                    console.log(data);
                 }
             }
         };
@@ -77,6 +90,16 @@ const LoginForm = () => {
                                         <LockClosedIcon className='w-8 h-8 text-black' />
                                         </p>
                                         <input type="password" className='rounded-r-md text-lg ml-2 pl-2 focus:outline-none' placeholder='Password' name='password' onChange={handleChange}/>
+                                    </div>
+                                    <div className='mb-2 mx-16 mt-4'>
+                                    {
+                                        data.errorMessage != null ?
+                                            <p className='px-5 text-red-600'>
+                                            {data.errorMessage}
+                                            </p> :
+                                            null
+
+                                    }
                                     </div>
                                     <div className='mt-5'>
                                             <button className='px-8 py-2 bg-white text-l text-black rounded-lg font-sans font-bold hover:bg-slate-700 hover:text-white' >
