@@ -1,30 +1,30 @@
-import React from'react';
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from'react';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { createContext, useReducer } from 'react';
 import Dashboard from '../Dashboard/Dashboard';
 import LoginForm from '../LoginForm/LoginForm';
 
 
 export const AuthContext = createContext();
-
+const dataLocal = JSON.parse(localStorage.getItem('user'));
+console.log(dataLocal)
 const initialState = {
-    user: null,
-    isAuth: false,
+    user: dataLocal,
 }
 
 const reducer = (state, action) =>{
     switch (action.type){
         case "LOGIN":
-            return {
-                ...state,
-                isAuth: true,
-                user: action.payload.user[0]
+            localStorage.setItem("user", JSON.stringify(action.payload.user))
+            return{
+                ...initialState,
+                user: action.payload.user
             }
         case "LOGOUT":
-            return {
-                ...state,
-                isAuth: false,
-                user: null,
+            localStorage.clear()
+            return{
+                ...initialState,
+                user: null
             }
         default: 
         return state;   
@@ -34,7 +34,6 @@ const reducer = (state, action) =>{
 
 
 const Home = () => {
-
     const [state, fungsi] = useReducer(reducer, initialState); 
     
         return(

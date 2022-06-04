@@ -12,7 +12,7 @@ const Dashboard = () => {
     console.log(state);
 
     useEffect(()=>{
-        if(!state.isAuth){
+        if(state.user == null){
             navigate('/')
         }
     },[state,navigate])

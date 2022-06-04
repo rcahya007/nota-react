@@ -28,23 +28,39 @@ export const Register = async (req, res) => {
 
 export const Login = async (req, res) => {
     //Digunakan Ketika Mencari semua
+    // try {
+    //     const user = await Users.findAll({
+    //         where:{
+    //             name: req.body.name
+    //         }
+    //     })
+    //     // console.log(req.body.password)
+    //     const cekPass = user[0].password;
+    //     if (cekPass === req.body.password && user){
+    //         res.json({msg: "Data yang dimasukkan Betul", user: user})
+    //     }else {
+    //         res.status(404).json({msg: "Password Salah"})
+    //     }
+    // } catch (error) {
+    //     res.status(404).json({msg: "Nama Tidak Ada!"});
+    // }
+    
+
     try {
-        const user = await Users.findAll({
-            where:{
-                name: req.body.name
-            }
-        });
-        // console.log(req.body.password)
-        const cekPass = user[0].password;
-        if (cekPass === req.body.password && user){
+        const user = await Users.findOne({
+                where:{
+                    name: req.body.name,
+                    password: req.body.password
+                }
+            });
+        if(user){
             res.json({msg: "Data yang dimasukkan Betul", user: user})
-        }else {
-            res.status(404).json({msg: "Password Salah"})
-        }
+            }else{
+                res.status(404).json({msg: "Password Salah"})
+            }
     } catch (error) {
         res.status(404).json({msg: "Nama Tidak Ada!"});
     }
-    
 
 
     //Digunakan ketikan mencari Salah satu
@@ -65,7 +81,7 @@ export const Login = async (req, res) => {
 export const Logout = async (req, res) => {
     const user = await Users.findOne({
         where:{
-            name: req.body.name,
+            nama: req.body.name,
             password: req.body.password
         }
     });

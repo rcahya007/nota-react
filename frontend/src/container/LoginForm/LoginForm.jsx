@@ -11,7 +11,7 @@ const LoginForm = () => {
 
         useEffect(()=>{
             {
-                if(state.isAuth){
+                if(state.user != null){
                     navigate('/dashboard')
                 }
             }
@@ -54,6 +54,7 @@ const LoginForm = () => {
                             type: "LOGIN",
                             payload: res.data
                         })
+                        console.log(res.data)
                         navigate('/dashboard')
                     }
                 })

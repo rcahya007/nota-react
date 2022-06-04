@@ -4,11 +4,12 @@ import { AuthContext } from "../../container/Home/Home";
 
 const Navigation = () => {
     const {state, fungsi} = useContext(AuthContext);
-
+    const navigate = useNavigate()
     const handleLogout = () =>{
         fungsi({
             type: "LOGOUT",
         })
+        navigate('/')
     }
 
     return(
