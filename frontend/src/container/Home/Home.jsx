@@ -3,6 +3,9 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { createContext, useReducer } from 'react';
 import Dashboard from '../Dashboard/Dashboard';
 import LoginForm from '../LoginForm/LoginForm';
+import Navigation from '../../component/Navigation/Navigation';
+import Barang from '../Barang/Barang';
+import Nota from '../NotaTransaksi/Nota';
 
 
 export const AuthContext = createContext();
@@ -39,9 +42,12 @@ const Home = () => {
         return(
             <div>
                 <AuthContext.Provider value={{state, fungsi}}>
+                    <Navigation/>
                     <Routes>
                             <Route path='/' element={<LoginForm/>}/>
                             <Route path='/dashboard' element={<Dashboard/>}/>
+                            <Route path='/barang' element={<Barang/>}/>
+                            <Route path='/nota' element={<Nota/>}/>
                     </Routes>
                 </AuthContext.Provider>
             </div>
