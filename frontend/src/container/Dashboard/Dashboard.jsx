@@ -32,13 +32,20 @@ const Dashboard = () => {
                         }}><SearchIcon className="w-6 h-6 mr-2"/>Cari</button>
                     </div>
                     
-                    <div className="flex f lex-wrap -m-4 clear-right">
-                        <div className="p-4 md:w-1/2 w-full">
-                            <div className="h-full bg-gray-100 p-8 rounded">
-                            <h1>Anjas</h1>
+                    <div className="flex flex-row -m-4 clear-right">
+                        <div className="basis-1/2 m-6">
+                            <div className="h-full bg-gray-100 p-8 rounded flex">
+                                <div>
+                                    <p className="text-4xl">Rp. 5.000.000</p>
+                                    <h3>Dari 3 Transaksi Pemasukan</h3>
+                                </div>
+                                <div className="">
+                                    <p className="text-4xl">Rp. 5.000.000</p>
+                                    <h3>Dari 3 Transaksi Pemasukan</h3>
+                                </div>
                             </div>
                         </div>
-                        <div className="p-4 md:w-1/2 w-full">
+                        <div className="basis-1/2 m-6">
                             <div className="h-full bg-gray-100 p-8 rounded">
                             <h1>Anjas</h1>
                             </div>
