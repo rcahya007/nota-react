@@ -1,4 +1,4 @@
-import Transactions from "../models/TransactionModel";
+import Transactions from "../models/TransactionModel.js";
 
 export const getAllByPemasukan = async (req,res) => {
     try {
