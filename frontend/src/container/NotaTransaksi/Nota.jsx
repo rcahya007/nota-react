@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
 
 const Nota = () => {
@@ -13,6 +14,7 @@ const Nota = () => {
     },[state,navigate])
     return (
         <div>
+            <Navigation/>
             <title>NOTA TRANSAKSI | Kodehack</title>
             <section className="text-gray-600 body-font">
                 <div className="container px-5 pt-7 mx-auto">

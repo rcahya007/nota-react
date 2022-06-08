@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Home/Home";
 import ModalFilter from '../../component/ModalFilter/ModalFilter'
+import Navigation from "../../component/Navigation/Navigation";
 
 const Dashboard = () => {
 
@@ -20,6 +21,7 @@ const Dashboard = () => {
 
     return(
         <div>
+            <Navigation/>
             <title>DASHBOARD | Kodehack</title>
             <section className="text-gray-600 body-font">
                 <div className="container px-5 pt-7 mx-auto">

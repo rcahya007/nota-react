@@ -42,7 +42,6 @@ const Home = () => {
         return(
             <div>
                 <AuthContext.Provider value={{state, fungsi}}>
-                    <Navigation/>
                     <Routes>
                             <Route path='/' element={<LoginForm/>}/>
                             <Route path='/dashboard' element={<Dashboard/>}/>
