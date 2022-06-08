@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Home/Home";
 import ModalFilter from '../../component/ModalFilter/ModalFilter'
 import Navigation from "../../component/Navigation/Navigation";
+import axios from "axios";
 
 const Dashboard = () => {
 
     const {state} = useContext(AuthContext);
     const navigate = useNavigate()
-    console.log(state);
+    // console.log(state);
     const [openModal, setOpenModal] = useState(false);
+    const [dataPemasukan, setDataPemasukan] = useState(0);
 
     useEffect(()=>{
         if(state.user == null){
@@ -19,6 +21,14 @@ const Dashboard = () => {
         }
     },[state,navigate])
 
+    useEffect(()=>{
+        const getData = async () =>{
+            const respon = await axios.get('http://localhost:5000/dataPemasukan')
+            setDataPemasukan(respon.data)
+        }
+        getData();
+        console.log(getData)
+    },[])
     return(
         <div>
             <Navigation/>
@@ -36,20 +46,23 @@ const Dashboard = () => {
                     
                     <div className="flex flex-row -m-4 clear-right">
                         <div className="basis-1/2 m-6">
-                            <div className="h-full bg-gray-100 p-8 rounded flex">
+                            <div className="h-full bg-gray-100 p-6 rounded flex">
                                 <div>
-                                    <p className="text-4xl">Rp. 5.000.000</p>
-                                    <h3>Dari 3 Transaksi Pemasukan</h3>
-                                </div>
-                                <div className="">
-                                    <p className="text-4xl">Rp. 5.000.000</p>
-                                    <h3>Dari 3 Transaksi Pemasukan</h3>
+                                    <p className="text-4xl">
+                                        {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(dataPemasukan.hasilJumlahIn)}
+                                    </p>
+                                    <h3 className="pt-3">Dari {dataPemasukan.hasilBanyakIn} Transaksi Pemasukan</h3>
                                 </div>
                             </div>
                         </div>
                         <div className="basis-1/2 m-6">
-                            <div className="h-full bg-gray-100 p-8 rounded">
-                            <h1>Anjas</h1>
+                            <div className="h-full bg-gray-100 p-6 rounded flex">
+                                <div>
+                                    <p className="text-4xl">
+                                        {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(dataPemasukan.hasilJumlahOut)}
+                                    </p>
+                                    <h3 className="pt-3">Dari {dataPemasukan.hasilBanyakOut} Transaksi Pemasukan</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
