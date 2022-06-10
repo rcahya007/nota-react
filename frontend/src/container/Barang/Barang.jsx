@@ -6,7 +6,8 @@ import { AuthContext } from '../Home/Home';
 
 const Barang = () => {
     const {state} = useContext(AuthContext);
-    const [allBarang, setBarang] = useState([]);
+    const [allBarang, setAllBarang] = useState([]);
+    const [dataBarang, setDataBarang] = useState([]);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -18,10 +19,19 @@ const Barang = () => {
     useEffect(()=>{
         const getDataBarang = async ()=>{
             const respon = await axios.get('http://localhost:5000/barang');
-            setBarang(respon.data.DataBarang)
+            setAllBarang(respon.data.DataBarang)
         }
         getDataBarang()
     },[])
+
+    const handleDetail = (id) => async (e) =>{
+        const getId = await axios.get('http://localhost:5000/barang/'+id)
+        setDataBarang(getId.data.Data)
+    }
+
+    const handleDelete = (id) => (e) =>{
+        console.log(id)
+    }
 
     return (
         <div>
@@ -45,8 +55,8 @@ const Barang = () => {
                                         <td className='p-4 border-b-2'>{hasil.nama_barang}</td>
                                         <td className='border-b-2 text-center'>{hasil.stok_barang}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300'>Detail</button> | 
-                                            <button className='p-2 ml-1 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300'>Delete</button>
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300' onClick={handleDetail(hasil.id)}>Detail</button> | 
+                                            <button className='p-2 ml-1 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={handleDelete(hasil.id)} >Delete</button>
                                         </td>
                                     </tr>
                                 ))
