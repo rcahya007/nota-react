@@ -10,10 +10,8 @@ const LoginForm = () => {
         const navigate = useNavigate();
 
         useEffect(()=>{
-            {
-                if(state.user != null){
-                    navigate('/dashboard')
-                }
+            if(state.user != null){
+                navigate('/dashboard')
             }
         },[state,navigate])
 
