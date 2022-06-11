@@ -5,7 +5,7 @@ import axios from 'axios';
 const ModalDetailBarang = ({closeModal, dataBarang}) => {
     const [cateBarang, setCateBarang] = useState([])
 
-
+    console.log(cateBarang)
     useEffect(()=>{
         const getData = async () =>{
             const respon = await axios.get('http://localhost:5000/categoryBarang')
@@ -15,7 +15,7 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
     },[])
 
     return (
-            <div className="bg-black bg-opacity-50 inset-0 overflow-y-scroll fixed">
+            <div className="bg-black bg-opacity-50 inset-0 overflow-y-scroll fixed ">
                 <div className="bg-white w-2/3 rounded-xl mx-auto my-4 ">
                     <div className="border-b border-slate-400 ">
                         <div className="flex justify-between items-center p-3">
@@ -43,8 +43,8 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
                                 <label htmlFor="category" className=''>Category Barang : </label>
                                 <select name="category" id="category" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 '>
                                 {
-                                    cateBarang.map((hasil, index)=>(
-                                        <option value="">{hasil.category}</option>
+                                    cateBarang.map((hasil)=>(
+                                        <option key={hasil.id_category} value={hasil.id_category}>{hasil.category}</option>
                                     ))
                                 }
                                 </select>
