@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
-import CategoryBarang from "./CategoryBarang.js";
 
 const Barang = db.define('barang',{
     id:{
@@ -35,8 +34,5 @@ const Barang = db.define('barang',{
 },{
     freezeTableName: true,
 });
-
-Barang.hasOne(CategoryBarang, {foreignKey: 'id_category_barang'});
-CategoryBarang.belongsTo(Barang);
 
 export default Barang;

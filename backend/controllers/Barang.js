@@ -1,4 +1,5 @@
 import Barang from "../models/Barang.js";
+import CategoryBarang from "../models/CategoryBarang.js";
 
 export const getAllBarang = async (req,res ) =>{
     try {
@@ -17,6 +18,15 @@ export const getOneBarang = async (req, res) =>{
             },
         });
         res.status(200).json({Data: getOne})
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
+export const getCategoryBarang = async (req,res) =>{
+    try {
+        const getCategory = await CategoryBarang.findAll();
+        res.status(200).json({Category: getCategory});
     } catch (error) {
         res.status(404).json(error)
     }

@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
+import Barang from "./Barang.js";
 
 const CategoryBarang = db.define('category_barang',{
     id_category:{
@@ -14,5 +15,10 @@ const CategoryBarang = db.define('category_barang',{
     freezeTableName: true,
     timestamps: false,
 });
+
+// CategoryBarang.hasMany(Barang,{
+//     foreignKey:'id_category_barang'
+// },
+// Barang.belongsTo(CategoryBarang));
 
 export default CategoryBarang;

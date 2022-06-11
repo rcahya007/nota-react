@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ModalDetailBarang from '../../component/ModalDetailBarang/ModalDetailBarang';
 import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
 
@@ -9,6 +10,7 @@ const Barang = () => {
     const [allBarang, setAllBarang] = useState([]);
     const [dataBarang, setDataBarang] = useState([]);
     const navigate = useNavigate();
+    const [detailModal, setDetailModal] = useState(false);
 
     useEffect(()=>{
         if(state.user == null){
@@ -27,6 +29,7 @@ const Barang = () => {
     const handleDetail = (id) => async (e) =>{
         const getId = await axios.get('http://localhost:5000/barang/'+id)
         setDataBarang(getId.data.Data)
+        setDetailModal(true)
     }
 
     const handleDelete = (id) => (e) =>{
@@ -65,6 +68,7 @@ const Barang = () => {
                     </table>
                 </div>
             </section>
+            {detailModal && <ModalDetailBarang closeModal={setDetailModal} dataBarang={dataBarang} />}
         </div>
     )
 }
