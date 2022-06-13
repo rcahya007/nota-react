@@ -13,7 +13,7 @@ const Dashboard = () => {
     const navigate = useNavigate()
     // console.log(state);
     const [openModal, setOpenModal] = useState(false);
-    const [dataPemasukan, setDataPemasukan] = useState(0);
+    const [dataPemasukan, setDataPemasukan] = useState('');
 
     useEffect(()=>{
         if(state.user == null){
@@ -27,8 +27,9 @@ const Dashboard = () => {
             setDataPemasukan(respon.data)
         }
         getData();
-        console.log(getData)
     },[])
+    // console.log(dataPemasukan)
+
     return(
         <div>
             <Navigation/>
@@ -44,28 +45,55 @@ const Dashboard = () => {
                         }}><SearchIcon className="w-6 h-6 mr-2"/>Cari</button>
                     </div>
                     
-                    <div className="flex flex-row -m-4 clear-right">
-                        <div className="basis-1/2 m-6">
-                            <div className="h-full bg-gray-100 p-6 rounded flex">
-                                <div>
-                                    <p className="text-4xl">
-                                        {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(dataPemasukan.hasilJumlahIn)}
-                                    </p>
-                                    <h3 className="pt-3">Dari {dataPemasukan.hasilBanyakIn} Transaksi Pemasukan</h3>
+                    {
+                        dataPemasukan == '' ?
+                        <div className="flex flex-row -m-4 clear-right">
+                            <div className="basis-1/2 m-6">
+                                <div className="h-full bg-gray-100 p-6 rounded flex">
+                                    <div>
+                                        <p className="text-4xl">
+                                            {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(0)}
+                                        </p>
+                                        <h3 className="pt-3">Dari 0 Transaksi Pemasukan</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="basis-1/2 m-6">
+                                <div className="h-full bg-gray-100 p-6 rounded flex">
+                                    <div>
+                                        <p className="text-4xl">
+                                            {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(0)}
+                                        </p>
+                                        <h3 className="pt-3">Dari 0 Transaksi Pemasukan</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> :
+                        <div className="flex flex-row -m-4 clear-right">
+                            <div className="basis-1/2 m-6">
+                                <div className="h-full bg-gray-100 p-6 rounded flex">
+                                    <div>
+                                        <p className="text-4xl">
+                                            {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(dataPemasukan.hasilJumlahIn)}
+                                        </p>
+                                        <h3 className="pt-3">Dari {dataPemasukan.hasilBanyakIn} Transaksi Pemasukan</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="basis-1/2 m-6">
+                                <div className="h-full bg-gray-100 p-6 rounded flex">
+                                    <div>
+                                        <p className="text-4xl">
+                                            {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(dataPemasukan.hasilJumlahOut)}
+                                        </p>
+                                        <h3 className="pt-3">Dari {dataPemasukan.hasilBanyakOut} Transaksi Pemasukan</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="basis-1/2 m-6">
-                            <div className="h-full bg-gray-100 p-6 rounded flex">
-                                <div>
-                                    <p className="text-4xl">
-                                        {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(dataPemasukan.hasilJumlahOut)}
-                                    </p>
-                                    <h3 className="pt-3">Dari {dataPemasukan.hasilBanyakOut} Transaksi Pemasukan</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
+
+                    
                 </div>
             </section>
             {openModal && <ModalFilter closeModal  = {setOpenModal}/>}

@@ -43,10 +43,10 @@ const Barang = () => {
             <section className="text-gray-600 body-font">
                 <div className="container px-5 pt-7 mx-auto">
                     <h1 className="text-3xl font-medium title-font text-gray-900 mb-5 text-center">SEMUA BARANG</h1>
-                    <table className="w-full">
+                    <table className="w-full min-w-min">
                         <thead className='text-left bg-slate-200'>
                             <tr>
-                                <th className='p-4'>Nama Barang</th>
+                                <th className='p-4  md:w-1/2 sm:'>Nama Barang</th>
                                 <th className='text-center'>Stok Barang</th>
                                 <th className='text-center'>Action</th>
                             </tr>
@@ -55,10 +55,10 @@ const Barang = () => {
                             {
                                 allBarang.map((hasil,index)=>(
                                     <tr key={index}>
-                                        <td className='p-4 border-b-2'>{hasil.nama_barang}</td>
+                                        <td className='p-4 border-b-2 min-w-full sm:py-1'>{hasil.nama_barang}</td>
                                         <td className='border-b-2 text-center'>{hasil.stok_barang}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300' onClick={handleDetail(hasil.id)}>Detail</button> | 
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 ' onClick={handleDetail(hasil.id)}>Detail</button> | 
                                             <button className='p-2 ml-1 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={handleDelete(hasil.id)} >Delete</button>
                                         </td>
                                     </tr>
