@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 import axios from 'axios';
 
-const ModalDetailBarang = ({closeModal, dataBarang}) => {
-    const [data, setData] = useState(dataBarang);
+const ModalCreateBarang = ({closeModal, dataBarang}) => {
     const [cateBarang, setCateBarang] = useState([])
 
-    console.log(data)
+    console.log(cateBarang)
     useEffect(()=>{
         const getData = async () =>{
             const respon = await axios.get('http://localhost:5000/categoryBarang')
@@ -14,7 +13,6 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
         }
         getData()
     },[])
-
 
     return (
             <div className="bg-black bg-opacity-50 inset-0 overflow-y-scroll fixed ">
@@ -30,26 +28,26 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
                     <form action="" className='pb-4'>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
-                                <label htmlFor="nama" className='font-bold'>Nama Barang : </label>
-                                <div>
-                                    {data.nama_barang}
-                                </div>
+                                <label htmlFor="nama" className=''>Nama Barang : </label>
+                                <input id='nama' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' />
                             </div>
                         </div>
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
-                                <label htmlFor="harga" className='font-bold'>Harga Barang : </label>
-                                <div>
-                                    {new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.harga_barang)}
-                                </div>
+                                <label htmlFor="harga" className=''>Harga Barang : </label>
+                                <input id='harga' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' />
                             </div>
                         </div>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
-                                <label htmlFor="category" className='font-bold'>Category Barang : </label>
-                                <div>
-                                    {data.category_barang}
-                                </div>
+                                <label htmlFor="category" className=''>Category Barang : </label>
+                                <select name="category" id="category" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 '>
+                                {
+                                    cateBarang.map((hasil)=>(
+                                        <option key={hasil.id_category} value={hasil.id_category}>{hasil.category}</option>
+                                    ))
+                                }
+                                </select>
                             </div>
                         </div>
                         <div className='mt-3 mx-4'>
@@ -84,4 +82,4 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
     )
 }
 
-export default ModalDetailBarang
+export default ModalCreateBarang

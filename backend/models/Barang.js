@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
+import CategoryBarang from "./CategoryBarang.js"
 
 const Barang = db.define('barang',{
     id:{
@@ -18,6 +19,10 @@ const Barang = db.define('barang',{
     id_category_barang:{
         type: DataTypes.INTEGER,
         allowNull: false,
+        references:{
+            model: 'CategoryBarang',
+            key: 'id_category'
+        },        
     },
     stok_barang:{
         type: DataTypes.INTEGER,
@@ -34,5 +39,7 @@ const Barang = db.define('barang',{
 },{
     freezeTableName: true,
 });
+
+Barang.belongsTo(CategoryBarang)
 
 export default Barang;

@@ -16,9 +16,7 @@ const CategoryBarang = db.define('category_barang',{
     timestamps: false,
 });
 
-// CategoryBarang.hasMany(Barang,{
-//     foreignKey:'id_category_barang'
-// },
-// Barang.belongsTo(CategoryBarang));
-
+CategoryBarang.hasMany(Barang,{
+    foreignKey: 'id_category_barang'
+});
 export default CategoryBarang;
