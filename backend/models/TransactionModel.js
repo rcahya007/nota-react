@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
-const Transactions = db.define('transactions',{
+const transactions = db.define('transactions',{
     total_semua:{
         type: DataTypes.FLOAT,
         allowNull:true
@@ -39,4 +39,4 @@ const Transactions = db.define('transactions',{
     timestamps: true,
 });
 
-export default Transactions;
+export default transactions;

@@ -1,8 +1,8 @@
-import Users from "../models/UserModel.js";
+import users from "../models/UserModel.js"
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await Users.findAll();
+        const users = await users.findAll();
         res.json(users);
     } catch (error) {
         console.log(error);
@@ -47,7 +47,7 @@ export const Login = async (req, res) => {
     
 
     try {
-        const user = await Users.findOne({
+        const user = await users.findOne({
                 where:{
                     name: req.body.name,
                     password: req.body.password
@@ -79,7 +79,7 @@ export const Login = async (req, res) => {
 }
 
 export const Logout = async (req, res) => {
-    const user = await Users.findOne({
+    const user = await users.findOne({
         where:{
             nama: req.body.name,
             password: req.body.password

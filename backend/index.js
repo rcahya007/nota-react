@@ -1,9 +1,6 @@
 import express  from "express";
 import db from "./config/Database.js";
 import cors from 'cors';
-import Users from "./models/UserModel.js";
-import Barang from "./models/Barang.js";
-import Transactions from "./models/TransactionModel.js";
 import Routes from "./routes/Routes.js";
 const app = express();
 app.use(cors())
@@ -16,9 +13,7 @@ try {
     await db.authenticate();
     console.log('Database Connected ...')
     //Seperti Migration, Jika tidak ada tabel maka akan dibuatkan table secara otomatis, Cukup jalankan sekali saja, kalau sudah harap di comment
-    await Users.sync();
-    await Barang.sync();
-    await Transactions.sync();
+    await db.sync();
 } catch (error) {
     console.error(error);
 }

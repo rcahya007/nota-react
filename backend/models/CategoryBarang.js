@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
 import Barang from "./Barang.js";
 
-const CategoryBarang = db.define('category_barang',{
+const category_barang = db.define('category_barang',{
     id_category:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -16,7 +16,4 @@ const CategoryBarang = db.define('category_barang',{
     timestamps: false,
 });
 
-CategoryBarang.hasMany(Barang,{
-    foreignKey: 'id_category_barang'
-});
-export default CategoryBarang;
+export default category_barang;

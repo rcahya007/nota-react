@@ -28,7 +28,8 @@ const Barang = () => {
 
     const handleDetail = (id) => async (e) =>{
         const getId = await axios.get('http://localhost:5000/barang/'+id)
-        setDataBarang(getId.data.Data)
+        setDataBarang(getId.data.results[0])
+        // console.log(getId.data.results[0])
         setDetailModal(true)
     }
 
@@ -46,7 +47,7 @@ const Barang = () => {
                     <table className="w-full min-w-min">
                         <thead className='text-left bg-slate-200'>
                             <tr>
-                                <th className='p-4 xl:w-2/3 md:w-1/2 '>Nama Barang</th>
+                                <th className='p-4 xl:w-1/2 md:w-1/2 '>Nama Barang</th>
                                 <th className='text-center'>Stok Barang</th>
                                 <th className='text-center'>Action</th>
                             </tr>
