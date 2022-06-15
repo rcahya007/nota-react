@@ -15,7 +15,7 @@ export const Register = async (req, res) => {
         msg: "Password dan Confirm Password tidak cocok!"
     });
     try {
-        await Users.create({
+        await users.create({
             name: name,
             email: email,
             password: password,
@@ -44,7 +44,13 @@ export const Login = async (req, res) => {
     // } catch (error) {
     //     res.status(404).json({msg: "Nama Tidak Ada!"});
     // }
-    
+    // const user = await users.findOne({
+    //     where:{
+    //         name: req.body.name,
+    //         password: req.body.password
+    //     }
+    // });
+    // res.status(400).json({user})
 
     try {
         const user = await users.findOne({

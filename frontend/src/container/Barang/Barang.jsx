@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ModalEditBarang from '../../component/ModalEditBarang/ModalEditBarang';
 import ModalDetailBarang from '../../component/ModalDetailBarang/ModalDetailBarang';
 import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
@@ -11,6 +12,7 @@ const Barang = () => {
     const [dataBarang, setDataBarang] = useState([]);
     const navigate = useNavigate();
     const [detailModal, setDetailModal] = useState(false);
+    const [editBarang, setEditBarang] = useState(false);
 
     useEffect(()=>{
         if(state.user == null){
@@ -29,7 +31,7 @@ const Barang = () => {
     const handleDetail = (id) => async (e) =>{
         const getId = await axios.get('http://localhost:5000/barang/'+id)
         setDataBarang(getId.data.results[0])
-        // console.log(getId.data.results[0])
+        console.log(getId.data.results[0])
         setDetailModal(true)
     }
 
@@ -47,7 +49,7 @@ const Barang = () => {
                     <table className="w-full min-w-min">
                         <thead className='text-left bg-slate-200'>
                             <tr>
-                                <th className='p-4 xl:w-1/2 md:w-1/2 '>Nama Barang</th>
+                                <th className='p-4 xl:w-1/2 md:w-1/2 sm:w-1/2 '>Nama Barang</th>
                                 <th className='text-center'>Stok Barang</th>
                                 <th className='text-center'>Action</th>
                             </tr>
@@ -56,7 +58,7 @@ const Barang = () => {
                             {
                                 allBarang.map((hasil,index)=>(
                                     <tr key={index}>
-                                        <td className='p-4 border-b-2 min-w-full sm:py-1'>{hasil.nama_barang}</td>
+                                        <td className='p-4 border-b-2 w-1/2 sm:py-1'>{hasil.nama_barang}</td>
                                         <td className='border-b-2 text-center'>{hasil.stok_barang}</td>
                                         <td className='border-b-2 text-center'>
                                             <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' onClick={handleDetail(hasil.id)}>Detail</button> | 
@@ -69,7 +71,8 @@ const Barang = () => {
                     </table>
                 </div>
             </section>
-            {detailModal && <ModalDetailBarang closeModal={setDetailModal} dataBarang={dataBarang} />}
+            {detailModal && <ModalDetailBarang closeModal={setDetailModal} dataBarang={dataBarang} editBarang ={setEditBarang}/>}
+            {editBarang && <ModalEditBarang dataBarang={dataBarang} closeModal={setEditBarang}/>}
         </div>
     )
 }

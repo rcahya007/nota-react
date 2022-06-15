@@ -2,9 +2,12 @@ import express  from "express";
 import db from "./config/Database.js";
 import cors from 'cors';
 import Routes from "./routes/Routes.js";
+import fileUpload from "express-fileupload";
+
 const app = express();
 app.use(cors())
 app.use(express.json());
+app.use(fileUpload());
 app.use(Routes);
 
 

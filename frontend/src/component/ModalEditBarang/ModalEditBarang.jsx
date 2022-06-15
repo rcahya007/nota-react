@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 import axios from 'axios';
 
-const ModalCreateBarang = ({closeModal, dataBarang}) => {
+const ModalEditBarang = ({closeModal, dataBarang}) => {
     const [cateBarang, setCateBarang] = useState([])
 
     console.log(cateBarang)
@@ -16,10 +16,10 @@ const ModalCreateBarang = ({closeModal, dataBarang}) => {
 
     return (
             <div className="bg-black bg-opacity-50 inset-0 overflow-y-scroll fixed ">
-                <div className="bg-white w-2/3 rounded-xl mx-auto my-4 ">
+                <div className="bg-white w-2/3 rounded-xl mx-auto my-4 xl:w-1/2 ">
                     <div className="border-b border-slate-400 ">
                         <div className="flex justify-between items-center p-3">
-                            <p className="text-2xl font-bold">Tambah Barang</p>
+                            <p className="text-2xl font-bold">Edit Barang</p>
                             <button onClick={()=> {closeModal(false)}}>
                                 <XCircleIcon className="h-7 w-7" />
                             </button>
@@ -29,19 +29,19 @@ const ModalCreateBarang = ({closeModal, dataBarang}) => {
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="nama" className=''>Nama Barang : </label>
-                                <input id='nama' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' />
+                                <input id='nama' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' value={dataBarang.nama_barang}/>
                             </div>
                         </div>
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="harga" className=''>Harga Barang : </label>
-                                <input id='harga' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' />
+                                <input id='harga' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' value={dataBarang.harga_barang} />
                             </div>
                         </div>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="category" className=''>Category Barang : </label>
-                                <select name="category" id="category" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 '>
+                                <select name="category" id="category" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' value={dataBarang.id_category_barang} >
                                 {
                                     cateBarang.map((hasil)=>(
                                         <option key={hasil.id_category} value={hasil.id_category}>{hasil.category}</option>
@@ -53,13 +53,13 @@ const ModalCreateBarang = ({closeModal, dataBarang}) => {
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="stock" className=''>Stock Barang : </label>
-                                <input id='stock' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' />
+                                <input id='stock' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' value={dataBarang.stok_barang} />
                             </div>
                         </div>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-2'>
                                 <label htmlFor="deskripsi" className=''>Deskripsi Barang : </label>
-                                <textarea id='deskripsi' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 '></textarea>
+                                <textarea id='deskripsi' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' value={dataBarang.deskripsi_barang}></textarea>
                                 <small>Tulis deskripsi barang tanpa menggunakan emoticon.</small>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ const ModalCreateBarang = ({closeModal, dataBarang}) => {
                         <div className="border-t border-slate-400 flex justify-end ">
                             <div className='mt-4 align-bottom mr-5'>
                                 <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300'>SIMPAN</button>
-                                <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300'>CLOSE</button>
+                                <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300' onClick={()=>closeModal(false)} >CLOSE</button>
                             </div>
                         </div>
                     </form>
@@ -82,4 +82,4 @@ const ModalCreateBarang = ({closeModal, dataBarang}) => {
     )
 }
 
-export default ModalCreateBarang
+export default ModalEditBarang

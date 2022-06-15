@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 
-const ModalDetailBarang = ({closeModal, dataBarang}) => {
+const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
     const [data, setData] = useState(dataBarang);
-    const [editBarang, setEditBarang] = useState(false);
 
     const handleEdit = () => {
         closeModal(false);
-        setEditBarang(true);
+        editBarang(true);
     }
 
 
@@ -16,7 +15,7 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
                 <div className="bg-white w-2/3 rounded-xl mx-auto my-4 xl:w-1/2">
                     <div className="border-b border-slate-400 ">
                         <div className="flex justify-between items-center p-3">
-                            <p className="text-2xl font-bold">Tambah Barang</p>
+                            <p className="text-2xl font-bold">Detail Barang</p>
                             <button onClick={()=> {closeModal(false)}}>
                                 <XCircleIcon className="h-7 w-7" />
                             </button>
@@ -73,7 +72,7 @@ const ModalDetailBarang = ({closeModal, dataBarang}) => {
                         </div>
                         <div className="border-t border-slate-400 flex justify-end ">
                             <div className='mt-4 align-bottom mr-5'>
-                                <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300'>Edit Barang</button>
+                                <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' onClick={handleEdit}>Edit Barang</button>
                                 <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300' onClick={()=> {closeModal(false)}}>Close</button>
                             </div>
                         </div>

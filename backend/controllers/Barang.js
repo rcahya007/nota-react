@@ -1,6 +1,7 @@
 import db from "../config/Database.js";
 import barang from "../models/Barang.js";
-import category_barang from "../models/CategoryBarang.js"
+import category_barang from "../models/CategoryBarang.js";
+import path from "path";
 
 export const getAllBarang = async (req,res ) =>{
     try {
@@ -29,6 +30,45 @@ export const getOneBarang = async (req, res) =>{
         res.status(404).json(error)
     }
 }
+
+export const saveBarang = async (req,res) => {
+    if(req.files === null) return res.status(400).json({msg: "No File Uploaded"});
+    const name = req.body.title;
+    const file = req.files.file;
+    const fileSize = file.data.lenght;
+    const ext = path.extname(file.name);
+    const fileName = file.md5 + ext;
+    const url = `${req.protocol}://${req.get("host")}/images/${name}`;
+    const allowedType = ['.png','.jpg', '.jpeg'];
+
+    if(!allowedType.includes(ext.toLowerCase())) return res.status(422).json({msg: "Invalid Images"});
+
+    if(fileSize > 5000000) return res.status(422).json({msg: "Image must be less than 5MB"});
+
+    file.mv(`./public/images/${fileName}`, async(err)=>{
+        if(err) return res.status(500).json({msg: err.message});
+        try {
+            await barang.create({
+                
+            })
+        } catch (error) {
+            
+        }
+    })
+
+}
+
+export const updateBarang = async (req,res) => {
+
+}
+
+export const deleteBarang = async (req,res) => {
+
+}
+
+
+
+
 
 export const getCategoryBarang = async (req,res) =>{
     try {

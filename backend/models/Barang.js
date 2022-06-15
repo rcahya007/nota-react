@@ -34,6 +34,10 @@ const barang = db.define('barang',{
     foto_barang:{
         type: DataTypes.STRING,
         allowNull: true,
+    },
+    url:{
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 },{
     freezeTableName: true,
