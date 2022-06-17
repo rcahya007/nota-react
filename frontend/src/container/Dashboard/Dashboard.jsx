@@ -46,7 +46,7 @@ const Dashboard = () => {
                     </div>
                     
                     {
-                        dataPemasukan == '' ?
+                        dataPemasukan === '' ?
                         <div className="flex flex-row -m-4 clear-right">
                             <div className="basis-1/2 m-6">
                                 <div className="h-full bg-gray-100 p-6 rounded flex">

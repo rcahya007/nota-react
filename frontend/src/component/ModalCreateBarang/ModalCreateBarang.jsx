@@ -3,35 +3,36 @@ import { XCircleIcon } from "@heroicons/react/solid";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const ModalEditBarang = ({closeModal, dataBarang}) => {
+const ModalCreateBarang = ({closeModal }) => {
     const [cateBarang, setCateBarang] = useState([])
-    const [namaBarang, setNamaBarang] = useState(dataBarang.nama_barang);
-    const [hargaBarang, setHargaBarang] = useState(dataBarang.harga_barang);
-    const [selectedOption, setSelectedOption] = useState(dataBarang.id_category_barang);
-    const [stockBarang, setStockBarang] = useState(dataBarang.stok_barang);
-    const [deskripsiBarang, setDeskripsiBarang] = useState(dataBarang.deskripsi_barang);
-    const [file, setFile] = useState(dataBarang.url);
+    const [namaBarang, setNamaBarang] = useState("");
+    const [hargaBarang, setHargaBarang] = useState("");
+    const [stockBarang, setStockBarang] = useState("");
+    const [deskripsiBarang, setDeskripsiBarang] = useState("");
+    const [selectedOption, setSelectedOption] = useState("");
+    const [file, setFile] = useState("");
     const [preview, setPreview] = useState("");
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        getData();
+    },[])
 
     const loadImage = (e) => {
         const image = e.target.files[0];
         setFile(image);
         setPreview(URL.createObjectURL(image));
     }
-
     console.log(cateBarang)
-    useEffect(()=>{
-        getData()
-    },[])
 
+
+    
     const getData = async () =>{
         const respon = await axios.get('http://localhost:5000/categoryBarang')
         setCateBarang(respon.data.Category)
     }
 
-    const simpanEditBarang = async (e) =>{
+    const SimpanData = async (e) =>{
         e.preventDefault();
         const formData = new FormData();
         formData.append("nama_barang", namaBarang);
@@ -60,13 +61,13 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
                 <div className="bg-white w-2/3 rounded-xl mx-auto my-4 xl:w-1/2 ">
                     <div className="border-b border-slate-400 ">
                         <div className="flex justify-between items-center p-3">
-                            <p className="text-2xl font-bold">Edit Barang</p>
+                            <p className="text-2xl font-bold">Tambah Barang</p>
                             <button onClick={()=> {closeModal(false)}}>
                                 <XCircleIcon className="h-7 w-7" />
                             </button>
                         </div>
                     </div>
-                    <form onSubmit={simpanEditBarang} className='pb-4'>
+                    <form onSubmit={SimpanData} className='pb-4'>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="nama" className=''>Nama Barang : </label>
@@ -133,4 +134,4 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
     )
 }
 
-export default ModalEditBarang
+export default ModalCreateBarang

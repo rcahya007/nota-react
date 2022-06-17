@@ -5,6 +5,8 @@ import ModalEditBarang from '../../component/ModalEditBarang/ModalEditBarang';
 import ModalDetailBarang from '../../component/ModalDetailBarang/ModalDetailBarang';
 import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
+import { PlusIcon } from '@heroicons/react/solid';
+import ModalCreateBarang from '../../component/ModalCreateBarang/ModalCreateBarang';
 
 const Barang = () => {
     const {state} = useContext(AuthContext);
@@ -13,6 +15,8 @@ const Barang = () => {
     const navigate = useNavigate();
     const [detailModal, setDetailModal] = useState(false);
     const [editBarang, setEditBarang] = useState(false);
+    const [tambahBarang, setTambahBarang] = useState(false);
+    console.log(detailModal)
 
     useEffect(()=>{
         if(state.user == null){
@@ -21,18 +25,19 @@ const Barang = () => {
     },[state,navigate])
 
     useEffect(()=>{
-        const getDataBarang = async ()=>{
-            const respon = await axios.get('http://localhost:5000/barang');
-            setAllBarang(respon.data.DataBarang)
-        }
         getDataBarang()
     },[])
 
-    const handleDetail = (id) => async (e) =>{
+    const getDataBarang = async ()=>{
+        const respon = await axios.get('http://localhost:5000/barang');
+        setAllBarang(respon.data.DataBarang)
+    }
+
+    const handleDetail = (id) => async () =>{
         const getId = await axios.get('http://localhost:5000/barang/'+id)
         setDataBarang(getId.data.results[0])
-        console.log(getId.data.results[0])
         setDetailModal(true)
+        console.log(allBarang)
     }
 
     const handleDelete = (id) => (e) =>{
@@ -46,6 +51,9 @@ const Barang = () => {
             <section className="text-gray-600 body-font">
                 <div className="container px-5 pt-7 mx-auto">
                     <h1 className="text-3xl font-medium title-font text-gray-900 mb-5 text-center">SEMUA BARANG</h1>
+                    <div className='float-right mb-5'>
+                        <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center" onClick={() => setTambahBarang(true)}><PlusIcon className="w-6 h-6 mr-2"/>Cari</button>
+                    </div>
                     <table className="w-full min-w-min">
                         <thead className='text-left bg-slate-200'>
                             <tr>
@@ -61,8 +69,8 @@ const Barang = () => {
                                         <td className='p-4 border-b-2 w-1/2 sm:py-1'>{hasil.nama_barang}</td>
                                         <td className='border-b-2 text-center'>{hasil.stok_barang}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' onClick={handleDetail(hasil.id)}>Detail</button> | 
-                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={handleDelete(hasil.id)} >Delete</button>
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' onClick={() => handleDetail(hasil.id)}>Detail</button> | 
+                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={() => handleDelete(hasil.id)} >Delete</button>
                                         </td>
                                     </tr>
                                 ))
@@ -71,8 +79,9 @@ const Barang = () => {
                     </table>
                 </div>
             </section>
+            {tambahBarang && <ModalCreateBarang closeModal={setTambahBarang}/>}
             {detailModal && <ModalDetailBarang closeModal={setDetailModal} dataBarang={dataBarang} editBarang ={setEditBarang}/>}
-            {editBarang && <ModalEditBarang dataBarang={dataBarang} closeModal={setEditBarang}/>}
+            {editBarang && <ModalEditBarang closeModal={setEditBarang}/>}
         </div>
     )
 }
