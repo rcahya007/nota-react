@@ -6,7 +6,11 @@ import fs from "fs";
 
 export const getAllBarang = async (req,res ) =>{
     try {
-        const getAllData = await barang.findAll();
+        const getAllData = await barang.findAll({
+            order: [
+                ['id', 'DESC']
+            ]
+        });
         res.status(200).json({DataBarang: getAllData})
     } catch (error) {
         res.status(400).json(error)

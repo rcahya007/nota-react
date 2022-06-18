@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const ModalCreateBarang = ({closeModal }) => {
     const [cateBarang, setCateBarang] = useState([])
@@ -9,10 +8,9 @@ const ModalCreateBarang = ({closeModal }) => {
     const [hargaBarang, setHargaBarang] = useState("");
     const [stockBarang, setStockBarang] = useState("");
     const [deskripsiBarang, setDeskripsiBarang] = useState("");
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState(1);
     const [file, setFile] = useState("");
     const [preview, setPreview] = useState("");
-    const navigate = useNavigate();
 
     useEffect(()=>{
         getData();
@@ -23,9 +21,6 @@ const ModalCreateBarang = ({closeModal }) => {
         setFile(image);
         setPreview(URL.createObjectURL(image));
     }
-    console.log(cateBarang)
-
-
     
     const getData = async () =>{
         const respon = await axios.get('http://localhost:5000/categoryBarang')
@@ -37,9 +32,9 @@ const ModalCreateBarang = ({closeModal }) => {
         const formData = new FormData();
         formData.append("nama_barang", namaBarang);
         formData.append("harga_barang", hargaBarang);
-        formData.append("category_barang", selectedOption);
+        formData.append("id_category_barang", selectedOption);
         formData.append("stok_barang", stockBarang);
-        formData.append("deskripsi", deskripsiBarang);
+        formData.append("deskripsi_barang", deskripsiBarang);
         formData.append("file", file);
         try {
             await axios.post("http://localhost:5000/barang", formData, {
@@ -48,7 +43,6 @@ const ModalCreateBarang = ({closeModal }) => {
                 }
             });
             closeModal(false);
-            navigate("/barang")
         } catch (error) {
             console.log(error);
         }

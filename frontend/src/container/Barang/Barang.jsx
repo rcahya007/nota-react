@@ -24,8 +24,10 @@ const Barang = () => {
     },[state,navigate])
 
     useEffect(()=>{
-        getDataBarang()
-    },[dataBarang])
+        if(tambahBarang === false){
+            getDataBarang();
+        }
+    },[tambahBarang])
 
     const getDataBarang = async ()=>{
         const respon = await axios.get('http://localhost:5000/barang');
@@ -36,11 +38,15 @@ const Barang = () => {
         const getId = await axios.get('http://localhost:5000/barang/'+id)
         setDataBarang(getId.data.results[0])
         setDetailModal(true)
-        console.log(allBarang)
     }
 
-    const handleDelete = (id) => (e) =>{
-        console.log(id)
+    const handleDelete = (id) => async () =>{
+        try {
+            await axios.delete('http://localhost:5000/barang/'+id)
+            getDataBarang();
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
