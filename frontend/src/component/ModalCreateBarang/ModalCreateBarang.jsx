@@ -115,7 +115,7 @@ const ModalCreateBarang = ({closeModal }) => {
                             preview ? (
                                 <div className='mt-3 mx-4'>
                                     <div className='mx-5 mt-2 mb-4'>
-                                        <img src={preview} alt="Preview IMG" />
+                                        <img src={preview} className="w-1/3" alt="Preview IMG" />
                                     </div>
                                 </div>
                             ) : ("")

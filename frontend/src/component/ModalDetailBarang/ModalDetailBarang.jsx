@@ -66,7 +66,7 @@ const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="foto" className='font-bold'>Foto Barang : </label>
                                 <div>
-                                    <img src={data.url} alt="Foto Barang" className='w-1/4'/>
+                                    <img src={data.url} alt="Foto Barang" className='w-1/4 h-80'/>
                                 </div>
                             </div>
                         </div>

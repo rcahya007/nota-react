@@ -25,7 +25,7 @@ const Barang = () => {
 
     useEffect(()=>{
         getDataBarang()
-    },[])
+    },[dataBarang])
 
     const getDataBarang = async ()=>{
         const respon = await axios.get('http://localhost:5000/barang');
