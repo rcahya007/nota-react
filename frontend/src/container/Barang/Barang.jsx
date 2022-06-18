@@ -16,7 +16,6 @@ const Barang = () => {
     const [detailModal, setDetailModal] = useState(false);
     const [editBarang, setEditBarang] = useState(false);
     const [tambahBarang, setTambahBarang] = useState(false);
-    console.log(detailModal)
 
     useEffect(()=>{
         if(state.user == null){
@@ -69,8 +68,8 @@ const Barang = () => {
                                         <td className='p-4 border-b-2 w-1/2 sm:py-1'>{hasil.nama_barang}</td>
                                         <td className='border-b-2 text-center'>{hasil.stok_barang}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' onClick={() => handleDetail(hasil.id)}>Detail</button> | 
-                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={() => handleDelete(hasil.id)} >Delete</button>
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' onClick={handleDetail(hasil.id)}>Detail</button> | 
+                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={handleDelete(hasil.id)} >Delete</button>
                                         </td>
                                     </tr>
                                 ))

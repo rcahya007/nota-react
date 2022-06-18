@@ -38,7 +38,7 @@ export const saveBarang = async (req,res) => {
     const fileSize = file.data.lenght;
     const ext = path.extname(file.name);
     const fileName = file.md5 + ext;
-    const url = `${req.protocol}://localhost:5000/images/${fileName}`;
+    const url = `${req.protocol}://${req.hostname}/images/${fileName}`;
     const allowedType = ['.png','.jpg', '.jpeg'];
 
     if(!allowedType.includes(ext.toLowerCase())) return res.status(422).json({msg: "Invalid Images"});
