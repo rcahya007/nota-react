@@ -36,7 +36,7 @@ export const getOneBarang = async (req, res) =>{
 }
 
 export const saveBarang = async (req,res) => {
-    if(req.files === null) return res.status(400).json({msg: "No File Uploaded"});
+    if(req.files === null) return res.status(400).json({msg: "Gambar tidak boleh kosong"});
     const name = req.body.nama_barang;
     const file = req.files.file;
     const fileSize = file.data.lenght;
@@ -63,7 +63,7 @@ export const saveBarang = async (req,res) => {
             });
             res.status(201).json({msg: "Product Telah Dibuat.", url: url});
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     })
 
@@ -75,6 +75,7 @@ export const updateBarang = async (req,res) => {
             id: req.params.id,
         }
     });
+
     if(!getOne) res.status(404).json({msg: "No Data Found!"});
 
     let fileName = "";

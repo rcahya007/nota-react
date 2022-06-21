@@ -27,7 +27,10 @@ const Barang = () => {
         if(tambahBarang === false){
             getDataBarang();
         }
-    },[tambahBarang])
+        if(editBarang === false){
+            getDataBarang();
+        }
+    },[tambahBarang,editBarang])
 
     const getDataBarang = async ()=>{
         const respon = await axios.get('http://localhost:5000/barang');
@@ -57,7 +60,7 @@ const Barang = () => {
                 <div className="container px-5 pt-7 mx-auto">
                     <h1 className="text-3xl font-medium title-font text-gray-900 mb-5 text-center">SEMUA BARANG</h1>
                     <div className='float-right mb-5'>
-                        <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center" onClick={() => setTambahBarang(true)}><PlusIcon className="w-6 h-6 mr-2"/>Cari</button>
+                        <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center" onClick={() => setTambahBarang(true)}><PlusIcon className="w-6 h-6 mr-2"/>Tambah Barang</button>
                     </div>
                     <table className="w-full min-w-min">
                         <thead className='text-left bg-slate-200'>
@@ -86,7 +89,7 @@ const Barang = () => {
             </section>
             {tambahBarang && <ModalCreateBarang closeModal={setTambahBarang}/>}
             {detailModal && <ModalDetailBarang closeModal={setDetailModal} dataBarang={dataBarang} editBarang ={setEditBarang}/>}
-            {editBarang && <ModalEditBarang closeModal={setEditBarang}/>}
+            {editBarang && <ModalEditBarang dataBarang={dataBarang} closeModal={setEditBarang}/>}
         </div>
     )
 }

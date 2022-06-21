@@ -12,6 +12,7 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
     const [deskripsiBarang, setDeskripsiBarang] = useState(dataBarang.deskripsi_barang);
     const [file, setFile] = useState(dataBarang.url);
     const [preview, setPreview] = useState("");
+
     const navigate = useNavigate();
 
 
@@ -21,7 +22,6 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
         setPreview(URL.createObjectURL(image));
     }
 
-    console.log(cateBarang)
     useEffect(()=>{
         getData()
     },[])
@@ -36,12 +36,12 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
         const formData = new FormData();
         formData.append("nama_barang", namaBarang);
         formData.append("harga_barang", hargaBarang);
-        formData.append("category_barang", selectedOption);
+        formData.append("id_category_barang", selectedOption);
         formData.append("stok_barang", stockBarang);
-        formData.append("deskripsi", deskripsiBarang);
+        formData.append("deskripsi_barang", deskripsiBarang);
         formData.append("file", file);
         try {
-            await axios.post("http://localhost:5000/barang", formData, {
+            await axios.patch(`http://localhost:5000/barang/${dataBarang.id}`, formData, {
                 headers:{
                     "Content-type": "multipart/form-data"
                 }
@@ -114,7 +114,7 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
                             preview ? (
                                 <div className='mt-3 mx-4'>
                                     <div className='mx-5 mt-2 mb-4'>
-                                        <img src={preview} alt="Preview IMG" />
+                                        <img src={preview} alt="Preview IMG" className='w-1/3'/>
                                     </div>
                                 </div>
                             ) : ("")
@@ -122,7 +122,7 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
                         
                         <div className="border-t border-slate-400 flex justify-end ">
                             <div className='mt-4 align-bottom mr-5'>
-                                <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' type='submit'>SIMPAN</button>
+                                <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' type='submit'>UPDATE</button>
                                 <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300' onClick={()=>closeModal(false)} >CLOSE</button>
                             </div>
                         </div>

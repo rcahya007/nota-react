@@ -11,6 +11,7 @@ const ModalCreateBarang = ({closeModal }) => {
     const [selectedOption, setSelectedOption] = useState(1);
     const [file, setFile] = useState("");
     const [preview, setPreview] = useState("");
+    const [NoImage, setNoImage] = useState("");
 
     useEffect(()=>{
         getData();
@@ -44,7 +45,7 @@ const ModalCreateBarang = ({closeModal }) => {
             });
             closeModal(false);
         } catch (error) {
-            console.log(error);
+            setNoImage(error.response.data.msg)
         }
     }
 
@@ -71,7 +72,7 @@ const ModalCreateBarang = ({closeModal }) => {
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="harga" className=''>Harga Barang : </label>
-                                <input id='harga' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2'onChange={(e) => setHargaBarang(e.target.value)} value={hargaBarang} />
+                                <input id='harga' type="number" className='mt-2 block border-2 border-slate-400 w-full rounded p-2'onChange={(e) => setHargaBarang(e.target.value)} value={hargaBarang} />
                             </div>
                         </div>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
@@ -89,7 +90,7 @@ const ModalCreateBarang = ({closeModal }) => {
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="stock" className=''>Stock Barang : </label>
-                                <input id='stock' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' value={stockBarang} onChange={(e) => setStockBarang(e.target.value)} />
+                                <input id='stock' type="number" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' value={stockBarang} onChange={(e) => setStockBarang(e.target.value)} />
                             </div>
                         </div>
                         <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
@@ -105,6 +106,15 @@ const ModalCreateBarang = ({closeModal }) => {
                                 <input id='foto' type="file" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' onChange={loadImage} />
                             </div>
                         </div>
+                        {
+                            NoImage != null ? (
+                                <div className='mt-3 mx-4'>
+                                    <div className='mx-5 mt-2 mb-4 text-red-500'>
+                                        {NoImage}
+                                    </div>
+                                </div>
+                            ) : ("")
+                        }
                         {
                             preview ? (
                                 <div className='mt-3 mx-4'>
