@@ -37,11 +37,15 @@ export const getOneBarang = async (req, res) =>{
 
 export const saveBarang = async (req,res) => {
     if(req.files === null) return res.status(400).json({msg: "Gambar tidak boleh kosong"});
+    const today = new Date();
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const time = today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
+    const dateTime = date+'_'+time;
     const name = req.body.nama_barang;
     const file = req.files.file;
     const fileSize = file.data.lenght;
     const ext = path.extname(file.name);
-    const fileName = file.md5 + ext;
+    const fileName = file.md5 +'_'+ dateTime + ext;
     const url = `${req.protocol}://${req.get('host') }/images/${fileName}`;
     const allowedType = ['.png','.jpg', '.jpeg'];
 
@@ -61,7 +65,7 @@ export const saveBarang = async (req,res) => {
                 foto_barang: fileName,
                 url: url,
             });
-            res.status(201).json({msg: "Product Telah Dibuat.", url: url});
+            res.status(201).json({msg: "Product Telah Dibuat."});
         } catch (error) {
             console.log(error);
         }

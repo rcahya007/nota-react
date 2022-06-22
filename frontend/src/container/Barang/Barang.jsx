@@ -24,10 +24,7 @@ const Barang = () => {
     },[state,navigate])
 
     useEffect(()=>{
-        if(tambahBarang === false){
-            getDataBarang();
-        }
-        if(editBarang === false){
+        if(tambahBarang === false || editBarang === false ){
             getDataBarang();
         }
     },[tambahBarang,editBarang])
