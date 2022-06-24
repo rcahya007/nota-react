@@ -1,6 +1,6 @@
 import Transactions from "../models/TransactionModel.js";
 
-export const getAllTransactions = async (req,res) => {
+export const getAllTransactionsDashboard = async (req,res) => {
     try {
         const dataJumlahIn = await Transactions.sum('total_semua', {
             where: {
@@ -31,5 +31,31 @@ export const getAllTransactions = async (req,res) => {
         });
     } catch (error) {
         res.status(404).json(error);
+    }
+}
+
+export const getAllTransactions = async (req,res) => {
+    try {
+        const getAllData = await Transactions.findAll({
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+        res.status(200).json({DataBarang: getAllData})
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
+export const getOneTransaction = async (req,res) => {
+    try {
+        const getOneData = await Transactions.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json({DataBarang: getOneData});
+    } catch (error) {
+        res.status(404).json(error)
     }
 }

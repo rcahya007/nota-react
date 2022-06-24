@@ -1,5 +1,6 @@
 import { PlusIcon } from '@heroicons/react/solid';
-import React, { useContext, useEffect } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
@@ -7,12 +8,22 @@ import { AuthContext } from '../Home/Home';
 const Nota = () => {
     const {state} = useContext(AuthContext);
     const navigate = useNavigate();
+    const [allTransactions, setAllTransactions] = useState([]);
 
     useEffect(()=>{
         if(state.user == null){
-            navigate('/')
+            navigate('/');
         }
-    },[state,navigate])
+    },[state,navigate]);
+
+    useEffect(()=>{
+        getAllTransactions();
+    },[])
+
+    const getAllTransactions = async () => {
+        const fetch = await axios.get('http://localhost:5000/transactions');
+        setAllTransactions(fetch.data.DataBarang);
+    }
 
     return (
         <div>
@@ -34,18 +45,19 @@ const Nota = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {
-                                allBarang.map((hasil,index)=>(
+                            {
+                                allTransactions.map((hasil,index)=>(
                                     <tr key={index}>
-                                        <td className='p-4 border-b-2 w-1/2 sm:py-1'>{hasil.nama_barang}</td>
-                                        <td className='border-b-2 text-center'>{hasil.stok_barang}</td>
+                                        <td className='p-4 border-b-2 w-1/2 sm:py-1'>{hasil.nama_pembeli}</td>
+                                        <td className='border-b-2 text-center'>{hasil.total_semua}</td>
+                                        <td className='border-b-2 text-center'>{new Date(hasil.updatedAt).toLocaleString('id-ID',{weekday: 'long', day: 'numeric',month: '2-digit', year:'2-digit', hour: '2-digit', minute: '2-digit' }).replace(".",":")}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' onClick={handleDetail(hasil.id)}>Detail</button> | 
-                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' onClick={handleDelete(hasil.id)} >Delete</button>
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' >Detail</button> | 
+                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' >Delete</button>
                                         </td>
                                     </tr>
                                 ))
-                            } */}
+                            }
                         </tbody>
                     </table>
                 </div>
