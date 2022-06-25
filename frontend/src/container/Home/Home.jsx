@@ -4,6 +4,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import LoginForm from '../LoginForm/LoginForm';
 import Barang from '../Barang/Barang';
 import Nota from '../NotaTransaksi/Nota';
+import FormNota from "../NotaTransaksi/FormNota";
 
 
 export const AuthContext = createContext();
@@ -45,6 +46,7 @@ const Home = () => {
                             <Route path='/dashboard' element={<Dashboard/>}/>
                             <Route path='/barang' element={<Barang/>}/>
                             <Route path='/nota' element={<Nota/>}/>
+                            <Route path="/transaction/tambah" element={<FormNota />} />
                     </Routes>
                 </AuthContext.Provider>
             </div>
