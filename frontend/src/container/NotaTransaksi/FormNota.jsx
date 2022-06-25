@@ -32,21 +32,36 @@ const FormNota = () => {
                 </div>
                 <div className='clear-both'>
                     {/* table Kosong */}
-                    <table className='w-full'>
-                        <th className='text-left bg-slate-200 p-3'>
-                            <td className='w-1/4'>Barang/jasa</td>
-                            <td className='w-1/4'>Deskripsi</td>
-                            <td className='w-1/4'>Harga</td>
-                            <td className='w-1/4'>Banyak</td>
-                            <td className='w-1/4'>Total</td>
-                        </th>
-                        <tr>
-                            <td><input type="text" className='mx-auto mt-4 w-1/5 just border-2 border border-slate-800 rounded-lg bg-slate-200' disabled/></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" className='mx-auto mt-4 w-1/5 just border-2 border border-slate-800 rounded-lg bg-slate-200' disabled/></td>
-                        </tr>
-                    </table>
+                    <div class="table w-full border-b-2 border-slate-400">
+                        <div class="table-header-group ...">
+                            <div class="table-row bg-slate-200 font-bold ">
+                                <div class="table-cell text-left py-2 px-2 border-y-2 border-slate-400 ">Barang/Jasa</div>
+                                <div class="table-cell text-left border-y-2 border-slate-400">Deskripsi</div>
+                                <div class="table-cell text-left border-y-2 border-slate-400">Harga</div>
+                                <div class="table-cell text-left border-y-2 border-slate-400">Banyak</div>
+                                <div class="table-cell text-left border-y-2 border-slate-400">Total</div>
+                            </div>
+                        </div>
+                        <div class="table-row-group">
+                            <div class="table-row">
+                                <div class="table-cell ">
+                                    <input type="text" disabled className='border-2 border-slate-400 p-1 bg-slate-300 mt-4 rounded-lg w-11/12'/>
+                                </div>
+                                <div class="table-cell ...">
+                                    <input type="text" disabled className='border-2 border-slate-400 p-1 bg-slate-300 mt-2 rounded-lg w-11/12'/>
+                                </div>
+                                <div class="table-cell ...">
+                                    <input type="number" disabled className='border-2 border-slate-400 p-1 bg-slate-300 mt-2 rounded-lg w-11/12'/>
+                                </div>
+                                <div class="table-cell ...">
+                                    <input type="number" disabled className='border-2 border-slate-400 p-1 bg-slate-300 mt-2 rounded-lg w-11/12'/>
+                                </div>
+                                <div class="table-cell ...">
+                                    <input type="text" disabled className='border-2 border-slate-400 p-1 bg-slate-300 mt-2 rounded-lg w-full mb-5'/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
