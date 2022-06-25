@@ -39,7 +39,7 @@ const Nota = () => {
                             </button>
                         </Link>
                     </div>
-                    <table className="w-full min-w-min">
+                    <table className="w-full">
                         <thead className='text-left bg-slate-200'>
                             <tr>
                                 <th className='p-4 xl:w-1/2 md:w-1/6 sm:w-1/12 '>Pembeli</th>

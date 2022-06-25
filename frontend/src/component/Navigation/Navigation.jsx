@@ -19,7 +19,7 @@ const Navigation = () => {
                     <button>
                         <Link to={'/dashboard'}>
                         <p className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                        <img alt="content" className="h-10 w-10 " src="images/kodehack.png"/>
+                        <img alt="content" className="h-10 w-10 " src="/images/kodehack.png"/>
                         <span className="ml-3 text-xl text-white font-bold">Kodehack</span>
                         </p>
                         </Link>
