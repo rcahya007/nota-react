@@ -1,13 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import FormDisable from '../../component/FormDisable/FormDisable';
 import FormRincianBarang from '../../component/FormRincianBarang/FormRincianBarang';
+import ModalFormTambahNota from '../../component/ModalFormTambahNota/ModalFormTambahNota';
 import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
 
 const FormNota = () => {
     const {state} = useContext(AuthContext);
     const navigate = useNavigate();
+    const [dataBarang, setDataBarang] = useState([]);
+    const [tambahNotaBarang, setTambahNotaBarang] = useState(false);
+
 
     useEffect(()=>{
         if(state.user == null){
@@ -34,7 +38,7 @@ const FormNota = () => {
                 </div>
                 <FormDisable />
                 <div className='flex items-center justify-center mt-5'>
-                    <button className='bg-amber-400 py-2 px-6 rounded-md hover:bg-amber-500 duration-300 hover:border-2 hover:border-black'>
+                    <button className='bg-amber-400 py-2 px-6 rounded-md hover:bg-amber-500 border-2 border-white duration-300 hover:border-2 hover:border-black' onClick={()=> setTambahNotaBarang(true)}>
                         Tambahkan Barang
                     </button>
                 </div>
@@ -47,6 +51,7 @@ const FormNota = () => {
                     <FormRincianBarang />
                 </div>
             </div>
+            {tambahNotaBarang && <ModalFormTambahNota closeModal = {setTambahNotaBarang}/> }
         </div>
     )
 }
