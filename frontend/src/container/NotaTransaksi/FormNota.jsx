@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import {  Link, useNavigate } from 'react-router-dom';
 import FormDisable from '../../component/FormDisable/FormDisable';
 import FormRincianBarang from '../../component/FormRincianBarang/FormRincianBarang';
 import ModalFormTambahNota from '../../component/ModalFormTambahNota/ModalFormTambahNota';
@@ -33,7 +33,9 @@ const FormNota = () => {
                         Form Barang
                     </div>
                     <button className='text-xl float-right bg-white p-2 rounded-md border-2 border-black hover:bg-slate-800 hover:text-white duration-300 mb-3'>
+                        <Link to={'/nota'}>
                             Lihat Semua Nota Transaksi
+                        </Link>
                     </button>
                 </div>
                 <FormDisable />
