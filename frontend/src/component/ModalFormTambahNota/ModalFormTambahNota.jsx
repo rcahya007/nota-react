@@ -5,8 +5,8 @@ import React, { useState } from 'react'
 const ModalFormTambahNota = ({closeModal}) => {
 
     const [dataBarangSemua, setDataBarangSemua] = useState([]);
-    const [namaBarangJasa, setBarangJasa] = useState('');
-    const [hasilAmbilData, setHasilAmbilData] = useState('');
+    // const [namaBarangJasa, setBarangJasa] = useState();
+    const [hasilAmbilData, setHasilAmbilData] = useState([]);
     const [selectItem, setSelectItemn] = useState(0)
     
     const [deskripsi, setDeskripsi] = useState('');
@@ -14,15 +14,22 @@ const ModalFormTambahNota = ({closeModal}) => {
     const [banyak, setBanyak] = useState('');
     const [total, setTotal] = useState('');
 
-    console.log(namaBarangJasa)
-    console.log(hasilAmbilData)
-
+    // console.log(namaBarangJasa)
 
     const getBarang = async (e) => {
-        setBarangJasa(e.target.value);
-        const fetch = await axios.post('http://localhost:5000/getBarangFormTambah',{nama_barang: namaBarangJasa});
-        // console.log(fetch.data.result);
-        setHasilAmbilData(fetch.data.result)
+        const nama_barang = (e.target.value);
+        // console.log(nama_barang);
+        if(nama_barang === ''){
+            setHasilAmbilData([])
+        }else{
+            const fetch = await axios.post('http://localhost:5000/getBarangFormTambah',{nama_barang: nama_barang});
+            console.log(fetch.data.result.length);
+            if(fetch.data.result.length > 0){
+                setHasilAmbilData(fetch.data.result)
+            }else{
+                setHasilAmbilData([])
+            }
+        }       
     }
 
     return (
@@ -39,12 +46,11 @@ const ModalFormTambahNota = ({closeModal}) => {
                 <form className='pb-4'>
                     <div className='mt-3 mx-4'>
                         <div className='mx-5 mt-2 mb-4'>
-                            <label htmlFor="nama" className=''>Nama Barang/Jasa : </label>
+                            <label htmlFor="nama" className=''>Nama Barang / Jasa : </label>
                             <input id='nama' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang}/>
                             {
-                                hasilAmbilData === '' ? 
-                                    null
-                                :   <div>
+                                hasilAmbilData.length > 0 ? 
+                                    <div>
                                         <select name="category" id="category" className=' block border-2 border-slate-400 w-full rounded p-2 bg-white' size={4}>
                                             {
                                                 hasilAmbilData.map((hasil) => (
@@ -53,6 +59,7 @@ const ModalFormTambahNota = ({closeModal}) => {
                                             }
                                         </select>
                                     </div>
+                                :   null
                             }
                         </div>
                     </div>
