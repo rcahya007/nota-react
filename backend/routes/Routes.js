@@ -1,7 +1,7 @@
 import express from "express";
 import {getUsers, Register, Login, Logout} from "../controllers/Users.js";
 import { getAllTransactions, getAllTransactionsDashboard, getOneTransaction } from "../controllers/Transactions.js";
-import { getAllBarang, getCategoryBarang, getOneBarang, saveBarang, updateBarang, deleteBarang } from "../controllers/Barang.js";
+import { getAllBarang, getCategoryBarang, getOneBarang, saveBarang, updateBarang, deleteBarang, getBarangForTambahBarang } from "../controllers/Barang.js";
 
 
 
@@ -21,6 +21,7 @@ router.post('/barang', saveBarang);
 router.patch('/barang/:id', updateBarang);
 router.delete('/barang/:id', deleteBarang);
 router.get('/categoryBarang', getCategoryBarang);
+router.post('/getBarangFormTambah', getBarangForTambahBarang);
 
 //Transactions
 router.get('/transactions', getAllTransactions);

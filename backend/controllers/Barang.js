@@ -3,6 +3,7 @@ import barang from "../models/Barang.js";
 import category_barang from "../models/CategoryBarang.js";
 import path from "path";
 import fs from "fs";
+import { Op } from "sequelize";
 
 export const getAllBarang = async (req,res ) =>{
     try {
@@ -146,15 +147,26 @@ export const deleteBarang = async (req,res) => {
     }    
 }
 
-
-
-
-
 export const getCategoryBarang = async (req,res) =>{
     try {
         const getCategory = await category_barang.findAll();
         res.status(200).json({Category: getCategory});
     } catch (error) {
         res.status(404).json(error)
+    }
+}
+
+export const getBarangForTambahBarang = async (req,res) => {
+    try {
+        const get = await barang.findAll({
+            where: {
+                nama_barang: {
+                    [Op.substring]: req.body.nama_barang,
+                }
+            }
+        });
+        res.status(200).json({result: get});
+    } catch (error) {
+        res.status(404).json(error);
     }
 }
