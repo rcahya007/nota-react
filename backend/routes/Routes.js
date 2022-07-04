@@ -1,7 +1,7 @@
 import express from "express";
 import {getUsers, Register, Login, Logout} from "../controllers/Users.js";
 import { getAllTransactions, getAllTransactionsDashboard, getOneTransaction } from "../controllers/Transactions.js";
-import { getAllBarang, getCategoryBarang, getOneBarang, saveBarang, updateBarang, deleteBarang, getBarangForTambahBarang } from "../controllers/Barang.js";
+import { getAllBarang, getCategoryBarang, getOneBarang, saveBarang, updateBarang, deleteBarang, getBarangForTambahBarang, getOneBarangSelect } from "../controllers/Barang.js";
 
 
 
@@ -22,6 +22,9 @@ router.patch('/barang/:id', updateBarang);
 router.delete('/barang/:id', deleteBarang);
 router.get('/categoryBarang', getCategoryBarang);
 router.post('/getBarangFormTambah', getBarangForTambahBarang);
+
+//PickUpBarangFromSelectOption
+router.post('/barang/selectId/:id', getOneBarangSelect);
 
 //Transactions
 router.get('/transactions', getAllTransactions);

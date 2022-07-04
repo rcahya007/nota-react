@@ -18,6 +18,19 @@ export const getAllBarang = async (req,res ) =>{
     }
 }
 
+export const getOneBarangSelect = async (req,res) => {
+    try {
+        const getOne = await barang.findOne({
+            where: {
+                id: req.params.id,
+            }
+        });
+        res.status(200).json({getOne});
+    } catch (error) {
+        res.status(404).json({msg: "Data Tidak Ada!"});
+    }
+}
+
 export const getOneBarang = async (req, res) =>{   
     try {
         const getOne = await barang.findOne({

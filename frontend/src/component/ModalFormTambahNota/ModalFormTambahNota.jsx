@@ -5,16 +5,27 @@ import React, { useState } from 'react'
 const ModalFormTambahNota = ({closeModal}) => {
 
     const [dataBarangSemua, setDataBarangSemua] = useState([]);
-    // const [namaBarangJasa, setBarangJasa] = useState();
     const [hasilAmbilData, setHasilAmbilData] = useState([]);
-    const [selectItem, setSelectItemn] = useState(0)
-    
+    const [selectItem, setSelectItemn] = useState('');
+    const [dataDipilih, setDataDipilih] = useState([]);
     const [deskripsi, setDeskripsi] = useState('');
     const [harga, setHarga] = useState('');
     const [banyak, setBanyak] = useState('');
     const [total, setTotal] = useState('');
 
-    // console.log(namaBarangJasa)
+    console.log(dataDipilih)
+
+    const getId = async (id) => {
+        const getDataById = await axios.post(`http://localhost:5000/barang/selectId/`+id);
+        setDataDipilih(getDataById.data.getOne);
+    }
+
+    const getClick = async (e) => {
+        const id = e.target.value;
+        getId(id);
+        setSelectItemn(e.target.value)
+        setHasilAmbilData([]);
+    }
 
     const getBarang = async (e) => {
         const nama_barang = (e.target.value);
@@ -51,7 +62,7 @@ const ModalFormTambahNota = ({closeModal}) => {
                             {
                                 hasilAmbilData.length > 0 ? 
                                     <div>
-                                        <select name="category" id="category" className=' block border-2 border-slate-400 w-full rounded p-2 bg-white' size={4}>
+                                        <select name="category" id="category" onChange={getClick} className=' block border-2 border-slate-400 w-full rounded p-2 bg-white' size={4}>
                                             {
                                                 hasilAmbilData.map((hasil) => (
                                                     <option key={hasil.id} value={hasil.id}>{hasil.nama_barang}</option>
