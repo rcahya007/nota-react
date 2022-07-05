@@ -17,18 +17,20 @@ const ModalFormTambahNota = ({closeModal}) => {
 
     const getId = async (id) => {
         const getDataById = await axios.post(`http://localhost:5000/barang/selectId/`+id);
-        setDataDipilih(getDataById.data.getOne);
+        setDataDipilih([getDataById.data.getOne]);
+        document.getElementById("nama_barang").value = getDataById.data.getOne.nama_barang
+
     }
 
     const getClick = async (e) => {
         const id = e.target.value;
         getId(id);
-        setSelectItemn(e.target.value)
         setHasilAmbilData([]);
     }
 
     const getBarang = async (e) => {
         const nama_barang = (e.target.value);
+        // setNamaBarang(namaBarang);
         // console.log(nama_barang);
         if(nama_barang === ''){
             setHasilAmbilData([])
@@ -58,7 +60,14 @@ const ModalFormTambahNota = ({closeModal}) => {
                     <div className='mt-3 mx-4'>
                         <div className='mx-5 mt-2 mb-4'>
                             <label htmlFor="nama" className=''>Nama Barang / Jasa : </label>
-                            <input id='nama' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang}/>
+                            <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang}/>
+                            {
+                                dataDipilih.length > 0 ? 
+                                <div>
+                                    <p className='text-sm mt-1' id='span_stock'>Stock barang sekarang : {dataDipilih[0].stok_barang}</p>
+                                </div>
+                                : <div></div>
+                            }
                             {
                                 hasilAmbilData.length > 0 ? 
                                     <div>
