@@ -1,6 +1,6 @@
 import { XCircleIcon } from '@heroicons/react/solid'
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 const ModalFormTambahNota = ({closeModal}) => {
 
@@ -9,17 +9,19 @@ const ModalFormTambahNota = ({closeModal}) => {
     const [selectItem, setSelectItemn] = useState('');
     const [dataDipilih, setDataDipilih] = useState([]);
     const [deskripsi, setDeskripsi] = useState('');
-    const [harga, setHarga] = useState('');
-    const [banyak, setBanyak] = useState('');
+    const [banyak, setBanyak] = useState(0);
     const [total, setTotal] = useState('');
+    const namaBarang = useRef();
+    const hargaBarang = useRef();
+
 
     console.log(dataDipilih)
 
     const getId = async (id) => {
         const getDataById = await axios.post(`http://localhost:5000/barang/selectId/`+id);
         setDataDipilih([getDataById.data.getOne]);
-        document.getElementById("nama_barang").value = getDataById.data.getOne.nama_barang
-
+        namaBarang.current.value = getDataById.data.getOne.nama_barang
+        hargaBarang.current.value = getDataById.data.getOne.harga_barang
     }
 
     const getClick = async (e) => {
@@ -45,6 +47,15 @@ const ModalFormTambahNota = ({closeModal}) => {
         }       
     }
 
+    const getBanyak = (e) => {
+        const banyakInput = (e.target.value);
+        const hitung = dataDipilih.stok_barang - banyakInput;
+        if(hitung > 0) {
+            
+        }
+
+    }
+
     return (
         <div className="bg-black bg-opacity-50 inset-0 overflow-y-scroll fixed ">
             <div className="bg-white w-2/3 rounded-xl mx-auto my-4 xl:w-1/2 ">
@@ -60,11 +71,11 @@ const ModalFormTambahNota = ({closeModal}) => {
                     <div className='mt-3 mx-4'>
                         <div className='mx-5 mt-2 mb-4'>
                             <label htmlFor="nama" className=''>Nama Barang / Jasa : </label>
-                            <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang}/>
+                            <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang} ref={namaBarang}/>
                             {
                                 dataDipilih.length > 0 ? 
                                 <div>
-                                    <p className='text-sm mt-1' id='span_stock'>Stock barang sekarang : {dataDipilih[0].stok_barang}</p>
+                                    <p className='text-sm mt-1' id='span_stock'>Stock barang sekarang : <b>{dataDipilih[0].stok_barang}</b></p>
                                 </div>
                                 : <div></div>
                             }
@@ -87,21 +98,21 @@ const ModalFormTambahNota = ({closeModal}) => {
                     <div className='mt-3 mx-4'>
                         <div className='mx-5 mt-2 mb-4'>
                             <label htmlFor="deskripsi" className=''>Deskripsi : </label>
-                            <textarea id='deskripsi' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Deskripsi Barang'/>
+                            <textarea id='deskripsi' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Deskripsi Barang' onChange={e => setDeskripsi(e.target.value)} value={deskripsi}/>
                             <p className='text-sm mt-1'>Tulis deskripsi barang tanpa menggunakan emoticon.</p>
                         </div>
                     </div>
                     <div className='mt-3 mx-4'>
                         <div className='mx-5 mt-2 mb-4'>
                             <label htmlFor="harga" className=''>Harga : </label>
-                            <input id='harga' disabled type="number" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 bg-slate-300' />
+                            <input id='harga' disabled type="number" ref={hargaBarang} className='mt-2 block border-2 border-slate-400 w-full rounded p-2 bg-slate-300' />
                         </div>
                     </div>
                     <div className='mt-3 mx-4'>
                         <div className='mx-5 mt-2 mb-4'>
                             <label htmlFor="banyak" className=''>Banyak : </label>
-                            <input id='banyak' type="number" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' />
-                            <p className='text-sm mt-1'>Masukkan banyak barang {`<`} stok barang yang dipilih 
+                            <input id='banyak' type="number" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' onChange={getBanyak} min={1} max={dataDipilih.length === 0 ? 0 : dataDipilih[0].stok_barang}/>
+                            <p className='text-sm mt-1'>Masukkan banyak barang {`< / =`} stok barang yang dipilih 
                             </p>
                         </div>
                     </div>
