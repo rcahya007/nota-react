@@ -12,6 +12,9 @@ const FormNota = () => {
     const [dataBarang, setDataBarang] = useState([]);
     const [tambahNotaBarang, setTambahNotaBarang] = useState(false);
 
+    useEffect(()=>{
+        console.log(dataBarang)
+    },[dataBarang])
 
     useEffect(()=>{
         if(state.user == null){
@@ -32,11 +35,11 @@ const FormNota = () => {
                     <div className="text-3xl font-bold float-left">
                         Form Barang
                     </div>
-                    <button className='text-xl float-right bg-white p-2 rounded-md border-2 border-black hover:bg-slate-800 hover:text-white duration-300 mb-3'>
-                        <Link to={'/nota'}>
-                            Lihat Semua Nota Transaksi
-                        </Link>
-                    </button>
+                    <Link to={'/nota'}>
+                        <button className='text-xl float-right bg-white p-2 rounded-md border-2 border-black hover:bg-slate-800 hover:text-white duration-300 mb-3'>
+                                Lihat Semua Nota Transaksi
+                        </button>
+                    </Link>
                 </div>
                 <FormDisable />
                 <div className='flex items-center justify-center mt-5'>
@@ -50,10 +53,10 @@ const FormNota = () => {
                     <div className="text-3xl font-bold ">
                         Rincian Barang
                     </div>
-                    <FormRincianBarang />
+                    <FormRincianBarang barang={dataBarang}/>
                 </div>
             </div>
-            {tambahNotaBarang && <ModalFormTambahNota closeModal = {setTambahNotaBarang}/> }
+            {tambahNotaBarang && <ModalFormTambahNota closeModal = {setTambahNotaBarang} setDataBarang = {setDataBarang}/> }
         </div>
     )
 }

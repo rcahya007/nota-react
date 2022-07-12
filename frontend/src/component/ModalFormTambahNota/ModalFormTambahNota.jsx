@@ -2,9 +2,9 @@ import { XCircleIcon } from '@heroicons/react/solid'
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 
-const ModalFormTambahNota = ({closeModal}) => {
+const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
 
-    const [dataBarangSemua, setDataBarangSemua] = useState([]);
+    // const [dataBarangSemua, setDataBarangSemua] = useState([]);
     const [hasilAmbilData, setHasilAmbilData] = useState([]);
     const [dataDipilih, setDataDipilih] = useState([]);
     const [maxPesan, setMaxPesan] = useState(1)
@@ -14,19 +14,23 @@ const ModalFormTambahNota = ({closeModal}) => {
     const namaBarang = useRef();
     const hargaBarang = useRef();
 
-    // console.log(dataDipilih);
+    console.log(dataDipilih);
 
     const TambahBarang = () => {
-        setDataBarangSemua({
-            id: 29,
-            nama_barang: dataDipilih.nama_barang,
-            banyak_barang: banyak,
-            harga_barang: dataDipilih.hargaBarang,
-            total_harga: total,
-        })
+        setDataBarang(oldState => [
+            ...oldState, 
+            {
+                id: dataDipilih[0].id,
+                nama_barang: dataDipilih[0].nama_barang,
+                banyak_barang: banyak,
+                harga_barang: dataDipilih[0].harga_barang,
+                total_harga: total,
+            }
+        ]);
+        closeModal(false);
     }
 
-    console.log(dataBarangSemua);
+    // console.log(dataBarangSemua);
 
     useEffect(()=>{
         perkalian();
@@ -158,7 +162,7 @@ const ModalFormTambahNota = ({closeModal}) => {
                         <input id='total' disabled type="number" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 bg-slate-300' value={total}/>
                     </div>
                 </div>
-                <div className="border-t border-slate-400 flex justify-end ">
+                <div className="border-t border-slate-400 flex justify-end pb-4">
                     <div className='mt-4 align-bottom mr-5'>
                         <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' onClick={TambahBarang} >Tambah Barang</button>
                         <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300' onClick={()=>closeModal(false)} >CLOSE</button>

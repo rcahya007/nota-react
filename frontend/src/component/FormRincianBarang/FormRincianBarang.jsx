@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FormRincianBarang = () => {
+const FormRincianBarang = ({dataBarang}) => {
     return (
         <div className='clear-both mt-2'>
             {/* table Kosong */}
@@ -11,13 +11,31 @@ const FormRincianBarang = () => {
                     <div className="cols-span-1 text-left py-2 px-2">Banyak</div>
                     <div className="cols-span-1 text-left py-2 px-2">Total</div>
                 </div>
-                <div className="grid grid-cols-5 gap-5 w-full border-y-2 border-slate-400 space-b">
-                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
-                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
-                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
-                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
-                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
-                </div>
+                {
+                    dataBarang.length > 0 ? 
+                    <div className="grid grid-cols-5 gap-5 w-full border-y-2 border-slate-400 space-b">
+                        <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                        <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                        <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                        <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                        <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                    </div>                    
+                    : 
+                    <div>
+                        {
+                            dataBarang.map((data) => (
+                                <div className="grid grid-cols-5 gap-5 w-full border-y-2 border-slate-400 space-b">
+                                    <div className="cols-span-1 text-left py-2 px-2">data</div>
+                                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                                    <div className="cols-span-1 text-left py-2 px-2">..............</div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                }
+                
         </div>
     )
 }
