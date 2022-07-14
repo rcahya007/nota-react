@@ -14,7 +14,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
     const namaBarang = useRef();
     const hargaBarang = useRef();
 
-    console.log(dataDipilih);
+    // console.log(dataDipilih);
 
     const TambahBarang = () => {
         setDataBarang(oldState => [
@@ -47,9 +47,9 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
     }
     const perkalian = () => {
         const hasil = hargaBarang.current.value * banyak;
-        console.log(banyak)
-        console.log(hargaBarang.current.value)
-        console.log(hasil)
+        // console.log(banyak)
+        // console.log(hargaBarang.current.value)
+        // console.log(hasil)
         setTotal(hasil);
     }
 
@@ -74,7 +74,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
             setHasilAmbilData([])
         }else{
             const fetch = await axios.post('http://localhost:5000/getBarangFormTambah',{nama_barang: nama_barang});
-            console.log(fetch.data.result.length);
+            // console.log(fetch.data.result.length);
             if(fetch.data.result.length > 0){
                 setHasilAmbilData(fetch.data.result)
             }else{

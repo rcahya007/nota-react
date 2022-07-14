@@ -12,9 +12,9 @@ const FormNota = () => {
     const [dataBarang, setDataBarang] = useState([]);
     const [tambahNotaBarang, setTambahNotaBarang] = useState(false);
 
-    useEffect(()=>{
-        console.log(dataBarang)
-    },[dataBarang])
+    // useEffect(()=>{
+    //     console.log(dataBarang)
+    // },[dataBarang])
 
     useEffect(()=>{
         if(state.user == null){
