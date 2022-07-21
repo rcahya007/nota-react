@@ -22,6 +22,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
             {
                 id: dataDipilih[0].id,
                 nama_barang: dataDipilih[0].nama_barang,
+                deskripsi: deskripsi,
                 banyak_barang: banyak,
                 harga_barang: dataDipilih[0].harga_barang,
                 total_harga: total,
@@ -152,7 +153,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
 
                             }
                         </div>
-                        <p className='text-sm mt-1'>Masukkan banyak barang {`< / =`} stok barang yang dipilih 
+                        <p className='text-sm mt-1'>Masukkan banyak barang {`<`} stok barang yang dipilih 
                         </p>
                     </div>
                 </div>

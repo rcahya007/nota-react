@@ -18,6 +18,10 @@ const detail_transactions = db.define('detail_transactions',{
         type: DataTypes.STRING,
         allowNull: true,
     },
+    deskripsi_barang: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     banyak_barang: {
         type: DataTypes.STRING,
         allowNull: true,

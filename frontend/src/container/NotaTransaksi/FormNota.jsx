@@ -11,6 +11,7 @@ const FormNota = () => {
     const navigate = useNavigate();
     const [dataBarang, setDataBarang] = useState([]);
     const [tambahNotaBarang, setTambahNotaBarang] = useState(false);
+    console.log(dataBarang)
 
     // useEffect(()=>{
     //     console.log(dataBarang)
