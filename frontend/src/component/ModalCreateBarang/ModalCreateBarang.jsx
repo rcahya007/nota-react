@@ -103,7 +103,7 @@ const ModalCreateBarang = ({closeModal }) => {
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="foto" className=''>Foto Barang : </label>
-                                <input id='foto' type="file" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' onChange={loadImage} />
+                                <input id='foto' type="file" accept="image/*" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' onChange={loadImage} />
                             </div>
                         </div>
                         {

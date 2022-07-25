@@ -5,13 +5,37 @@ const FormRincianBarang = ({barang}) => {
     const [metod_pembayaran, setMetodPembayaran] = useState('')
     const [jenis_transaksi, setJenisTransaksi] = useState('')
     const [pembeli, setPembeli] = useState('')
-    const [dibayar, setDibayar] = useState(0)
     const [kembali, setKembali] = useState(0)
-    
-    const handleMetode = (e) => {
-        
+    const [file, setFile] = useState("");
+    const [preview, setPreview] = useState("");
+    const [NoImage, setNoImage] = useState("");
+
+    console.log(file)
+
+    const loadImage = (e) => {
+        const image = e.target.files[0];
+        setFile(image);
+        setPreview(URL.createObjectURL(image));
     }
 
+    const handleMetode = (e) => {
+        if(e.target.value === "Cash"){
+            setFile("")
+            setPreview("")
+            setMetodPembayaran(e.target.value)
+        }if(e.target.value === "Transfer"){
+            setMetodPembayaran(e.target.value)
+        }
+    }
+
+    const handleJenis = (e) => {
+        setJenisTransaksi(e.target.value)
+    }
+
+    const handleDibayar = (e) => {
+        setKembali(e.target.value - total_harga)
+    }
+    
     useEffect(()=>{
         if(barang.length>0){
             const total_harga = barang.map(harga => harga.total_harga).reduce((hargaSebelum,hargaSesudah) => hargaSebelum+hargaSesudah);
@@ -67,14 +91,31 @@ const FormRincianBarang = ({barang}) => {
                         <label htmlFor="Cash"> Cash</label><br></br>
                         <input type="radio" name="metode_pembayaran" id="Transfer" value='Transfer' onChange={handleMetode}/>
                         <label htmlFor="Transfer"> Transfer</label><br></br>
+                        {
+                            metod_pembayaran === "Transfer" ? (
+                                <div className='ml-5'>
+                                    Masukkan Bukti Transfer
+                                    <div className='border-2 border-b-slate-600 rounded-md px-2 py-2 mt-1 truncate'>
+                                        <input type="file" onChange={loadImage}/>
+                                    </div>
+                                    {
+                                        preview ? (
+                                            <div className='my-2'>
+                                                <img src={preview} className="w-1/3" alt="Preview IMG" />
+                                            </div>
+                                        ) : ("")
+                                    }
+                                </div>
+                            ) : null
+                        }
                     </div>
                 </div>
                 <div className="grid grid-cols-7 w-full border-b-2 border-slate-400 space-b">
                     <div className="col-span-5 text-right py-2 px-2 font-bold">Jenis Transaksi :</div>
                     <div className="col-span-2 text-left py-2 px-2 font-bold">
-                        <input type="radio" name="jenis_transaksi" id="Pemasukkan" value='Pemasukkan' />
+                        <input type="radio" name="jenis_transaksi" id="Pemasukkan" value='Pemasukkan' onChange={handleJenis} />
                         <label htmlFor="Pemasukkan"> Pemasukkan</label><br></br>
-                        <input type="radio" name="jenis_transaksi" id="Pengeluaran" value='Pengeluaran' />
+                        <input type="radio" name="jenis_transaksi" id="Pengeluaran" value='Pengeluaran' onChange={handleJenis} />
                         <label htmlFor="Pengeluaran"> Pengeluaran</label><br></br>
                     </div>
                 </div>
@@ -83,7 +124,7 @@ const FormRincianBarang = ({barang}) => {
                         <label htmlFor="Pembeli">Pembeli :</label>
                     </div>
                     <div className="col-span-2 text-left py-2 px-2 font-bold">
-                        <input className='w-full border-2 rounded-md' type="text" id="Pembeli" name="Pembeli"/>
+                        <input className='w-full border-2 rounded-md px-2' type="text" id="Pembeli" name="Pembeli" onChange={(e) => {setPembeli(e.target.value)}}/>
                     </div>
                 </div>
                 <div className="grid grid-cols-7 w-full border-b-2 border-slate-400 space-b">
@@ -91,13 +132,13 @@ const FormRincianBarang = ({barang}) => {
                         <label htmlFor="dibayar">Dibayar :</label>
                     </div>
                     <div className="col-span-2 text-left py-2 px-2 font-bold">
-                        <input className='w-full border-2 rounded-md' type="number" id="dibayar" name="dibayar"/>
+                        <input className='w-full border-2 rounded-md px-2' type="number" id="dibayar" name="dibayar" onChange={handleDibayar}/>
                     </div>
                 </div>
                 <div className="grid grid-cols-7 w-full border-b-2 border-slate-400 space-b">
                     <div className="col-span-5 text-right py-2 px-2 font-bold">Kembali :</div>
                     <div className="col-span-2 text-left py-2 px-2 font-bold">
-                        <p>...</p>
+                        <p>{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(kembali)}</p>
                     </div>
                 </div>
                 <div className='flex items-center justify-center mt-5'>
