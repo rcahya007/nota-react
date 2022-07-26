@@ -2,7 +2,7 @@ import { XCircleIcon } from '@heroicons/react/solid'
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 
-const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
+const ModalEditRincianBarang = ({closeModal,setDataBarang}) => {
 
     // const [dataBarangSemua, setDataBarangSemua] = useState([]);
     const [hasilAmbilData, setHasilAmbilData] = useState([]);
@@ -174,4 +174,4 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
     )
 }
 
-export default ModalFormTambahNota
+export default ModalEditRincianBarang

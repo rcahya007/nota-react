@@ -53,7 +53,7 @@ const Nota = () => {
                                 allTransactions.map((hasil,index)=>(
                                     <tr key={index}>
                                         <td className='p-4 border-b-2 w-1/3 sm:py-1'>{hasil.nama_pembeli}</td>
-                                        <td className='border-b-2 text-center'>{hasil.total_semua}</td>
+                                        <td className='border-b-2 text-center'>{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(hasil.total_semua)}</td>
                                         <td className='border-b-2 text-center'>{new Date(hasil.updatedAt).toLocaleString('id-ID',{weekday: 'long', day: 'numeric',month: '2-digit', year:'2-digit', hour: '2-digit', minute: '2-digit' }).replace(".",":")}</td>
                                         <td className='border-b-2 text-center'>
                                             <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' >Detail</button> | 

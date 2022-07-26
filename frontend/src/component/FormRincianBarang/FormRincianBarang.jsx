@@ -10,8 +10,6 @@ const FormRincianBarang = ({barang}) => {
     const [preview, setPreview] = useState("");
     const [NoImage, setNoImage] = useState("");
 
-    console.log(file)
-
     const loadImage = (e) => {
         const image = e.target.files[0];
         setFile(image);
@@ -43,6 +41,14 @@ const FormRincianBarang = ({barang}) => {
         }        
     },[barang])    
 
+    const handleEdit = (id) => {
+        console.log(id)
+    }
+
+    const handleHapus = (id) => {
+        console.log(id)
+    }
+
     return (
         <div className='clear-both mt-2'>
             {/* table Kosong */}
@@ -52,20 +58,27 @@ const FormRincianBarang = ({barang}) => {
                     <div className="col-span-1 text-left py-2 px-2 font-bold">Banyak</div>
                     <div className="col-span-1 text-left py-2 px-2 font-bold">Harga</div>
                     <div className="col-span-1 text-left py-2 px-2 font-bold">Sub Total</div>
-                    <div className="col-span-1 text-left py-2 px-2 font-bold">Action</div>
+                    <div className="col-span-1 text-center py-2 px-2 font-bold">Action</div>
                 </div>
                 {
                     barang.length > 0 ? 
                     <div>
                         {
                             barang.map((data) => (
-                                <div className="grid grid-cols-7 w-full border-b-2 border-slate-400 space-b" key={data.id}>
-                                    <div className="col-span-2 text-left py-2 px-2">{data.nama_barang}</div>
-                                    <div className="col-span-1 text-left py-2 px-2">{data.deskripsi}</div>
-                                    <div className="col-span-1 text-left py-2 px-2">{data.banyak_barang}</div>
-                                    <div className="col-span-1 text-left py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.harga_barang)}</div>
-                                    <div className="col-span-1 text-left py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.total_harga)}</div>
-                                    <div className="col-span-1 text-left py-2 px-2">EDIT | HAPUS</div>
+                                <div className="grid grid-cols-7 w-full border-b-2 border-slate-400 space-b align-middle" key={data.id}>
+                                    <div className="col-span-2 py-2 px-2 flex items-center">{data.nama_barang}</div>
+                                    <div className="col-span-1 text-left flex items-center py-2 px-2">{data.deskripsi}</div>
+                                    <div className="col-span-1 text-left flex items-center py-2 px-2">{data.banyak_barang}</div>
+                                    <div className="col-span-1 text-left flex items-center py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.harga_barang)}</div>
+                                    <div className="col-span-1 text-left flex items-center py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.total_harga)}</div>
+                                    <div className="col-span-1 text-center py-2 px-2">
+                                        <button className='border-2 border-slate-800 p-2 rounded-md hover:bg-slate-800 hover:duration-300 hover:text-white' onClick={()=>{handleEdit(data.id)}}>
+                                            Edit    
+                                        </button> | 
+                                        <button className='border-2 border-red-700 p-2 rounded-md hover:bg-red-700 hover:duration-300 text-red-700 hover:text-white ml-1' onClick={()=>{handleHapus(data.id)}}>
+                                        HAPUS    
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         }
