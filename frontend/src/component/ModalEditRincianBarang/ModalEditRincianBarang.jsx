@@ -1,87 +1,45 @@
 import { XCircleIcon } from '@heroicons/react/solid'
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 
-const ModalEditRincianBarang = ({closeModal,setDataBarang}) => {
+const ModalEditRincianBarang = ({closeModal, barang, setDataBarang, dataBarang}) => {
 
-    // const [dataBarangSemua, setDataBarangSemua] = useState([]);
-    const [hasilAmbilData, setHasilAmbilData] = useState([]);
-    const [dataDipilih, setDataDipilih] = useState([]);
-    const [maxPesan, setMaxPesan] = useState(1)
-    const [deskripsi, setDeskripsi] = useState('');
-    const [banyak, setBanyak] = useState(1);
+    const [maxPesan, setMaxPesan] = useState(dataBarang.stok_barang)
+    const [deskripsi, setDeskripsi] = useState(dataBarang.deskripsi);
+    const [banyak, setBanyak] = useState(dataBarang.banyak_barang);
     const [total, setTotal] = useState(0);
-    const namaBarang = useRef();
-    const hargaBarang = useRef();
+    const hargaBarang = useRef(dataBarang.harga_barang);
 
-    // console.log(dataDipilih);
 
-    const TambahBarang = () => {
-        setDataBarang(oldState => [
-            ...oldState, 
-            {
-                id: dataDipilih[0].id,
-                nama_barang: dataDipilih[0].nama_barang,
-                deskripsi: deskripsi,
-                banyak_barang: banyak,
-                harga_barang: dataDipilih[0].harga_barang,
-                total_harga: total,
-            }
-        ]);
+    const UpdateBarang = (id) =>{
+        const data = barang.map(x =>(x.id === id) ? 
+        {...x, 
+            deskripsi: deskripsi,
+            banyak_barang: banyak,
+            total_harga: total
+        } :
+        x)
+        setDataBarang(data)
         closeModal(false);
-    }
-
-    // console.log(dataBarangSemua);
+        // console.log(data)
+    } 
 
     useEffect(()=>{
-        perkalian();
+        return(
+            ()=>{}
+        )
+    },[])
+
+    useEffect(()=>{
+        const hasil = hargaBarang.current.value * banyak;
+        setTotal(hasil);
     },[banyak])
 
     const minus = () => {
         setBanyak(banyak - 1);
-        perkalian();
     }
 
     const plus = () => {
         setBanyak(banyak + 1);
-        perkalian();
-    }
-    const perkalian = () => {
-        const hasil = hargaBarang.current.value * banyak;
-        // console.log(banyak)
-        // console.log(hargaBarang.current.value)
-        // console.log(hasil)
-        setTotal(hasil);
-    }
-
-    const getId = async (id) => {
-        const getDataById = await axios.post(`http://localhost:5000/barang/selectId/`+id);
-        setDataDipilih([getDataById.data.getOne]);
-        namaBarang.current.value = getDataById.data.getOne.nama_barang
-        hargaBarang.current.value = getDataById.data.getOne.harga_barang
-        setMaxPesan(getDataById.data.getOne.stok_barang);
-        perkalian()
-    }
-
-    const getClick = async (e) => {
-        const id = e.target.value;
-        getId(id);
-        setHasilAmbilData([]);
-    }
-
-    const getBarang = async (e) => {
-        const nama_barang = (e.target.value);
-        if(nama_barang === ''){
-            setHasilAmbilData([])
-        }else{
-            const fetch = await axios.post('http://localhost:5000/getBarangFormTambah',{nama_barang: nama_barang});
-            // console.log(fetch.data.result.length);
-            if(fetch.data.result.length > 0){
-                setHasilAmbilData(fetch.data.result)
-            }else{
-                setHasilAmbilData([])
-            }
-        }       
     }
 
     return (
@@ -89,7 +47,7 @@ const ModalEditRincianBarang = ({closeModal,setDataBarang}) => {
             <div className="bg-white w-2/3 rounded-xl mx-auto my-4 xl:w-1/2 ">
                 <div className="border-b border-slate-400 ">
                     <div className="flex justify-between items-center p-3">
-                        <p className="text-2xl font-bold">Tambah Barang</p>
+                        <p className="text-2xl font-bold">Edit Barang</p>
                         <button onClick={()=> {closeModal(false)}}>
                             <XCircleIcon className="h-7 w-7" />
                         </button>
@@ -98,27 +56,10 @@ const ModalEditRincianBarang = ({closeModal,setDataBarang}) => {
                 <div className='mt-3 mx-4'>
                     <div className='mx-5 mt-2 mb-4'>
                         <label htmlFor="nama" className=''>Nama Barang / Jasa : </label>
-                        <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang} ref={namaBarang}/>
-                        {
-                            dataDipilih.length > 0 ? 
-                            <div>
-                                <p className='text-sm mt-1' id='span_stock'>Stock barang sekarang : <b>{dataDipilih[0].stok_barang}</b></p>
-                            </div>
-                            : <div></div>
-                        }
-                        {
-                            hasilAmbilData.length > 0 ? 
-                                <div>
-                                    <select name="category" id="category" onChange={getClick} className=' block border-2 border-slate-400 w-full rounded p-2 bg-white' size={4}>
-                                        {
-                                            hasilAmbilData.map((hasil) => (
-                                                <option key={hasil.id} value={hasil.id}>{hasil.nama_barang}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                            :   null
-                        }
+                        <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 bg-slate-300' disabled value={dataBarang.nama_barang}/>
+                        <div>
+                            <p className='text-sm mt-1' id='span_stock'>Stock barang sekarang : <b>{dataBarang.stok_barang}</b></p>
+                        </div>
                     </div>
                 </div>
                 
@@ -132,7 +73,7 @@ const ModalEditRincianBarang = ({closeModal,setDataBarang}) => {
                 <div className='mt-3 mx-4'>
                     <div className='mx-5 mt-2 mb-4'>
                         <label htmlFor="harga" className=''>Harga : </label>
-                        <input id='harga' disabled type="number" ref={hargaBarang} className='mt-2 block border-2 border-slate-400 w-full rounded p-2 bg-slate-300' />
+                        <input id='harga' disabled type="number" ref={hargaBarang} className='mt-2 block border-2 border-slate-400 w-full rounded p-2 bg-slate-300' value={dataBarang.harga_barang} />
                     </div>
                 </div>
                 <div className='mt-3 mx-4'>
@@ -165,7 +106,7 @@ const ModalEditRincianBarang = ({closeModal,setDataBarang}) => {
                 </div>
                 <div className="border-t border-slate-400 flex justify-end pb-4">
                     <div className='mt-4 align-bottom mr-5'>
-                        <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' onClick={TambahBarang} >Tambah Barang</button>
+                        <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' onClick={()=>{UpdateBarang(dataBarang.id)}} >Update Barang</button>
                         <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300' onClick={()=>closeModal(false)} >CLOSE</button>
                     </div>
                 </div>

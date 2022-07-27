@@ -11,7 +11,7 @@ const FormNota = () => {
     const navigate = useNavigate();
     const [dataBarang, setDataBarang] = useState([]);
     const [tambahNotaBarang, setTambahNotaBarang] = useState(false);
-    console.log(dataBarang)
+    // console.log(dataBarang)
 
     // useEffect(()=>{
     //     console.log(dataBarang)
@@ -54,7 +54,7 @@ const FormNota = () => {
                     <div className="text-3xl font-bold ">
                         Rincian Barang
                     </div>
-                    <FormRincianBarang barang={dataBarang}/>
+                    <FormRincianBarang barang={dataBarang} setDataBarang ={setDataBarang}/>
                 </div>
             </div>
             {tambahNotaBarang && <ModalFormTambahNota closeModal = {setTambahNotaBarang} setDataBarang = {setDataBarang}/> }

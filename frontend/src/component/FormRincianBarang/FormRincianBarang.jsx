@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import ModalEditRincianBarang from '../ModalEditRincianBarang/ModalEditRincianBarang';
 
-const FormRincianBarang = ({barang}) => {
+const FormRincianBarang = ({barang, setDataBarang}) => {
     const [total_harga, setTotalHarga] = useState(0);
     const [metod_pembayaran, setMetodPembayaran] = useState('')
     const [jenis_transaksi, setJenisTransaksi] = useState('')
@@ -9,6 +10,8 @@ const FormRincianBarang = ({barang}) => {
     const [file, setFile] = useState("");
     const [preview, setPreview] = useState("");
     const [NoImage, setNoImage] = useState("");
+    const [closeModal, setCloseModal] = useState(false)
+    const [dataEdit, setDataEdit] = useState('')
 
     const loadImage = (e) => {
         const image = e.target.files[0];
@@ -38,15 +41,21 @@ const FormRincianBarang = ({barang}) => {
         if(barang.length>0){
             const total_harga = barang.map(harga => harga.total_harga).reduce((hargaSebelum,hargaSesudah) => hargaSebelum+hargaSesudah);
             setTotalHarga(total_harga);
+        }
+        if(barang.length===0){
+            setTotalHarga(0);
         }        
     },[barang])    
 
     const handleEdit = (id) => {
-        console.log(id)
+        const getBarang = barang.find(x => x.id === id);
+        // console.log(getBarang)
+        setDataEdit(getBarang);
+        setCloseModal(true)
     }
 
     const handleHapus = (id) => {
-        console.log(id)
+        setDataBarang(barang.filter(data => data.id !== id));
     }
 
     return (
@@ -160,7 +169,7 @@ const FormRincianBarang = ({barang}) => {
                     </button>
                 </div>
                 
-                
+                {closeModal && <ModalEditRincianBarang closeModal={setCloseModal} barang={barang} setDataBarang={setDataBarang} dataBarang={dataEdit}/>}
         </div>
     )
 }

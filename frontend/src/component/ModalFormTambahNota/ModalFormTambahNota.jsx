@@ -26,32 +26,30 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
                 banyak_barang: banyak,
                 harga_barang: dataDipilih[0].harga_barang,
                 total_harga: total,
+                stok_barang: dataDipilih[0].stok_barang,
             }
         ]);
         closeModal(false);
     }
 
     // console.log(dataBarangSemua);
+    useEffect(()=>{
+        return(
+            ()=>{}
+        )
+    },[])
 
     useEffect(()=>{
-        perkalian();
+        const hasil = hargaBarang.current.value * banyak;
+        setTotal(hasil);
     },[banyak])
 
     const minus = () => {
         setBanyak(banyak - 1);
-        perkalian();
     }
 
     const plus = () => {
         setBanyak(banyak + 1);
-        perkalian();
-    }
-    const perkalian = () => {
-        const hasil = hargaBarang.current.value * banyak;
-        // console.log(banyak)
-        // console.log(hargaBarang.current.value)
-        // console.log(hasil)
-        setTotal(hasil);
     }
 
     const getId = async (id) => {
@@ -60,7 +58,8 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
         namaBarang.current.value = getDataById.data.getOne.nama_barang
         hargaBarang.current.value = getDataById.data.getOne.harga_barang
         setMaxPesan(getDataById.data.getOne.stok_barang);
-        perkalian()
+        const hasil = hargaBarang.current.value * banyak;
+        setTotal(hasil);
     }
 
     const getClick = async (e) => {
