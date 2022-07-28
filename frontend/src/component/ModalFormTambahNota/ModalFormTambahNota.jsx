@@ -58,6 +58,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
         namaBarang.current.value = getDataById.data.getOne.nama_barang
         hargaBarang.current.value = getDataById.data.getOne.harga_barang
         setMaxPesan(getDataById.data.getOne.stok_barang);
+        setBanyak(1)
         const hasil = hargaBarang.current.value * banyak;
         setTotal(hasil);
     }

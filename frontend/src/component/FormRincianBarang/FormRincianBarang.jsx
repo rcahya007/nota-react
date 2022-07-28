@@ -7,11 +7,17 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     const [jenis_transaksi, setJenisTransaksi] = useState('')
     const [pembeli, setPembeli] = useState('')
     const [kembali, setKembali] = useState(0)
+    const [dibayar, setDibayar] = useState('')
     const [file, setFile] = useState("");
     const [preview, setPreview] = useState("");
     const [NoImage, setNoImage] = useState("");
     const [closeModal, setCloseModal] = useState(false)
     const [dataEdit, setDataEdit] = useState('')
+
+    useEffect(()=>{
+        if(barang.length>0)
+        console.log(barang)
+    },[barang])
 
     const loadImage = (e) => {
         const image = e.target.files[0];
@@ -34,6 +40,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     }
 
     const handleDibayar = (e) => {
+        setDibayar(e.target.value)
         setKembali(e.target.value - total_harga)
     }
     
@@ -58,8 +65,26 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
         setDataBarang(barang.filter(data => data.id !== id));
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        formData.append("barang", JSON.stringify(barang));
+        formData.append("total", total_harga);
+        formData.append("metode_pembayaran",metod_pembayaran);
+        formData.append("jenis_transaksi", jenis_transaksi);
+        formData.append("pembeli", pembeli);
+        formData.append("dibayar", dibayar);
+        formData.append("kembali", kembali);
+        formData.append("file", file);
+        // console.log(JSON.parse(formData.get('barang')))
+        // for(const pair of formData.entries()) {
+        //     console.log(`${pair[0]}, ${pair[1]}`);
+        // }
+    }
+
     return (
         <div className='clear-both mt-2'>
+            <form onSubmit={handleSubmit}>
             {/* table Kosong */}
                 <div className="grid grid-cols-7  bg-slate-200 w-full border-y-2 border-slate-400 space-b">
                     <div className="col-span-2 text-left py-2 px-2 font-bold">Barang/Jasa</div>
@@ -118,7 +143,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                                 <div className='ml-5'>
                                     Masukkan Bukti Transfer
                                     <div className='border-2 border-b-slate-600 rounded-md px-2 py-2 mt-1 truncate'>
-                                        <input type="file" onChange={loadImage}/>
+                                        <input type="file" onChange={loadImage} accept="image/*"/>
                                     </div>
                                     {
                                         preview ? (
@@ -164,11 +189,11 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                     </div>
                 </div>
                 <div className='flex items-center justify-center mt-5'>
-                    <button className='bg-amber-400 py-2 px-6 rounded-md hover:bg-amber-500 border-2 border-white duration-300 hover:border-2 hover:border-black'>
+                    <button className='bg-amber-400 py-2 px-6 rounded-md hover:bg-amber-500 border-2 border-white duration-300 hover:border-2 hover:border-black' type='submit'>
                         Simpan {`&`} Print
                     </button>
                 </div>
-                
+            </form>
                 {closeModal && <ModalEditRincianBarang closeModal={setCloseModal} barang={barang} setDataBarang={setDataBarang} dataBarang={dataEdit}/>}
         </div>
     )
