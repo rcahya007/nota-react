@@ -59,3 +59,11 @@ export const getOneTransaction = async (req,res) => {
         res.status(404).json(error)
     }
 }
+
+export const createNotaTransaksi = async (req, res) => {
+    try {
+        const getData = await 
+    } catch (error) {
+        
+    }
+}

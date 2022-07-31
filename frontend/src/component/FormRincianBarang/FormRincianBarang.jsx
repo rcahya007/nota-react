@@ -8,7 +8,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     const [pembeli, setPembeli] = useState('')
     const [kembali, setKembali] = useState(0)
     const [dibayar, setDibayar] = useState('')
-    const [file, setFile] = useState("");
+    const [file, setFile] = useState(null);
     const [preview, setPreview] = useState("");
     const [NoImage, setNoImage] = useState("");
     const [closeModal, setCloseModal] = useState(false)
@@ -27,7 +27,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
 
     const handleMetode = (e) => {
         if(e.target.value === "Cash"){
-            setFile("")
+            setFile(null)
             setPreview("")
             setMetodPembayaran(e.target.value)
         }if(e.target.value === "Transfer"){
@@ -67,19 +67,28 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append("barang", JSON.stringify(barang));
-        formData.append("total", total_harga);
-        formData.append("metode_pembayaran",metod_pembayaran);
-        formData.append("jenis_transaksi", jenis_transaksi);
-        formData.append("pembeli", pembeli);
-        formData.append("dibayar", dibayar);
-        formData.append("kembali", kembali);
-        formData.append("file", file);
-        // console.log(JSON.parse(formData.get('barang')))
-        // for(const pair of formData.entries()) {
-        //     console.log(`${pair[0]}, ${pair[1]}`);
-        // }
+        if(barang.length > 0) {
+            const formData = new FormData();
+            formData.append("barang", JSON.stringify(barang));
+            formData.append("total", total_harga);
+            formData.append("metode_pembayaran",metod_pembayaran);
+            formData.append("jenis_transaksi", jenis_transaksi);
+            formData.append("pembeli", pembeli);
+            formData.append("dibayar", dibayar);
+            formData.append("kembali", kembali);
+            formData.append("file", file);
+            console.log(JSON.parse(formData.get('barang')))
+            // console.log(formData.get('file'))
+            // if(file === null){
+            //     console.log("Anjas")
+            // }
+            // for(const pair of formData.entries()) {
+            //     console.log(`${pair[0]}, ${pair[1]}`);
+            // }
+        }else{
+            console.log("Isi data Barang terlebih dahulu")
+        }
+        
     }
 
     return (
