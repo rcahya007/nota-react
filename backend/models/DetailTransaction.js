@@ -14,21 +14,20 @@ const detail_transactions = db.define('detail_transactions',{
             key: 'id'
         },
     },
-    nama_barang: {
-        type: DataTypes.STRING,
-        allowNull: true,
+    id_barang: {
+        type: DataTypes.INTEGER,
+        references:{
+            model: 'barang',
+            key: 'id'
+        },
     },
-    deskripsi_barang: {
+    deskripsi_pembelian: {
         type: DataTypes.STRING,
         allowNull: true,
     },
     banyak_barang: {
         type: DataTypes.STRING,
         allowNull: true,
-    },
-    harga_barang: {
-        type: DataTypes.FLOAT,
-        allowNull: true
     },
     total_harga_barang: {
         type: DataTypes.FLOAT,

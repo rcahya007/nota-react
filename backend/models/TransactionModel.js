@@ -33,6 +33,10 @@ const transactions = db.define('transactions',{
     bukti_tf:{
         type: DataTypes.STRING,
         allowNull: true
+    },
+    url:{
+        type: DataTypes.STRING,
+        allowNull: true
     }
 },{
     freezeTableName: true,

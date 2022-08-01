@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../../container/Home/Home';
 import ModalEditRincianBarang from '../ModalEditRincianBarang/ModalEditRincianBarang';
 
 const FormRincianBarang = ({barang, setDataBarang}) => {
+    const {state} = useContext(AuthContext);
     const [total_harga, setTotalHarga] = useState(0);
     const [metod_pembayaran, setMetodPembayaran] = useState('')
     const [jenis_transaksi, setJenisTransaksi] = useState('')
@@ -10,7 +13,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     const [dibayar, setDibayar] = useState('')
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState("");
-    const [NoImage, setNoImage] = useState("");
+    // const [NoImage, setNoImage] = useState("");
     const [closeModal, setCloseModal] = useState(false)
     const [dataEdit, setDataEdit] = useState('')
 
@@ -76,15 +79,20 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
             formData.append("pembeli", pembeli);
             formData.append("dibayar", dibayar);
             formData.append("kembali", kembali);
+            formData.append("pembuat", state.user.name);
             formData.append("file", file);
             console.log(JSON.parse(formData.get('barang')))
-            // console.log(formData.get('file'))
-            // if(file === null){
-            //     console.log("Anjas")
-            // }
-            // for(const pair of formData.entries()) {
-            //     console.log(`${pair[0]}, ${pair[1]}`);
-            // }
+            console.log(formData.get('file'))
+            try {
+                await axios.post("http://localhost:5000/simpanNota", formData, {
+                    headers:{
+                        "Content-type": "multipart/form-data"
+                    }
+                });
+                console.log("data Masuk")
+            } catch (error) {
+                console.log("Error")
+            }
         }else{
             console.log("Isi data Barang terlebih dahulu")
         }
