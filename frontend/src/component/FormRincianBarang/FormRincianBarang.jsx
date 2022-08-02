@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../container/Home/Home';
 import ModalEditRincianBarang from '../ModalEditRincianBarang/ModalEditRincianBarang';
 
 const FormRincianBarang = ({barang, setDataBarang}) => {
+    const navigate = useNavigate();
     const {state} = useContext(AuthContext);
     const [total_harga, setTotalHarga] = useState(0);
     const [metod_pembayaran, setMetodPembayaran] = useState('')
@@ -13,7 +15,6 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     const [dibayar, setDibayar] = useState('')
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState("");
-    // const [NoImage, setNoImage] = useState("");
     const [closeModal, setCloseModal] = useState(false)
     const [dataEdit, setDataEdit] = useState('')
 
@@ -90,6 +91,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                     }
                 });
                 console.log("data Masuk")
+                navigate('/nota')
             } catch (error) {
                 console.log("Error")
             }

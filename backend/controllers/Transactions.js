@@ -1,5 +1,6 @@
 import detail_transactions from "../models/DetailTransaction.js";
 import Transactions from "../models/TransactionModel.js";
+import Barang from "../models/Barang.js";
 import path from "path";
 
 export const getAllTransactionsDashboard = async (req,res) => {
@@ -77,18 +78,19 @@ export const createNotaTransaksi = async (req, res) => {
         const ext = path.extname(file.name);
         const nameFile = path.basename(file.name,ext);
         const buktiTF = nameFile +'_'+ dateTime + ext;
-        const link = `${req.protocol}://${req.get('host')}/images/dataTF/${buktiTF}`;
+        const link = `${req.protocol}://${req.get('host')}/dataTF/${buktiTF}`;
         const allowedType = ['.png','.jpg', '.jpeg'];
 
         if(!allowedType.includes(ext.toLowerCase())) return res.status(422).json({msg: "Invalid Images"});
 
         if(fileSize > 5000000) return res.status(422).json({msg: "Image must be less than 5MB"});
-
-        file.mv(`./public/images/dataTF/${fileName}`, async(err)=>{
-            if(err) return res.status(500).json({msg: err.message});
-        })
         fileName = buktiTF;
         url = link;
+
+        file.mv(`./public/dataTF/${fileName}`, async(err)=>{
+            if(err) return res.status(500).json({msg: err.message});
+        })
+
     }   
 
     try {
@@ -105,6 +107,16 @@ export const createNotaTransaksi = async (req, res) => {
         });
 
         await barang.map(element => {
+            const sisaStock = element.stok_barang - element.banyak_barang;
+
+            Barang.update({
+                stok_barang: sisaStock
+            },{
+                where:{
+                    id: element.id
+                }
+            });
+
             detail_transactions.create({
                 id_transaction: dataTransactions.id,
                 id_barang: element.id,

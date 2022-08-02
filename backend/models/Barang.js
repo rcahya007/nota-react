@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
-import category_barang from "./CategoryBarang.js";
 
 const barang = db.define('barang',{
     id:{
