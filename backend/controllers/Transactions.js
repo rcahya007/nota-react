@@ -89,44 +89,45 @@ export const createNotaTransaksi = async (req, res) => {
 
         file.mv(`./public/dataTF/${fileName}`, async(err)=>{
             if(err) return res.status(500).json({msg: err.message});
+            try {
+                const dataTransactions = await Transactions.create({
+                    total_semua: req.body.total,
+                    uang_bayar: req.body.dibayar,
+                    uang_kembali: req.body.kembali,
+                    nama_pembeli: req.body.pembeli,
+                    pembuat : req.body.pembuat,
+                    metode_pembayaran: req.body.metode_pembayaran,
+                    jenis_transaksi: req.body.jenis_transaksi,
+                    bukti_tf: fileName,
+                    url: url,
+                });
+        
+                await barang.map(element => {
+                    const sisaStock = element.stok_barang - element.banyak_barang;
+        
+                    Barang.update({
+                        stok_barang: sisaStock
+                    },{
+                        where:{
+                            id: element.id
+                        }
+                    });
+        
+                    detail_transactions.create({
+                        id_transaction: dataTransactions.id,
+                        id_barang: element.id,
+                        deskripsi_pembelian: element.deskripsi,
+                        banyak_barang: element.banyak_barang,
+                        total_harga_barang: element.total_harga,
+                    })
+                });
+                res.status(201).json({msg: "Transaksi Telah Dibuat."});
+            } catch (error) {
+                console.log(error);
+            }
         })
 
     }   
 
-    try {
-        const dataTransactions = await Transactions.create({
-            total_semua: req.body.total,
-            uang_bayar: req.body.dibayar,
-            uang_kembali: req.body.kembali,
-            nama_pembeli: req.body.pembeli,
-            pembuat : req.body.pembuat,
-            metode_pembayaran: req.body.metode_pembayaran,
-            jenis_transaksi: req.body.jenis_transaksi,
-            bukti_tf: fileName,
-            url: url,
-        });
-
-        await barang.map(element => {
-            const sisaStock = element.stok_barang - element.banyak_barang;
-
-            Barang.update({
-                stok_barang: sisaStock
-            },{
-                where:{
-                    id: element.id
-                }
-            });
-
-            detail_transactions.create({
-                id_transaction: dataTransactions.id,
-                id_barang: element.id,
-                deskripsi_pembelian: element.deskripsi,
-                banyak_barang: element.banyak_barang,
-                total_harga_barang: element.total_harga,
-            })
-        });
-        res.status(201).json({msg: "Transaksi Telah Dibuat."});
-    } catch (error) {
-        console.log(error);
-    }
+    
 }

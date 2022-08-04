@@ -11,10 +11,11 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
     const [deskripsi, setDeskripsi] = useState('');
     const [banyak, setBanyak] = useState(1);
     const [total, setTotal] = useState(0);
+    const [stock, setStock] = useState(0);
     const namaBarang = useRef();
     const hargaBarang = useRef();
 
-    // console.log(dataDipilih);
+    console.log(hasilAmbilData.length);
 
     const TambahBarang = () => {
         setDataBarang(oldState => [
@@ -57,8 +58,15 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
         setDataDipilih([getDataById.data.getOne]);
         namaBarang.current.value = getDataById.data.getOne.nama_barang
         hargaBarang.current.value = getDataById.data.getOne.harga_barang
-        setMaxPesan(getDataById.data.getOne.stok_barang);
-        setBanyak(1)
+        if(getDataById.data.getOne.stok_barang === 0){
+            setMaxPesan(1);
+            setBanyak(1)
+            setStock(getDataById.data.getOne.stok_barang)
+        }else{
+            setMaxPesan(getDataById.data.getOne.stok_barang);
+            setBanyak(1)
+            setStock(getDataById.data.getOne.stok_barang)
+        }
         const hasil = hargaBarang.current.value * banyak;
         setTotal(hasil);
     }
@@ -98,7 +106,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
                 <div className='mt-3 mx-4'>
                     <div className='mx-5 mt-2 mb-4'>
                         <label htmlFor="nama" className=''>Nama Barang / Jasa : </label>
-                        <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang} ref={namaBarang}/>
+                        <input id='nama_barang' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 placeholder-shown:italic' placeholder='Masukkan Nama Barang' onChange={getBarang} ref={namaBarang} required/>
                         {
                             dataDipilih.length > 0 ? 
                             <div>
@@ -141,7 +149,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
 
                         <div className='flex'>
                             {
-                                banyak === 1 ? 
+                                banyak <= 1 ? 
                                     <button type='button' className='w-10 h-10 text-black border-2 text-xl bg-slate-400' disabled>-</button> :
                                     <button type='button' className='w-10 h-10 text-green-400 border-2 hover:bg-slate-400 duration-300 text-xl' onClick={minus}>-</button>
                             }                                
@@ -165,7 +173,13 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
                 </div>
                 <div className="border-t border-slate-400 flex justify-end pb-4">
                     <div className='mt-4 align-bottom mr-5'>
-                        <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' onClick={TambahBarang} >Tambah Barang</button>
+                        {
+                            stock === 0 ? 
+                            <button className='rounded px-3 py-2 border text-black bg-slate-400' disabled onClick={TambahBarang} >Tambah Barang</button> : 
+                            <button className='rounded px-3 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black hover:duration-300' onClick={TambahBarang} >Tambah Barang</button>
+                            
+                        }
+                        
                         <button className='ml-4 rounded px-3 py-2 border border-black text-black hover:bg-slate-600 hover:text-white hover:duration-300' onClick={()=>closeModal(false)} >CLOSE</button>
                     </div>
                 </div>

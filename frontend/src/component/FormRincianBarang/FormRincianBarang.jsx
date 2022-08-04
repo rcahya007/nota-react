@@ -52,6 +52,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
         if(barang.length>0){
             const total_harga = barang.map(harga => harga.total_harga).reduce((hargaSebelum,hargaSesudah) => hargaSebelum+hargaSesudah);
             setTotalHarga(total_harga);
+            setKembali(dibayar-total_harga)
         }
         if(barang.length===0){
             setTotalHarga(0);
@@ -70,7 +71,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if(barang.length > 0) {
             const formData = new FormData();
             formData.append("barang", JSON.stringify(barang));
@@ -93,7 +94,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                 console.log("data Masuk")
                 navigate('/nota')
             } catch (error) {
-                console.log("Error")
+                console.log(error)
             }
         }else{
             console.log("Isi data Barang terlebih dahulu")
@@ -103,7 +104,6 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
 
     return (
         <div className='clear-both mt-2'>
-            <form onSubmit={handleSubmit}>
             {/* table Kosong */}
                 <div className="grid grid-cols-7  bg-slate-200 w-full border-y-2 border-slate-400 space-b">
                     <div className="col-span-2 text-left py-2 px-2 font-bold">Barang/Jasa</div>
@@ -125,7 +125,8 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                                     <div className="col-span-1 text-left flex items-center py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.harga_barang)}</div>
                                     <div className="col-span-1 text-left flex items-center py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(data.total_harga)}</div>
                                     <div className="col-span-1 text-center py-2 px-2">
-                                        <button className='border-2 border-slate-800 p-2 rounded-md hover:bg-slate-800 hover:duration-300 hover:text-white' onClick={()=>{handleEdit(data.id)}}>
+                                        <button className='border-2 border-slate-800 p-2 rounded-md hover:bg-slate-800 hover:duration-300 hover:text-white' 
+                                        onClick={()=>{handleEdit(data.id)}}>
                                             Edit    
                                         </button> | 
                                         <button className='border-2 border-red-700 p-2 rounded-md hover:bg-red-700 hover:duration-300 text-red-700 hover:text-white ml-1' onClick={()=>{handleHapus(data.id)}}>
@@ -208,11 +209,10 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                     </div>
                 </div>
                 <div className='flex items-center justify-center mt-5'>
-                    <button className='bg-amber-400 py-2 px-6 rounded-md hover:bg-amber-500 border-2 border-white duration-300 hover:border-2 hover:border-black' type='submit'>
+                    <button className='bg-amber-400 py-2 px-6 rounded-md hover:bg-amber-500 border-2 border-white duration-300 hover:border-2 hover:border-black' onClick={handleSubmit}>
                         Simpan {`&`} Print
                     </button>
                 </div>
-            </form>
                 {closeModal && <ModalEditRincianBarang closeModal={setCloseModal} barang={barang} setDataBarang={setDataBarang} dataBarang={dataEdit}/>}
         </div>
     )
