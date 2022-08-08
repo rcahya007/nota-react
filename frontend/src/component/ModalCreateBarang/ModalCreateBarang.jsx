@@ -63,7 +63,7 @@ const ModalCreateBarang = ({closeModal }) => {
                         </div>
                     </div>
                     <form onSubmit={SimpanData} className='pb-4'>
-                        <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
+                        <div className='mt-3 mx-4 border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="nama" className=''>Nama Barang : </label>
                                 <input id='nama' type="text" className='mt-2 block border-2 border-slate-400 w-full rounded p-2 ' onChange={(e) => setNamaBarang(e.target.value)} value={namaBarang}/>

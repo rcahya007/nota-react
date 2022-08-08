@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 const ModalFilter = ({closeModal}) => {
+    
+    useEffect(()=>{
+        return ()=>{
+            
+        }
+    },[])
     
     return(
         <div className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center " id="modalFilter">

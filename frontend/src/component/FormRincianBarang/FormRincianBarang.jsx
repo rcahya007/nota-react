@@ -17,6 +17,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
     const [preview, setPreview] = useState("");
     const [closeModal, setCloseModal] = useState(false)
     const [dataEdit, setDataEdit] = useState('')
+    const [ErrorImg, setErrorImg] = useState('')
 
     useEffect(()=>{
         if(barang.length>0)
@@ -25,6 +26,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
 
     const loadImage = (e) => {
         const image = e.target.files[0];
+        setErrorImg('');
         setFile(image);
         setPreview(URL.createObjectURL(image));
     }
@@ -72,7 +74,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(barang.length > 0) {
+        if(barang.length > 0 && kembali >= 0) {
             const formData = new FormData();
             formData.append("barang", JSON.stringify(barang));
             formData.append("total", total_harga);
@@ -94,10 +96,10 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                 console.log("data Masuk")
                 navigate('/nota')
             } catch (error) {
-                console.log(error)
+                setErrorImg(error.response.data.msg);
             }
         }else{
-            console.log("Isi data Barang terlebih dahulu")
+            console.log("Isilah data dengan benar")
         }
         
     }
@@ -165,6 +167,15 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                                     <div className='border-2 border-b-slate-600 rounded-md px-2 py-2 mt-1 truncate'>
                                         <input type="file" onChange={loadImage} accept="image/*"/>
                                     </div>
+                                    {
+                                        ErrorImg != '' ? (
+                                            <div className='mt-1'>
+                                                <div className='text-red-500'>
+                                                    {ErrorImg}
+                                                </div>
+                                            </div>
+                                        ) : ("")
+                                    }
                                     {
                                         preview ? (
                                             <div className='my-2'>

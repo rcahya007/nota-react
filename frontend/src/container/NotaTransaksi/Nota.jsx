@@ -2,6 +2,7 @@ import { PlusIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import ModalDetailNota from '../../component/ModalDetailNota/ModalDetailNota';
 import Navigation from '../../component/Navigation/Navigation';
 import { AuthContext } from '../Home/Home';
 
@@ -9,6 +10,8 @@ const Nota = () => {
     const {state} = useContext(AuthContext);
     const navigate = useNavigate();
     const [allTransactions, setAllTransactions] = useState([]);
+    const [detailNota, setdetailNota] = useState([]);
+    const [modalDetail, setModalDetail] = useState(false);
     
 
     useEffect(()=>{
@@ -24,6 +27,12 @@ const Nota = () => {
     const getAllTransactions = async () => {
         const fetch = await axios.get('http://localhost:5000/transactions');
         setAllTransactions(fetch.data.DataBarang);
+    }
+
+    const getDetail = async (id) => {
+        const getDetailNota = await axios.get('http://localhost:5000/transactions/'+id);
+        setdetailNota(getDetailNota);
+        setModalDetail(true);
     }
 
     return (
@@ -56,7 +65,7 @@ const Nota = () => {
                                         <td className='border-b-2 text-center'>{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(hasil.total_semua)}</td>
                                         <td className='border-b-2 text-center'>{new Date(hasil.updatedAt).toLocaleString('id-ID',{weekday: 'long', day: 'numeric',month: '2-digit', year:'2-digit', hour: '2-digit', minute: '2-digit' }).replace(".",":")}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1' >Detail</button> | 
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1'  onClick={()=> getDetail(hasil.id)}>Detail</button> | 
                                             <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' >Delete</button>
                                         </td>
                                     </tr>
@@ -66,6 +75,7 @@ const Nota = () => {
                     </table>
                 </div>
             </section>
+            {modalDetail && <ModalDetailNota closeModal = {setModalDetail} dataNota ={detailNota}/>}
         </div>
     )
 }

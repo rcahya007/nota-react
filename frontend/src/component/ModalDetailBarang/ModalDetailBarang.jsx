@@ -22,7 +22,7 @@ const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
                         </div>
                     </div>
                     <div className='pb-4'>
-                        <div className='mt-3 mx-4 border-t border-slate-400 border-b'>
+                        <div className='mt-3 mx-4 border-slate-400 border-b'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="nama" className='font-bold'>Nama Barang : </label>
                                 <div>

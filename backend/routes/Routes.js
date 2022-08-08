@@ -31,7 +31,7 @@ router.get('/transactions', getAllTransactions);
 router.get('/transactions/:id', getOneTransaction);
 router.post('/simpanNota', createNotaTransaksi);
 
-
+//DetailTransactions
 
 
 export default router;

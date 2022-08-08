@@ -2,6 +2,8 @@ import detail_transactions from "../models/DetailTransaction.js";
 import Transactions from "../models/TransactionModel.js";
 import Barang from "../models/Barang.js";
 import path from "path";
+import db from "../config/Database.js";
+
 
 export const getAllTransactionsDashboard = async (req,res) => {
     try {
@@ -57,7 +59,12 @@ export const getOneTransaction = async (req,res) => {
                 id: req.params.id
             }
         });
-        res.status(200).json({DataBarang: getOneData});
+        if(getOneData){
+            const [results, metadata] = await db.query("SELECT * FROM detail_transactions INNER JOIN transactions ON transactions.id = detail_transactions.id_transaction INNER JOIN barang ON barang.id = detail_transactions.id_barang WHERE detail_transactions.id_transaction ="+ req.params.id);
+            res.status(200).json({results});
+        }else{
+            res.status(404).json({error: "Anjas"})
+        }
     } catch (error) {
         res.status(404).json(error)
     }
@@ -89,44 +96,45 @@ export const createNotaTransaksi = async (req, res) => {
 
         file.mv(`./public/dataTF/${fileName}`, async(err)=>{
             if(err) return res.status(500).json({msg: err.message});
-            try {
-                const dataTransactions = await Transactions.create({
-                    total_semua: req.body.total,
-                    uang_bayar: req.body.dibayar,
-                    uang_kembali: req.body.kembali,
-                    nama_pembeli: req.body.pembeli,
-                    pembuat : req.body.pembuat,
-                    metode_pembayaran: req.body.metode_pembayaran,
-                    jenis_transaksi: req.body.jenis_transaksi,
-                    bukti_tf: fileName,
-                    url: url,
-                });
-        
-                await barang.map(element => {
-                    const sisaStock = element.stok_barang - element.banyak_barang;
-        
-                    Barang.update({
-                        stok_barang: sisaStock
-                    },{
-                        where:{
-                            id: element.id
-                        }
-                    });
-        
-                    detail_transactions.create({
-                        id_transaction: dataTransactions.id,
-                        id_barang: element.id,
-                        deskripsi_pembelian: element.deskripsi,
-                        banyak_barang: element.banyak_barang,
-                        total_harga_barang: element.total_harga,
-                    })
-                });
-                res.status(201).json({msg: "Transaksi Telah Dibuat."});
-            } catch (error) {
-                console.log(error);
-            }
         })
 
+    }
+    
+    try {
+        const dataTransactions = await Transactions.create({
+            total_semua: req.body.total,
+            uang_bayar: req.body.dibayar,
+            uang_kembali: req.body.kembali,
+            nama_pembeli: req.body.pembeli,
+            pembuat : req.body.pembuat,
+            metode_pembayaran: req.body.metode_pembayaran,
+            jenis_transaksi: req.body.jenis_transaksi,
+            bukti_tf: fileName,
+            url: url,
+        });
+
+        await barang.map(element => {
+            const sisaStock = element.stok_barang - element.banyak_barang;
+
+            Barang.update({
+                stok_barang: sisaStock
+            },{
+                where:{
+                    id: element.id
+                }
+            });
+
+            detail_transactions.create({
+                id_transaction: dataTransactions.id,
+                id_barang: element.id,
+                deskripsi_pembelian: element.deskripsi,
+                banyak_barang: element.banyak_barang,
+                total_harga_barang: element.total_harga,
+            })
+        });
+        res.status(201).json({msg: "Transaksi Telah Dibuat."});
+    } catch (error) {
+        console.log(error);
     }   
 
     
