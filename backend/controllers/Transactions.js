@@ -61,7 +61,7 @@ export const getOneTransaction = async (req,res) => {
         });
         if(getOneData){
             const [results, metadata] = await db.query("SELECT * FROM detail_transactions INNER JOIN transactions ON transactions.id = detail_transactions.id_transaction INNER JOIN barang ON barang.id = detail_transactions.id_barang WHERE detail_transactions.id_transaction ="+ req.params.id);
-            res.status(200).json({results});
+            res.status(200).json({dataBarang: results, dataTransactions: getOneData});
         }else{
             res.status(404).json({error: "Anjas"})
         }

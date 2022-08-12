@@ -31,7 +31,7 @@ const Nota = () => {
 
     const getDetail = async (id) => {
         const getDetailNota = await axios.get('http://localhost:5000/transactions/'+id);
-        setdetailNota(getDetailNota);
+        setdetailNota(getDetailNota.data);
         setModalDetail(true);
     }
 
