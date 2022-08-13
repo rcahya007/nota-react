@@ -148,12 +148,19 @@ export const deleteBarang = async (req,res) => {
     });
     if(getOne){
         const filepath = `./public/images/${getOne.foto_barang}`;
-        fs.unlinkSync(filepath);
-        await barang.destroy({
-            where:{
-                id: req.params.id
+        fs.unlinkSync(filepath, function(err){
+            if(err){
+                console.error(err);
+                console.log('File not found');  
+            }else{
+                barang.destroy({
+                    where:{
+                        id: req.params.id
+                    }
+                });
             }
         });
+
         res.status(200).json({msg: "Barang Berhasil Dihapus!"})
     }else{
         res.status(404).json({msg: "No Data Found!"})
