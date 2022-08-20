@@ -61,11 +61,11 @@ export const Login = async (req, res) => {
             });
         if(user){
             res.json({msg: "Data yang dimasukkan Betul", user: user})
-            }else{
-                res.status(404).json({msg: "Password Salah"})
-            }
+        }else{
+            res.status(404).json({msg: "Password Salah"})
+        }
     } catch (error) {
-        res.status(404).json({msg: "Nama Tidak Ada!"});
+        res.status(404).json({msg: "Error"});
     }
 
 

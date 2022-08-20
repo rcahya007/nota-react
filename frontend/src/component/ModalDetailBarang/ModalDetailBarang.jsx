@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 
 const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
@@ -8,6 +8,12 @@ const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
         closeModal(false);
         editBarang(true);
     }
+
+    useEffect(()=>{
+        return(
+            ()=>{}
+        )
+    },[])
 
 
     return (
@@ -65,7 +71,7 @@ const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="foto" className='font-bold'>Foto Barang : </label>
-                                <div>
+                                <div className='mt-2'>
                                     <img src={data.url} alt="Foto Barang" className='w-1/4'/>
                                 </div>
                             </div>

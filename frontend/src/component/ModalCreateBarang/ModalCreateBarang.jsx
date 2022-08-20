@@ -15,6 +15,10 @@ const ModalCreateBarang = ({closeModal }) => {
 
     useEffect(()=>{
         getData();
+
+        return (
+            ()=>{}
+        )
     },[])
 
     const loadImage = (e) => {

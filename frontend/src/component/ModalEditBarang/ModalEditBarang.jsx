@@ -23,7 +23,10 @@ const ModalEditBarang = ({closeModal, dataBarang}) => {
     }
 
     useEffect(()=>{
-        getData()
+        getData();
+        return(
+            ()=>{}
+        )
     },[])
 
     const getData = async () =>{
