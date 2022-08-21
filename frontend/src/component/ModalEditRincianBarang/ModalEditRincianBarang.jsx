@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 const ModalEditRincianBarang = ({closeModal, barang, setDataBarang, dataBarang}) => {
 
-    const [maxPesan, setMaxPesan] = useState(dataBarang.stok_barang)
+    const [maxPesan] = useState(dataBarang.stok_barang)
     const [deskripsi, setDeskripsi] = useState(dataBarang.deskripsi);
     const [banyak, setBanyak] = useState(dataBarang.banyak_barang);
     const [total, setTotal] = useState(0);
