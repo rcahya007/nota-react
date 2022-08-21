@@ -6,6 +6,7 @@ import { getAllBarang, getCategoryBarang, getOneBarang, saveBarang, updateBarang
 
 
 const router = express.Router();
+router.get('/', (req, res)=> res.send("Deploy Berhasil"))
 
 //Dashboard
 router.get('/users', getUsers);
