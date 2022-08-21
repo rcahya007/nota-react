@@ -88,7 +88,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
             console.log(JSON.parse(formData.get('barang')))
             console.log(formData.get('file'))
             try {
-                await axios.post("http://localhost:5000/simpanNota", formData, {
+                await axios.post("https://crud-react-firsttime.herokuapp.com/simpanNota", formData, {
                     headers:{
                         "Content-type": "multipart/form-data"
                     }
