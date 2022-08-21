@@ -59,7 +59,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
         if(barang.length===0){
             setTotalHarga(0);
         }        
-    },[barang])    
+    },[barang,dibayar])    
 
     const handleEdit = (id) => {
         const getBarang = barang.find(x => x.id === id);
@@ -168,7 +168,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
                                         <input type="file" onChange={loadImage} accept="image/*"/>
                                     </div>
                                     {
-                                        ErrorImg != '' ? (
+                                        ErrorImg !== '' ? (
                                             <div className='mt-1'>
                                                 <div className='text-red-500'>
                                                     {ErrorImg}

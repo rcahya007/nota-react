@@ -2,14 +2,7 @@ import React, { useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 
 const ModalDetailNota = ({closeModal, dataNota }) => {
-    const [data, setData] = useState(dataNota);
-
-    // const handleEdit = () => {
-    //     closeModal(false);
-    //     editBarang(true);
-    // }
-    console.log(data)
-
+    const [data] = useState(dataNota);
 
     return (
             <div className="bg-black bg-opacity-50 inset-0 overflow-y-scroll fixed ">
@@ -74,7 +67,7 @@ const ModalDetailNota = ({closeModal, dataNota }) => {
                             <div className="grid grid-cols-7 w-full border-y border-slate-200">
                                 <div className="col-span-6 text-right py-2 px-2 font-bold">Bukti Transfer :</div>
                                 <div className="col-span-1 text-left py-2 px-2">
-                                    <a href={data.dataTransactions.url} target="_blank" className="py-1 px-2 border border-yellow-400 rounded hover:bg-yellow-400 hover:text-black hover:duration-500">Foto Bukti Transfer</a>
+                                    <a href={data.dataTransactions.url} target="_blank" rel="noopener noreferrer" className="py-1 px-2 border border-yellow-400 rounded hover:bg-yellow-400 hover:text-black hover:duration-500">Foto Bukti Transfer</a>
                                 </div>
                             </div> : null
                         }

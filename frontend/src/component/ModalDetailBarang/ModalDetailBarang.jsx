@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { XCircleIcon } from "@heroicons/react/solid";
 
 const ModalDetailBarang = ({closeModal, dataBarang, editBarang}) => {
-    const [data, setData] = useState(dataBarang);
+    const [data] = useState(dataBarang);
 
     const handleEdit = () => {
         closeModal(false);
