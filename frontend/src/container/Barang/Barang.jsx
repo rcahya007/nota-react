@@ -30,19 +30,19 @@ const Barang = () => {
     },[tambahBarang,editBarang])
 
     const getDataBarang = async ()=>{
-        const respon = await axios.get('https://crud-react-firsttime.herokuapp.com/barang');
+        const respon = await axios.get('http://localhost:5000/barang');
         setAllBarang(respon.data.DataBarang)
     }
 
     const handleDetail = (id) => async () =>{
-        const getId = await axios.get('https://crud-react-firsttime.herokuapp.com/barang/'+id)
+        const getId = await axios.get('http://localhost:5000/barang/'+id)
         setDataBarang(getId.data.results[0])
         setDetailModal(true)
     }
 
     const handleDelete = (id) => async () =>{
         try {
-            await axios.delete('https://crud-react-firsttime.herokuapp.com/barang/'+id)
+            await axios.delete('http://localhost:5000/barang/'+id)
             getDataBarang();
         } catch (error) {
             console.log(error)

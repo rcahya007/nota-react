@@ -28,7 +28,7 @@ const ModalCreateBarang = ({closeModal }) => {
     }
     
     const getData = async () =>{
-        const respon = await axios.get('https://crud-react-firsttime.herokuapp.com/categoryBarang')
+        const respon = await axios.get('http://localhost:5000/categoryBarang')
         setCateBarang(respon.data.Category)
     }
 
@@ -42,7 +42,7 @@ const ModalCreateBarang = ({closeModal }) => {
         formData.append("deskripsi_barang", deskripsiBarang);
         formData.append("file", file);
         try {
-            await axios.post("https://crud-react-firsttime.herokuapp.com/barang", formData, {
+            await axios.post("http://localhost:5000/barang", formData, {
                 headers:{
                     "Content-type": "multipart/form-data"
                 }

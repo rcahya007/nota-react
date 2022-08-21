@@ -25,19 +25,19 @@ const Nota = () => {
     },[])
 
     const getAllTransactions = async () => {
-        const fetch = await axios.get('https://crud-react-firsttime.herokuapp.com/transactions');
+        const fetch = await axios.get('http://localhost:5000/transactions');
         setAllTransactions(fetch.data.DataBarang);
     }
 
     const getDetail = async (id) => {
-        const getDetailNota = await axios.get('https://crud-react-firsttime.herokuapp.com/transactions/'+id);
+        const getDetailNota = await axios.get('http://localhost:5000/transactions/'+id);
         setdetailNota(getDetailNota.data);
         setModalDetail(true);
     }
 
     const getDelete = async (id) => {
         try {
-            await axios.delete('https://crud-react-firsttime.herokuapp.com/transactions/'+id)
+            await axios.delete('http://localhost:5000/transactions/'+id)
             getAllTransactions();
         } catch (error) {
             console.log(error)
