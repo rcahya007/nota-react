@@ -5,6 +5,7 @@ import fileUpload from "express-fileupload";
 import db from "./config/Database.js";
 
 const app = express();
+const port = process.env.PORT || 5000;
 
 app.use(cors())
 app.use(express.json());
@@ -24,4 +25,4 @@ try {
     console.error(error);
 }
 
-app.listen(5000, ()=>console.log('Server running at port 5000'))
+app.listen(port, ()=>console.log('Server running at port 5000'))
