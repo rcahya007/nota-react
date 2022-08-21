@@ -28,7 +28,7 @@ const Dashboard = () => {
         }
         getData();
     },[])
-    // console.log(dataPemasukan)
+    console.log(dataPemasukan)
 
     return(
         <div>

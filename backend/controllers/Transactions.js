@@ -3,18 +3,18 @@ import Transactions from "../models/TransactionModel.js";
 import Barang from "../models/Barang.js";
 import path from "path";
 import db from "../config/Database.js";
-
+import fs from "fs";
 
 export const getAllTransactionsDashboard = async (req,res) => {
     try {
         const dataJumlahIn = await Transactions.sum('total_semua', {
             where: {
-                jenis_transaksi: 'Pemasukan'
+                jenis_transaksi: 'Pemasukkan'
             }
         });
         const dataCountIn = await Transactions.count({
             where: {
-                jenis_transaksi: 'Pemasukan'
+                jenis_transaksi: 'Pemasukkan'
             }
         });
         const dataJumlahOut = await Transactions.sum('total_semua', {
@@ -138,4 +138,33 @@ export const createNotaTransaksi = async (req, res) => {
     }   
 
     
+}
+
+export const deleteNotaTransaksi = async (req, res) => {
+    const getOne = await Transactions.findOne({
+        where: {
+            id: req.params.id,
+        }
+    });
+    if(getOne){
+        if(getOne.metode_pembayaran === 'Transfer'){
+            const filePath = `./public/dataTF/${getOne.bukti_tf}`;
+            fs.unlinkSync(filePath);
+            Transactions.destroy({
+                where:{
+                    id: req.params.id
+                }
+            });
+            res.status(200).json({msg: "Barang Berhasil Dihapus!"})
+        }
+        if(getOne.metode_pembayaran === 'Cash'){
+            Transactions.destroy({
+                where:{
+                    id: req.params.id
+                }
+            });
+        }
+    }else{
+        res.status(404).json({msg: "No Data Found!"})
+    }
 }

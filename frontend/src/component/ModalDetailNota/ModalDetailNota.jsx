@@ -34,7 +34,7 @@ const ModalDetailNota = ({closeModal, dataNota }) => {
                             data.dataBarang.map((hasil,index)=>(
                                 <div className="grid grid-cols-7 w-full border-b border-slate-200 space-b" key={index}>
                                     <div className="col-span-2 text-left py-2 px-2">{hasil.nama_barang}</div>
-                                    <div className="col-span-2 text-left py-2 px-2">{hasil.deskripsi_barang}</div>
+                                    <div className="col-span-2 text-left py-2 px-2">{hasil.deskripsi_pembelian}</div>
                                     <div className="col-span-1 text-center py-2 px-2">{hasil.banyak_barang}</div>
                                     <div className="col-span-1 text-left py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(hasil.harga_barang)}</div>
                                     <div className="col-span-1 text-left py-2 px-2">{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(hasil.total_harga_barang)} </div>

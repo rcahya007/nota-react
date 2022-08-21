@@ -35,6 +35,15 @@ const Nota = () => {
         setModalDetail(true);
     }
 
+    const getDelete = async (id) => {
+        try {
+            await axios.delete('http://localhost:5000/transactions/'+id)
+            getAllTransactions();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div>
             <Navigation/>
@@ -65,8 +74,10 @@ const Nota = () => {
                                         <td className='border-b-2 text-left'>{new Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(hasil.total_semua)}</td>
                                         <td className='border-b-2 text-center'>{new Date(hasil.updatedAt).toLocaleString('id-ID',{weekday: 'long', day: 'numeric',month: '2-digit', year:'2-digit', hour: '2-digit', minute: '2-digit' }).replace(".",":")}</td>
                                         <td className='border-b-2 text-center'>
-                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1'  onClick={()=> getDetail(hasil.id)}>Detail</button> | 
-                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' >Delete</button>
+                                            <button className='p-2 text-black border border-black rounded hover:bg-slate-600 hover:text-white hover:duration-300 my-2 mr-1'  
+                                            onClick={()=> getDetail(hasil.id)}>Detail</button> | 
+                                            <button className='p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300' 
+                                            onClick={()=> getDelete(hasil.id)} >Delete</button>
                                         </td>
                                     </tr>
                                 ))
