@@ -1,9 +1,9 @@
-import users from "../models/UserModel.js"
+import users from "../models/UserModel.js";
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await users.findAll();
-        res.json(users);
+        const getone = await users.findAll();
+        res.json(getone);
     } catch (error) {
         console.log(error);
     }
