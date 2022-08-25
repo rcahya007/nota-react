@@ -88,7 +88,7 @@ const FormRincianBarang = ({barang, setDataBarang}) => {
             console.log(JSON.parse(formData.get('barang')))
             console.log(formData.get('file'))
             try {
-                await axios.post("http://localhost:5000/simpanNota", formData, {
+                await axios.post("http://benotareact.rendycahyae.my.id/simpanNota", formData, {
                     headers:{
                         "Content-type": "multipart/form-data"
                     }

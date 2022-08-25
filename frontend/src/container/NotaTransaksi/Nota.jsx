@@ -25,19 +25,19 @@ const Nota = () => {
     },[])
 
     const getAllTransactions = async () => {
-        const fetch = await axios.get('http://localhost:5000/transactions');
+        const fetch = await axios.get('http://benotareact.rendycahyae.my.id/transactions');
         setAllTransactions(fetch.data.DataBarang);
     }
 
     const getDetail = async (id) => {
-        const getDetailNota = await axios.get('http://localhost:5000/transactions/'+id);
+        const getDetailNota = await axios.get('http://benotareact.rendycahyae.my.id/transactions/'+id);
         setdetailNota(getDetailNota.data);
         setModalDetail(true);
     }
 
     const getDelete = async (id) => {
         try {
-            await axios.delete('http://localhost:5000/transactions/'+id)
+            await axios.delete('http://benotareact.rendycahyae.my.id/transactions/'+id)
             getAllTransactions();
         } catch (error) {
             console.log(error)

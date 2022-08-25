@@ -30,19 +30,19 @@ const Barang = () => {
     },[tambahBarang,editBarang])
 
     const getDataBarang = async ()=>{
-        const respon = await axios.get('http://localhost:5000/barang');
+        const respon = await axios.get('http://benotareact.rendycahyae.my.id/barang');
         setAllBarang(respon.data.DataBarang)
     }
 
     const handleDetail = (id) => async () =>{
-        const getId = await axios.get('http://localhost:5000/barang/'+id)
+        const getId = await axios.get('http://benotareact.rendycahyae.my.id/barang/'+id)
         setDataBarang(getId.data.results[0])
         setDetailModal(true)
     }
 
     const handleDelete = (id) => async () =>{
         try {
-            await axios.delete('http://localhost:5000/barang/'+id)
+            await axios.delete('http://benotareact.rendycahyae.my.id/barang/'+id)
             getDataBarang();
         } catch (error) {
             console.log(error)

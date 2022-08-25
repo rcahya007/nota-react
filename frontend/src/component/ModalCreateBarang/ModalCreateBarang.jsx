@@ -13,6 +13,8 @@ const ModalCreateBarang = ({closeModal }) => {
     const [preview, setPreview] = useState("");
     const [NoImage, setNoImage] = useState("");
 
+    console.log(file)
+
     useEffect(()=>{
         getData();
 
@@ -28,7 +30,7 @@ const ModalCreateBarang = ({closeModal }) => {
     }
     
     const getData = async () =>{
-        const respon = await axios.get('http://localhost:5000/categoryBarang')
+        const respon = await axios.get('http://benotareact.rendycahyae.my.id/categoryBarang')
         setCateBarang(respon.data.Category)
     }
 
@@ -42,7 +44,7 @@ const ModalCreateBarang = ({closeModal }) => {
         formData.append("deskripsi_barang", deskripsiBarang);
         formData.append("file", file);
         try {
-            await axios.post("http://localhost:5000/barang", formData, {
+            await axios.post("http://benotareact.rendycahyae.my.id/barang", formData, {
                 headers:{
                     "Content-type": "multipart/form-data"
                 }
@@ -107,7 +109,7 @@ const ModalCreateBarang = ({closeModal }) => {
                         <div className='mt-3 mx-4'>
                             <div className='mx-5 mt-2 mb-4'>
                                 <label htmlFor="foto" className=''>Foto Barang : </label>
-                                <input id='foto' type="file" accept="image/*" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' onChange={loadImage} />
+                                <input id='foto' type="file" accept="image/*" name="file" className='mt-2 block border-2 border-slate-400 w-full rounded p-2' onChange={loadImage} />
                             </div>
                         </div>
                         {

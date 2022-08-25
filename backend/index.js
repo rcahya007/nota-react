@@ -6,6 +6,8 @@ const fileUpload = require("express-fileupload");
 const app = express();
 app.use(cors())
 app.use(express.json());
+app.use(fileUpload());
+app.use(express.static("public"));
 
 const db = require("./models");
 
@@ -26,8 +28,6 @@ require("./routes/barang.routes")(app);
 require("./routes/transaction.routes")(app);
 require("./routes/user.routes")(app);
 
-app.use(fileUpload());
-app.use(express.static("public"));
 
 const port = process.env.PORT || 8080;
 

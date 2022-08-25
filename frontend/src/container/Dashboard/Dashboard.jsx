@@ -23,7 +23,7 @@ const Dashboard = () => {
 
     useEffect(()=>{
         const getData = async () =>{
-            const respon = await axios.get('http://localhost:5000/dataPemasukan')
+            const respon = await axios.get('http://benotareact.rendycahyae.my.id/dataPemasukan')
             setDataPemasukan(respon.data)
         }
         getData();

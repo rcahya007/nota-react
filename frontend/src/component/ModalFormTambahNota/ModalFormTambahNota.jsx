@@ -54,7 +54,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
     }
 
     const getId = async (id) => {
-        const getDataById = await axios.post(`http://localhost:5000/barang/selectId/`+id);
+        const getDataById = await axios.post(`http://benotareact.rendycahyae.my.id/barang/selectId/`+id);
         setDataDipilih([getDataById.data.getOne]);
         namaBarang.current.value = getDataById.data.getOne.nama_barang
         hargaBarang.current.value = getDataById.data.getOne.harga_barang
@@ -82,7 +82,7 @@ const ModalFormTambahNota = ({closeModal,setDataBarang}) => {
         if(nama_barang === ''){
             setHasilAmbilData([])
         }else{
-            const fetch = await axios.post('http://localhost:5000/getBarangFormTambah',{nama_barang: nama_barang});
+            const fetch = await axios.post('http://benotareact.rendycahyae.my.id/getBarangFormTambah',{nama_barang: nama_barang});
             // console.log(fetch.data.result.length);
             if(fetch.data.result.length > 0){
                 setHasilAmbilData(fetch.data.result)
