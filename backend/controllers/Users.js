@@ -1,21 +1,22 @@
-import users from "../models/UserModel.js";
+const db = require("../models");
+const User = db.user;
 
-export const getUsers = async (req, res) => {
+exports.getUsers = async (req, res) => {
     try {
-        const getone = await users.findAll();
+        const getone = await User.findAll();
         res.json(getone);
     } catch (error) {
         console.log(error);
     }
 }
 
-export const Register = async (req, res) => {
+exports.Register = async (req, res) => {
     const {name, email, password, confPassword} = req.body;
     if(password !== confPassword) return res.status(400).json({
         msg: "Password dan Confirm Password tidak cocok!"
     });
     try {
-        await users.create({
+        await User.create({
             name: name,
             email: email,
             password: password,
@@ -26,7 +27,7 @@ export const Register = async (req, res) => {
     }
 }
 
-export const Login = async (req, res) => {
+exports.Login = async (req, res) => {
     //Digunakan Ketika Mencari semua
     // try {
     //     const user = await Users.findAll({
@@ -53,7 +54,7 @@ export const Login = async (req, res) => {
     // res.status(400).json({user})
 
     try {
-        const user = await users.findOne({
+        const user = await User.findOne({
                 where:{
                     name: req.body.name,
                     password: req.body.password
@@ -84,8 +85,8 @@ export const Login = async (req, res) => {
     
 }
 
-export const Logout = async (req, res) => {
-    const user = await users.findOne({
+exports.Logout = async (req, res) => {
+    const user = await User.findOne({
         where:{
             nama: req.body.name,
             password: req.body.password

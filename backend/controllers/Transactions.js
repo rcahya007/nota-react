@@ -1,11 +1,11 @@
-import detail_transactions from "../models/DetailTransaction.js";
-import Transactions from "../models/TransactionModel.js";
-import Barang from "../models/Barang.js";
-import path from "path";
-import db from "../config/Database.js";
-import fs from "fs";
+const db = require("../models");
+const Transactions = db.transaction;
+const detail_transactions = db.detailTransaction;
+const Barang = db.barang;
+const path = require("path");
+const fs = require("fs");
 
-export const getAllTransactionsDashboard = async (req,res) => {
+exports.getAllTransactionsDashboard = async (req,res) => {
     try {
         const dataJumlahIn = await Transactions.sum('total_semua', {
             where: {
@@ -39,7 +39,7 @@ export const getAllTransactionsDashboard = async (req,res) => {
     }
 }
 
-export const getAllTransactions = async (req,res) => {
+exports.getAllTransactions = async (req,res) => {
     try {
         const getAllData = await Transactions.findAll({
             order: [
@@ -52,7 +52,7 @@ export const getAllTransactions = async (req,res) => {
     }
 }
 
-export const getOneTransaction = async (req,res) => {
+exports.getOneTransaction = async (req,res) => {
     try {
         const getOneData = await Transactions.findOne({
             where: {
@@ -60,7 +60,7 @@ export const getOneTransaction = async (req,res) => {
             }
         });
         if(getOneData){
-            const [results, metadata] = await db.query("SELECT * FROM detail_transactions INNER JOIN transactions ON transactions.id = detail_transactions.id_transaction INNER JOIN barang ON barang.id = detail_transactions.id_barang WHERE detail_transactions.id_transaction ="+ req.params.id);
+            const [results, metadata] = await db.sequelize.query("SELECT * FROM detail_transactions INNER JOIN transactions ON transactions.id = detail_transactions.id_transaction INNER JOIN barang ON barang.id = detail_transactions.id_barang WHERE detail_transactions.id_transaction ="+ req.params.id);
             res.status(200).json({dataBarang: results, dataTransactions: getOneData});
         }else{
             res.status(404).json({error: "Anjas"})
@@ -70,7 +70,7 @@ export const getOneTransaction = async (req,res) => {
     }
 }
 
-export const createNotaTransaksi = async (req, res) => {
+exports.createNotaTransaksi = async (req, res) => {
     let fileName = '';
     let url = '';
     const barang = JSON.parse(req.body.barang);
@@ -140,7 +140,7 @@ export const createNotaTransaksi = async (req, res) => {
     
 }
 
-export const deleteNotaTransaksi = async (req, res) => {
+exports.deleteNotaTransaksi = async (req, res) => {
     const getOne = await Transactions.findOne({
         where: {
             id: req.params.id,

@@ -1,19 +1,16 @@
-import { DataTypes } from "sequelize";
-import db from "../config/Database.js";
-import Barang from "./Barang.js";
-
-const category_barang = db.define('category_barang',{
-    id_category:{
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    category: {
-        type: DataTypes.STRING
-    }
-},{
-    freezeTableName: true,
-    timestamps: false,
-});
-
-export default category_barang;
+module.exports = (sequelize,Sequelize) => {
+    const CategoryBarang = sequelize.define('category_barang',{
+        id_category:{
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        category: {
+            type: Sequelize.STRING
+        }
+    },{
+        freezeTableName: true,
+        timestamps: false,
+    });
+    return CategoryBarang;
+}

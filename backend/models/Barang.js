@@ -1,45 +1,43 @@
-import { DataTypes } from "sequelize";
-import db from "../config/Database.js";
-
-const barang = db.define('barang',{
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    nama_barang:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    harga_barang:{
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    id_category_barang:{
-        type: DataTypes.INTEGER,
-        references:{
-            model: 'category_barang',
-            key: 'id_category'
+module.exports = (sequelize,Sequelize) => {
+    const Barang = sequelize.define('barang',{
+        id:{
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
         },
-    },
-    stok_barang:{
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    deskripsi_barang:{
-        type: DataTypes.TEXT,
-        allowNull: true,
-    },
-    foto_barang:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    url:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    }
-},{
-    freezeTableName: true,
-});
-
-export default barang;
+        nama_barang:{
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        harga_barang:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        id_category_barang:{
+            type: Sequelize.INTEGER,
+            references:{
+                model: 'category_barang',
+                key: 'id_category'
+            },
+        },
+        stok_barang:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        deskripsi_barang:{
+            type: Sequelize.TEXT,
+            allowNull: true,
+        },
+        foto_barang:{
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        url:{
+            type: Sequelize.STRING,
+            allowNull: true,
+        }
+    },{
+        freezeTableName: true,
+    });
+    return Barang;
+}

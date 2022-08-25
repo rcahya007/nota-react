@@ -1,40 +1,40 @@
-import { DataTypes } from "sequelize";
-import db from "../config/Database.js";
-
-const detail_transactions = db.define('detail_transactions',{
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    id_transaction: {
-        type: DataTypes.INTEGER,
-        references:{
-            model: 'transactions',
-            key: 'id'
+module.exports = (sequelize,Sequelize) => {
+    const DetailTransaction = sequelize.define('detail_transactions',{
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
         },
-    },
-    id_barang: {
-        type: DataTypes.INTEGER,
-        references:{
-            model: 'barang',
-            key: 'id'
+        id_transaction: {
+            type: Sequelize.INTEGER,
+            references:{
+                model: 'transactions',
+                key: 'id'
+            },
         },
-    },
-    deskripsi_pembelian: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    banyak_barang: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    total_harga_barang: {
-        type: DataTypes.FLOAT,
-        allowNull: true,
-    },
-},{
-    freezeTableName: true,
-}); 
+        id_barang: {
+            type: Sequelize.INTEGER,
+            references:{
+                model: 'barang',
+                key: 'id'
+            },
+        },
+        deskripsi_pembelian: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        banyak_barang: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        total_harga_barang: {
+            type: Sequelize.FLOAT,
+            allowNull: true,
+        },
+    },{
+        freezeTableName: true,
+    }); 
+    return DetailTransaction;
+}
 
-export default detail_transactions;
+

@@ -1,11 +1,11 @@
-import db from "../config/Database.js";
-import barang from "../models/Barang.js";
-import category_barang from "../models/CategoryBarang.js";
-import path from "path";
-import fs from "fs";
-import { Op } from "sequelize";
+const db = require("../models");
+const barang = db.barang;
+const category_barang = db.categoryBarang;
+const path = require('node:path');
+const fs = require('fs'); 
+const Op = db.Sequelize.Op;
 
-export const getAllBarang = async (req,res ) =>{
+exports.getAllBarang = async (req,res ) =>{
     try {
         const getAllData = await barang.findAll({
             order: [
@@ -18,7 +18,7 @@ export const getAllBarang = async (req,res ) =>{
     }
 }
 
-export const getOneBarangSelect = async (req,res) => {
+exports.getOneBarangSelect = async (req,res) => {
     try {
         const getOne = await barang.findOne({
             where: {
@@ -31,7 +31,7 @@ export const getOneBarangSelect = async (req,res) => {
     }
 }
 
-export const getOneBarang = async (req, res) =>{   
+exports.getOneBarang = async (req, res) =>{   
     try {
         const getOne = await barang.findOne({
             where: {
@@ -39,7 +39,7 @@ export const getOneBarang = async (req, res) =>{
             }
         });
         if(getOne){
-            const [results, metadata] = await db.query("SELECT * FROM barang INNER JOIN category_barang ON category_barang.id_category = barang.id_category_barang WHERE barang.id ="+ req.params.id);
+            const [results, metadata] = await db.sequelize.query("SELECT * FROM barang INNER JOIN category_barang ON category_barang.id_category = barang.id_category_barang WHERE barang.id ="+ req.params.id);
             res.status(200).json({results});
         }else{
             res.status(404).json({msg: "Data Tidak Ada!"})
@@ -49,7 +49,7 @@ export const getOneBarang = async (req, res) =>{
     }
 }
 
-export const saveBarang = async (req,res) => {
+exports.saveBarang = async (req,res) => {
     if(req.files === null) return res.status(400).json({msg: "Gambar tidak boleh kosong"});
     const today = new Date();
     const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -87,7 +87,7 @@ export const saveBarang = async (req,res) => {
 
 }
 
-export const updateBarang = async (req,res) => {
+exports.updateBarang = async (req,res) => {
     const getOne = await barang.findOne({
         where: {
             id: req.params.id,
@@ -140,7 +140,7 @@ export const updateBarang = async (req,res) => {
 
 }
 
-export const deleteBarang = async (req,res) => {
+exports.deleteBarang = async (req,res) => {
     const getOne = await barang.findOne({
         where: {
             id: req.params.id,
@@ -167,7 +167,7 @@ export const deleteBarang = async (req,res) => {
     }    
 }
 
-export const getCategoryBarang = async (req,res) =>{
+exports.getCategoryBarang = async (req,res) =>{
     try {
         const getCategory = await category_barang.findAll();
         res.status(200).json({Category: getCategory});
@@ -176,7 +176,7 @@ export const getCategoryBarang = async (req,res) =>{
     }
 }
 
-export const getBarangForTambahBarang = async (req,res) => {
+exports.getBarangForTambahBarang = async (req,res) => {
     try {
         const get = await barang.findAll({
             where: {
