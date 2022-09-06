@@ -27,7 +27,6 @@ const Dashboard = () => {
     };
     getData();
   }, []);
-  console.log(dataPemasukan);
 
   return (
     <div>
@@ -41,11 +40,11 @@ const Dashboard = () => {
           <div className="float-right flex">
             <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2">
               <SearchIcon className="w-6 h-6 mr-2" />
-              Cari
+              Tanggal Awal
             </button>
             <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2">
               <SearchIcon className="w-6 h-6 mr-2" />
-              Cari
+              Tanggal Akhir
             </button>
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle "
@@ -102,7 +101,8 @@ const Dashboard = () => {
                       }).format(dataPemasukan.hasilJumlahIn)}
                     </p>
                     <h3 className="pt-3">
-                      Dari {dataPemasukan.hasilBanyakIn} Transaksi Pemasukan
+                      Dari <b>{dataPemasukan.hasilBanyakIn}</b> Transaksi
+                      Pemasukan
                     </h3>
                   </div>
                 </div>
@@ -118,7 +118,8 @@ const Dashboard = () => {
                       }).format(dataPemasukan.hasilJumlahOut)}
                     </p>
                     <h3 className="pt-3">
-                      Dari {dataPemasukan.hasilBanyakOut} Transaksi Pemasukan
+                      Dari <b>{dataPemasukan.hasilBanyakOut}</b> Transaksi
+                      Pengeluaran
                     </h3>
                   </div>
                 </div>
