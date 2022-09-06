@@ -1,33 +1,32 @@
-const express = require("express")
-const cors = require("cors")
+const express = require("express");
+const cors = require("cors");
 const fileUpload = require("express-fileupload");
 // import db from "./config/Database.js";
 
 const app = express();
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
 app.use(express.static("public"));
 
 const db = require("./models");
 
-db.sequelize.sync()
-    .then(()=>{
-        console.log("Synced db.");
-    })
-    .catch((err)=>{
-        console.log("Failed to sync db: " + err.message);
-    });
+db.sequelize
+  .sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to test Crud React Express First Time" });
+  res.json({ message: "Welcome to test Crud React Express First Time" });
 });
-
 
 require("./routes/barang.routes")(app);
 require("./routes/transaction.routes")(app);
 require("./routes/user.routes")(app);
-
 
 const port = process.env.PORT || 8080;
 
@@ -40,6 +39,6 @@ const port = process.env.PORT || 8080;
 //     console.error(error);
 // }
 
-app.listen(port, ()=> {
-    console.log('Server running at port 8080')
+app.listen(port, () => {
+  console.log("Server running at port 8080");
 });
