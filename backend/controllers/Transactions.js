@@ -231,9 +231,9 @@ exports.filterDashboard = async (req, res) => {
   });
 
   res.status(200).json({
-    sumPemasukan: sumDataPemasukan,
-    countPemasukan: countDataPemasukan,
-    sumPengeluaran: sumDataPengeluaran,
-    countPengeluaran: countDataPengeluaran,
+    hasilJumlahIn: sumDataPemasukan,
+    hasilBanyakIn: countDataPemasukan,
+    hasilJumlahOut: sumDataPengeluaran,
+    hasilBanyakOut: countDataPengeluaran,
   });
 };

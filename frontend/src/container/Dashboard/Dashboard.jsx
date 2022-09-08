@@ -13,7 +13,10 @@ const Dashboard = () => {
   // console.log(state);
   const [openModal, setOpenModal] = useState(false);
   const [dataPemasukan, setDataPemasukan] = useState("");
+  const [tglAwal, setTglAwal] = useState("");
+  const [tglAkhir, setTglAkhir] = useState("");
 
+  console.log(dataPemasukan)
   useEffect(() => {
     if (state.user == null) {
       navigate("/");
@@ -39,12 +42,10 @@ const Dashboard = () => {
           </h1>
           <div className="float-right flex">
             <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2">
-              <SearchIcon className="w-6 h-6 mr-2" />
-              Tanggal Awal
+              Tanggal Awal : {tglAwal === "" ? "-" : tglAwal}
             </button>
             <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2">
-              <SearchIcon className="w-6 h-6 mr-2" />
-              Tanggal Akhir
+              Tanggal Awal : {tglAkhir === "" ? "-" : tglAkhir}
             </button>
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle "
@@ -128,8 +129,8 @@ const Dashboard = () => {
           )}
         </div>
       </section>
-      {openModal && <ModalFilter closeModal={setOpenModal} />}
-    </div>
+      {openModal && <ModalFilter closeModal={setOpenModal} setDataPemasukan={setDataPemasukan} dataPemasukan={dataPemasukan} />}
+    </div> 
   );
 };
 

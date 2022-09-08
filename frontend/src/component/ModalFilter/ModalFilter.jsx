@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { XCircleIcon, CalendarIcon } from "@heroicons/react/solid";
+import { XCircleIcon } from "@heroicons/react/solid";
 import axios from "axios";
 
-const ModalFilter = ({ closeModal }) => {
+const ModalFilter = ({ closeModal, setDataPemasukan, dataPemasukan }) => {
   const [tglAwal, setTglAwal] = useState("");
   const [tglAkhir, setTglAkhir] = useState("");
 
@@ -11,8 +11,18 @@ const ModalFilter = ({ closeModal }) => {
   }, []);
 
   const handleCari = async (e) => {
-    const fetch = await axios.ge;
-
+    e.preventDefault();
+    const fetch = await axios.post("http://localhost:8080/filterDashboard", {
+      tglAwal: tglAwal,
+      tglAkhir: tglAkhir,
+    });
+    setDataPemasukan({
+      ...dataPemasukan,
+      hasilJumlahIn: fetch.data.hasilJumlahIn,
+      hasilBanyakIn: fetch.data.hasilBanyakIn,
+      hasilJumlahOut: fetch.data.hasilJumlahOut,
+      hasilBanyakOut: fetch.data.hasilBanyakOut,
+    });
     closeModal(false);
   };
 
@@ -48,11 +58,9 @@ const ModalFilter = ({ closeModal }) => {
                 type="date"
                 name="tanggalAwal"
                 id="tanggalAwal"
+                value={tglAwal}
                 onChange={(e) => setTglAwal(e.target.value)}
               />
-              <label htmlFor="tanggalAwal">
-                <CalendarIcon className="h-8 w-8 pr-1 bg-white rounded-r-lg" />
-              </label>
             </div>
           </div>
           <div className="p-3 ">
@@ -67,11 +75,9 @@ const ModalFilter = ({ closeModal }) => {
                 type="date"
                 name="tanggalAkhir"
                 id="tanggalAkhir"
+                value={tglAkhir}
                 onChange={(e) => setTglAkhir(e.target.value)}
               />
-              <label htmlFor="tanggalAkhir">
-                <CalendarIcon className="h-8 w-8 pr-1 bg-white rounded-r-lg" />
-              </label>
             </div>
           </div>
         </div>
