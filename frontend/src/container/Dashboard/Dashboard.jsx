@@ -1,11 +1,13 @@
 import { SearchIcon } from "@heroicons/react/solid";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Home/Home";
 import ModalFilter from "../../component/ModalFilter/ModalFilter";
 import Navigation from "../../component/Navigation/Navigation";
 import axios from "axios";
+
+export const dashboardContext = createContext();
 
 const Dashboard = () => {
   const { state } = useContext(AuthContext);
@@ -16,7 +18,7 @@ const Dashboard = () => {
   const [tglAwal, setTglAwal] = useState("");
   const [tglAkhir, setTglAkhir] = useState("");
 
-  console.log(dataPemasukan)
+  console.log(dataPemasukan);
   useEffect(() => {
     if (state.user == null) {
       navigate("/");
@@ -129,8 +131,20 @@ const Dashboard = () => {
           )}
         </div>
       </section>
-      {openModal && <ModalFilter closeModal={setOpenModal} setDataPemasukan={setDataPemasukan} dataPemasukan={dataPemasukan} />}
-    </div> 
+      <dashboardContext.Provider
+        value={{
+          setOpenModal,
+          setDataPemasukan,
+          dataPemasukan,
+          tglAwal,
+          tglAkhir,
+          setTglAwal,
+          setTglAkhir,
+        }}
+      >
+        {openModal && <ModalFilter />}
+      </dashboardContext.Provider>
+    </div>
   );
 };
 

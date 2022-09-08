@@ -5,6 +5,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import Barang from "../Barang/Barang";
 import Nota from "../NotaTransaksi/Nota";
 import FormNota from "../NotaTransaksi/FormNota";
+import CategoryBarang from "../CategoryBarang/CategoryBarang";
 
 export const AuthContext = createContext();
 const dataLocal = JSON.parse(localStorage.getItem("user"));
@@ -42,6 +43,7 @@ const Home = () => {
           <Route path="/" element={<LoginForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/barang" element={<Barang />} />
+          <Route path="/categorybarang" element={<CategoryBarang />} />
           <Route path="/nota" element={<Nota />} />
           <Route path="/transaction/tambah" element={<FormNota />} />
         </Routes>

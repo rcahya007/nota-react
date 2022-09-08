@@ -59,13 +59,13 @@ const Barang = () => {
             SEMUA BARANG
           </h1>
           <div className="float-right mb-5 flex">
-            <button
+            {/* <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center"
               onClick={() => setTambahBarang(true)}
             >
               <PlusIcon className="w-6 h-6 mr-2" />
               Tambah Category Barang
-            </button>
+            </button> */}
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center"
               onClick={() => setTambahBarang(true)}

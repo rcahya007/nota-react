@@ -178,7 +178,7 @@ exports.deleteBarang = async (req, res) => {
 exports.getCategoryBarang = async (req, res) => {
   try {
     const getCategory = await category_barang.findAll();
-    res.status(200).json({ Category: getCategory });
+    res.status(200).json({ category: getCategory });
   } catch (error) {
     res.status(404).json(error);
   }
@@ -196,5 +196,37 @@ exports.getBarangForTambahBarang = async (req, res) => {
     res.status(200).json({ result: get });
   } catch (error) {
     res.status(404).json(error);
+  }
+};
+
+exports.createCategoryBarang = async (req, res) => {
+  if (req.body.category_barang === "")
+    return res.status(404).json({ msg: "Nama Category Kosong" });
+
+  try {
+    const createCategoryBarang = await category_barang.create({
+      category: req.body.category_barang,
+    });
+    res.status(200).json({ msg: "Category Barang Baru Berhasil dibuat." });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+exports.deleteCategoryBarang = async (req, res) => {
+  const getCategory = await category_barang.findOne({
+    where: {
+      id_category: req.params.id,
+    },
+  });
+  if (getCategory) {
+    category_barang.destroy({
+      where: {
+        id_category: req.params.id,
+      },
+    });
+    res.status(200).json({ msg: "Category Barang Berhasil Dihapus!" });
+  } else {
+    res.status(404).json({ msg: "No Data Found!" });
   }
 };

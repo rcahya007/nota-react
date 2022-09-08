@@ -176,6 +176,7 @@ exports.deleteNotaTransaksi = async (req, res) => {
         },
       });
     }
+    res.status(200).json({ msg: "Barang Berhasil Dihapus!" });
   } else {
     res.status(404).json({ msg: "No Data Found!" });
   }

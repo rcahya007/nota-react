@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { XCircleIcon } from "@heroicons/react/solid";
 import axios from "axios";
+import { dashboardContext } from "../../container/Dashboard/Dashboard";
 
-const ModalFilter = ({ closeModal, setDataPemasukan, dataPemasukan }) => {
-  const [tglAwal, setTglAwal] = useState("");
-  const [tglAkhir, setTglAkhir] = useState("");
+const ModalFilter = () => {
+  const {
+    setOpenModal,
+    setDataPemasukan,
+    dataPemasukan,
+    tglAwal,
+    tglAkhir,
+    setTglAwal,
+    setTglAkhir,
+  } = useContext(dashboardContext);
 
   useEffect(() => {
     return () => {};
@@ -16,14 +24,19 @@ const ModalFilter = ({ closeModal, setDataPemasukan, dataPemasukan }) => {
       tglAwal: tglAwal,
       tglAkhir: tglAkhir,
     });
-    setDataPemasukan({
-      ...dataPemasukan,
-      hasilJumlahIn: fetch.data.hasilJumlahIn,
-      hasilBanyakIn: fetch.data.hasilBanyakIn,
-      hasilJumlahOut: fetch.data.hasilJumlahOut,
-      hasilBanyakOut: fetch.data.hasilBanyakOut,
-    });
-    closeModal(false);
+    if (tglAkhir && tglAwal !== "") {
+      setDataPemasukan({
+        ...dataPemasukan,
+        hasilJumlahIn: fetch.data.hasilJumlahIn,
+        hasilBanyakIn: fetch.data.hasilBanyakIn,
+        hasilJumlahOut: fetch.data.hasilJumlahOut,
+        hasilBanyakOut: fetch.data.hasilBanyakOut,
+      });
+    } else {
+      const respon = await axios.get("http://localhost:8080/dataPemasukan");
+      setDataPemasukan(respon.data);
+    }
+    setOpenModal(false);
   };
 
   return (
@@ -37,7 +50,7 @@ const ModalFilter = ({ closeModal, setDataPemasukan, dataPemasukan }) => {
             <p className="text-3xl">Pencarian Data Nota</p>
             <button
               onClick={() => {
-                closeModal(false);
+                setOpenModal(false);
               }}
             >
               <XCircleIcon className="h-10 w-10" />
@@ -92,7 +105,7 @@ const ModalFilter = ({ closeModal, setDataPemasukan, dataPemasukan }) => {
             <button
               className="border border-black py-2 px-3 hover:bg-gray-500 hover:duration-300 hover:text-white rounded-lg"
               onClick={() => {
-                closeModal(false);
+                setOpenModal(false);
               }}
             >
               Close

@@ -2,23 +2,8 @@ import React, { useEffect, useState } from "react";
 import { XCircleIcon } from "@heroicons/react/solid";
 import axios from "axios";
 
-const ModalCreateBarang = ({ closeModal }) => {
-  const [cateBarang, setCateBarang] = useState([]);
-  const [namaBarang, setNamaBarang] = useState("");
-  const [hargaBarang, setHargaBarang] = useState("");
-  const [stockBarang, setStockBarang] = useState("");
-  const [deskripsiBarang, setDeskripsiBarang] = useState("");
-  const [selectedOption, setSelectedOption] = useState(1);
-  const [file, setFile] = useState("");
-  const [preview, setPreview] = useState("");
-  const [NoImage, setNoImage] = useState("");
-
-  // console.log(file);
-  // console.log(cateBarang);
-
+const ModalCreateCateBarang = () => {
   useEffect(() => {
-    getData();
-
     return () => {};
   }, []);
 
@@ -26,12 +11,6 @@ const ModalCreateBarang = ({ closeModal }) => {
     const image = e.target.files[0];
     setFile(image);
     setPreview(URL.createObjectURL(image));
-  };
-
-  const getData = async () => {
-    const respon = await axios.get("http://localhost:8080/categoryBarang");
-    setCateBarang(respon.data.category);
-    // console.log(respon);
   };
 
   const SimpanData = async (e) => {
@@ -202,4 +181,4 @@ const ModalCreateBarang = ({ closeModal }) => {
   );
 };
 
-export default ModalCreateBarang;
+export default ModalCreateCateBarang;
