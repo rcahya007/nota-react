@@ -49,6 +49,10 @@ const Barang = () => {
     }
   };
 
+  const handleLoadMore = () => {
+    console.log("Test");
+  };
+
   return (
     <div>
       <Navigation />
@@ -110,6 +114,14 @@ const Barang = () => {
               ))}
             </tbody>
           </table>
+          <div className="text-center mt-6">
+            <button
+              className="px-4 py-3  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300"
+              onClick={handleLoadMore}
+            >
+              Load More...
+            </button>
+          </div>
         </div>
       </section>
       {tambahBarang && <ModalCreateBarang closeModal={setTambahBarang} />}

@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import Navigation from "../../component/Navigation/Navigation";
 import { AuthContext } from "../Home/Home";
 import { PlusIcon } from "@heroicons/react/solid";
+import ModalCreateCateBarang from "../../component/ModalCreateCateBarang/ModalCreateCateBarang";
 
 const CategoryBarang = () => {
   const { state } = useContext(AuthContext);
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (state.user == null) {
@@ -19,6 +21,10 @@ const CategoryBarang = () => {
   useEffect(() => {
     getDataCategory();
   }, []);
+
+  useEffect(() => {
+    getDataCategory();
+  }, [category]);
 
   const getDataCategory = async () => {
     const respon = await axios.get("http://localhost:8080/categoryBarang");
@@ -47,7 +53,7 @@ const CategoryBarang = () => {
           <div className="float-right mb-5 flex">
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center"
-              onClick={""}
+              onClick={() => setOpenModal(true)}
             >
               <PlusIcon className="w-6 h-6 mr-2" />
               Tambah Category Barang
@@ -65,7 +71,7 @@ const CategoryBarang = () => {
             <tbody>
               {category.map((hasil) => (
                 <tr key={hasil.id_category}>
-                  <td className="p-4 border-b-2 w-1/2 sm:py-1">
+                  <td className="px-4 py-6 border-b-2 w-1/2">
                     {hasil.category}
                   </td>
                   <td className="border-b-2 text-center">
@@ -82,17 +88,7 @@ const CategoryBarang = () => {
           </table>
         </div>
       </section>
-      {/* {tambahBarang && <ModalCreateBarang closeModal={setTambahBarang} />}
-      {detailModal && (
-        <ModalDetailBarang
-          closeModal={setDetailModal}
-          dataBarang={dataBarang}
-          editBarang={setEditBarang}
-        />
-      )}
-      {editBarang && (
-        <ModalEditBarang dataBarang={dataBarang} closeModal={setEditBarang} />
-      )} */}
+      {openModal && <ModalCreateCateBarang closeModal={setOpenModal} />}
     </div>
   );
 };
