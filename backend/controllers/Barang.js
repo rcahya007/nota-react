@@ -8,6 +8,7 @@ const Op = db.Sequelize.Op;
 exports.getAllBarang = async (req, res) => {
   try {
     const getAllData = await barang.findAll({
+      limit: 10,
       order: [["id", "DESC"]],
     });
     res.status(200).json({ DataBarang: getAllData });
@@ -230,3 +231,16 @@ exports.deleteCategoryBarang = async (req, res) => {
     res.status(404).json({ msg: "No Data Found!" });
   }
 };
+
+exports.loadMoreBarang = async (req,res) =>{
+  try {
+    const getAllData = await barang.findAll({
+      limit: 10,
+      offset: req.params.lenght,
+      order: [["id", "DESC"]],
+    });
+    res.status(200).json({ DataBarang: getAllData });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+}

@@ -5,7 +5,7 @@ import ModalEditBarang from "../../component/ModalEditBarang/ModalEditBarang";
 import ModalDetailBarang from "../../component/ModalDetailBarang/ModalDetailBarang";
 import Navigation from "../../component/Navigation/Navigation";
 import { AuthContext } from "../Home/Home";
-import { PlusIcon } from "@heroicons/react/solid";
+import { PlusIcon, SearchIcon } from "@heroicons/react/solid";
 import ModalCreateBarang from "../../component/ModalCreateBarang/ModalCreateBarang";
 
 const Barang = () => {
@@ -16,6 +16,7 @@ const Barang = () => {
   const [detailModal, setDetailModal] = useState(false);
   const [editBarang, setEditBarang] = useState(false);
   const [tambahBarang, setTambahBarang] = useState(false);
+  // const [cariBarang, setCariBarang] = useState(false);
 
   useEffect(() => {
     if (state.user == null) {
@@ -28,6 +29,7 @@ const Barang = () => {
       getDataBarang();
     }
   }, [tambahBarang, editBarang]);
+  console.log(allBarang)
 
   const getDataBarang = async () => {
     const respon = await axios.get("http://localhost:8080/barang");
@@ -49,8 +51,19 @@ const Barang = () => {
     }
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (lenght) => async () => {
     console.log("Test");
+    try {
+      const dataTambah = await axios.get("http://localhost:8080/loadMore/" + lenght);
+      // setAllBarang({
+      //   ...allBarang,
+      //   dataTambah
+      // })
+      console.log(dataTambah)
+    } catch (error) {
+      console.log(error);
+      
+    }
   };
 
   return (
@@ -71,11 +84,20 @@ const Barang = () => {
               Tambah Category Barang
             </button> */}
             <button
-              className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center"
+              className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-4 font-bold text-lg items-center"
               onClick={() => setTambahBarang(true)}
             >
               <PlusIcon className="w-6 h-6 mr-2" />
-              Tambah Barang
+              Barang
+            </button>
+            <button
+              className="bg-black text-white px-3 py-2 rounded-xl flex align-middle font-bold text-lg items-center"
+              // onClick={() => {
+              //   setCariBarang(true);
+              // }}
+            >
+              <SearchIcon className="w-6 h-6 mr-2" />
+              Cari
             </button>
           </div>
           <table className="w-full min-w-min">
@@ -114,12 +136,12 @@ const Barang = () => {
               ))}
             </tbody>
           </table>
-          <div className="text-center mt-6">
-            <button
-              className="px-4 py-3  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300"
-              onClick={handleLoadMore}
+          <div className="text-center my-6">
+            <button disabled={allBarang .length <10 ? true : false}
+              className={allBarang .length <10 ? "px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50" : "px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black"}
+              onClick={handleLoadMore(allBarang.length)}
             >
-              Load More...
+              {allBarang .length <10 ? "Semua barang sudah tampil" : "Load More..."}
             </button>
           </div>
         </div>
@@ -135,6 +157,7 @@ const Barang = () => {
       {editBarang && (
         <ModalEditBarang dataBarang={dataBarang} closeModal={setEditBarang} />
       )}
+      {/* {cari} */}
     </div>
   );
 };
