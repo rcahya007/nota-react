@@ -17,6 +17,7 @@ const Barang = () => {
   const [editBarang, setEditBarang] = useState(false);
   const [tambahBarang, setTambahBarang] = useState(false);
   // const [cariBarang, setCariBarang] = useState(false);
+  const [jmlDataBaru, setJmlDataBaru] = useState(1);
 
   useEffect(() => {
     if (state.user == null) {
@@ -24,12 +25,14 @@ const Barang = () => {
     }
   }, [state, navigate]);
 
+  useEffect(() => {}, [allBarang]);
+
   useEffect(() => {
     if (tambahBarang === false || editBarang === false) {
       getDataBarang();
     }
   }, [tambahBarang, editBarang]);
-  console.log(allBarang)
+  console.log(allBarang);
 
   const getDataBarang = async () => {
     const respon = await axios.get("http://localhost:8080/barang");
@@ -45,24 +48,25 @@ const Barang = () => {
   const handleDelete = (id) => async () => {
     try {
       await axios.delete("http://localhost:8080/barang/" + id);
-      getDataBarang();
+      setAllBarang(allBarang.filter((data) => data.id !== id));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleLoadMore = (lenght) => async () => {
-    console.log("Test");
+  const handleLoadMore = (length) => async () => {
     try {
-      const dataTambah = await axios.get("http://localhost:8080/loadMore/" + lenght);
-      // setAllBarang({
-      //   ...allBarang,
-      //   dataTambah
-      // })
-      console.log(dataTambah)
+      const dataTambah = await axios.get(
+        "http://localhost:8080/loadMoreBarang/" + length
+      );
+      const banyak = dataTambah.data.DataBarang;
+      setJmlDataBaru(banyak.length);
+      // console.log(jmlDataBaru);
+      banyak.map((hasil) => {
+        setAllBarang((allBarang) => [...allBarang, hasil]);
+      });
     } catch (error) {
       console.log(error);
-      
     }
   };
 
@@ -109,8 +113,8 @@ const Barang = () => {
               </tr>
             </thead>
             <tbody>
-              {allBarang.map((hasil, index) => (
-                <tr key={index}>
+              {allBarang.map((hasil) => (
+                <tr key={hasil.id}>
                   <td className="p-4 border-b-2 w-1/2 sm:py-1">
                     {hasil.nama_barang}
                   </td>
@@ -137,11 +141,16 @@ const Barang = () => {
             </tbody>
           </table>
           <div className="text-center my-6">
-            <button disabled={allBarang .length <10 ? true : false}
-              className={allBarang .length <10 ? "px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50" : "px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black"}
+            <button
+              disabled={jmlDataBaru !== 0 ? false : true}
+              className={
+                jmlDataBaru !== 0
+                  ? "px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black"
+                  : "px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50"
+              }
               onClick={handleLoadMore(allBarang.length)}
             >
-              {allBarang .length <10 ? "Semua barang sudah tampil" : "Load More..."}
+              {jmlDataBaru !== 0 ? "Load More..." : "Semua barang sudah tampil"}
             </button>
           </div>
         </div>

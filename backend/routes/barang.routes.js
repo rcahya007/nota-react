@@ -13,6 +13,7 @@ module.exports = (app) => {
   router.post("/barang/selectId/:id", barang.getOneBarangSelect);
   router.post("/addCategory", barang.createCategoryBarang);
   router.delete("/categoryBarang/:id", barang.deleteCategoryBarang);
+  router.get("/loadMoreBarang/:skip", barang.loadMoreBarang);
 
   app.use("/", router);
 };

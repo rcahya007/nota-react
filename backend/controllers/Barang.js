@@ -161,15 +161,13 @@ exports.deleteBarang = async (req, res) => {
       if (err) {
         console.error(err);
         console.log("File not found");
-      } else {
-        barang.destroy({
-          where: {
-            id: req.params.id,
-          },
-        });
       }
     });
-
+    barang.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
     res.status(200).json({ msg: "Barang Berhasil Dihapus!" });
   } else {
     res.status(404).json({ msg: "No Data Found!" });
@@ -232,15 +230,17 @@ exports.deleteCategoryBarang = async (req, res) => {
   }
 };
 
-exports.loadMoreBarang = async (req,res) =>{
+exports.loadMoreBarang = async (req, res) => {
   try {
     const getAllData = await barang.findAll({
+      offset: parseInt(req.params.skip),
       limit: 10,
-      offset: req.params.lenght,
       order: [["id", "DESC"]],
+      // raw: true,
+      // plain: true,
     });
     res.status(200).json({ DataBarang: getAllData });
   } catch (error) {
     res.status(400).json(error);
   }
-}
+};

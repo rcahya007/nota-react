@@ -32,7 +32,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
 
   const getData = async () => {
     const respon = await axios.get("http://localhost:8080/categoryBarang");
-    setCateBarang(respon.data.Category);
+    setCateBarang(respon.data.category);
   };
 
   const simpanEditBarang = async (e) => {

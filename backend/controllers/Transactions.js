@@ -238,3 +238,7 @@ exports.filterDashboard = async (req, res) => {
     hasilBanyakOut: countDataPengeluaran,
   });
 };
+
+exports.laodMoreTransaction = async (req, res) => {
+  // const getMore = await Transactions.
+};
