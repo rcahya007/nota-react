@@ -12,7 +12,7 @@ const ModalFilterBarang = () => {
 
   const getData = async () => {
     const respon = await axios.get(
-      "http://benotareact.rendycahyae.my.id/categoryBarang"
+      "https://benotareact.rendycahyae.my.id/categoryBarang"
     );
     setCateBarang(respon.data.category);
   };
@@ -24,7 +24,7 @@ const ModalFilterBarang = () => {
 
   const handleCari = async () => {
     const getData = await axios.post(
-      "http://benotareact.rendycahyae.my.id/queryCariBarang",
+      "https://benotareact.rendycahyae.my.id/queryCariBarang",
       {
         nama_barang: namaBarang,
         id_category_barang: selectedOption,

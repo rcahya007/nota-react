@@ -39,14 +39,14 @@ const Barang = () => {
 
   const getDataBarang = async () => {
     const respon = await axios.get(
-      "http://benotareact.rendycahyae.my.id/barang"
+      "https://benotareact.rendycahyae.my.id/barang"
     );
     setAllBarang(respon.data.DataBarang);
   };
 
   const handleDetail = (id) => async () => {
     const getId = await axios.get(
-      "http://benotareact.rendycahyae.my.id/barang/" + id
+      "https://benotareact.rendycahyae.my.id/barang/" + id
     );
     setDataBarang(getId.data.results[0]);
     setDetailModal(true);
@@ -54,7 +54,7 @@ const Barang = () => {
 
   const handleDelete = (id) => async () => {
     try {
-      await axios.delete("http://benotareact.rendycahyae.my.id/barang/" + id);
+      await axios.delete("https://benotareact.rendycahyae.my.id/barang/" + id);
       setAllBarang(allBarang.filter((data) => data.id !== id));
     } catch (error) {
       console.log(error);
@@ -64,7 +64,7 @@ const Barang = () => {
   const handleLoadMore = (length) => async () => {
     try {
       const dataTambah = await axios.get(
-        "http://benotareact.rendycahyae.my.id/loadMoreBarang/" + length
+        "https://benotareact.rendycahyae.my.id/loadMoreBarang/" + length
       );
       const banyak = dataTambah.data.DataBarang;
       setJmlDataBaru(banyak.length);

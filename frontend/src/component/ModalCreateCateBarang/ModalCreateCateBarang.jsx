@@ -12,7 +12,7 @@ const ModalCreateCateBarang = ({ closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://benotareact.rendycahyae.my.id/addCategory", {
+      await axios.post("https://benotareact.rendycahyae.my.id/addCategory", {
         category_barang: namaCategory,
       });
       closeModal(false);

@@ -27,7 +27,7 @@ const ModalCreateBarang = ({ closeModal }) => {
 
   const getData = async () => {
     const respon = await axios.get(
-      "http://benotareact.rendycahyae.my.id/categoryBarang"
+      "https://benotareact.rendycahyae.my.id/categoryBarang"
     );
     setCateBarang(respon.data.category);
   };
@@ -43,7 +43,7 @@ const ModalCreateBarang = ({ closeModal }) => {
     formData.append("file", file);
     try {
       await axios.post(
-        "http://benotareact.rendycahyae.my.id/barang",
+        "https://benotareact.rendycahyae.my.id/barang",
         formData,
         {
           headers: {

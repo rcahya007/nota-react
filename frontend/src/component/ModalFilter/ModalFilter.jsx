@@ -21,7 +21,7 @@ const ModalFilter = () => {
   const handleCari = async (e) => {
     e.preventDefault();
     const fetch = await axios.post(
-      "http://benotareact.rendycahyae.my.id/filterDashboard",
+      "https://benotareact.rendycahyae.my.id/filterDashboard",
       {
         tglAwal: tglAwal,
         tglAkhir: tglAkhir,
@@ -37,7 +37,7 @@ const ModalFilter = () => {
       });
     } else {
       const respon = await axios.get(
-        "http://benotareact.rendycahyae.my.id/dataPemasukan"
+        "https://benotareact.rendycahyae.my.id/dataPemasukan"
       );
       setDataPemasukan(respon.data);
     }

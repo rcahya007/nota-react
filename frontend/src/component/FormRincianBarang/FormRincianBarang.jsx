@@ -84,7 +84,7 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
       formData.append("file", file);
       try {
         await axios.post(
-          "http://benotareact.rendycahyae.my.id/simpanNota",
+          "https://benotareact.rendycahyae.my.id/simpanNota",
           formData,
           {
             headers: {

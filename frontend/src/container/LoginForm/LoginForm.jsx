@@ -41,7 +41,7 @@ const LoginForm = () => {
     });
     try {
       await axios
-        .post("http://benotareact.rendycahyae.my.id/login", {
+        .post("https://benotareact.rendycahyae.my.id/login", {
           name: data.name,
           password: data.password,
         })
