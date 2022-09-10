@@ -14,6 +14,7 @@ module.exports = (app) => {
   router.post("/addCategory", barang.createCategoryBarang);
   router.delete("/categoryBarang/:id", barang.deleteCategoryBarang);
   router.get("/loadMoreBarang/:skip", barang.loadMoreBarang);
+  router.post("/queryCariBarang", barang.queryCariBarang);
 
   app.use("/", router);
 };

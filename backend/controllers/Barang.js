@@ -244,3 +244,22 @@ exports.loadMoreBarang = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+exports.queryCariBarang = async (req, res) => {
+  try {
+    const getData = await barang.findAll({
+      where: {
+        nama_barang: {
+          [Op.substring]: req.body.nama_barang,
+        },
+        id_category_barang: {
+          [Op.substring]: req.body.id_category_barang,
+        },
+      },
+      order: [["nama_barang", "ASC"]],
+    });
+    res.status(200).json({ dataBarang: getData });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};

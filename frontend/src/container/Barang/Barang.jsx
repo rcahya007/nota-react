@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModalEditBarang from "../../component/ModalEditBarang/ModalEditBarang";
 import ModalDetailBarang from "../../component/ModalDetailBarang/ModalDetailBarang";
@@ -7,6 +7,9 @@ import Navigation from "../../component/Navigation/Navigation";
 import { AuthContext } from "../Home/Home";
 import { PlusIcon, SearchIcon } from "@heroicons/react/solid";
 import ModalCreateBarang from "../../component/ModalCreateBarang/ModalCreateBarang";
+import ModalFilterBarang from "../../component/ModalFilterBarang/ModalFilterBarang";
+
+export const barangContext = createContext();
 
 const Barang = () => {
   const { state } = useContext(AuthContext);
@@ -16,8 +19,9 @@ const Barang = () => {
   const [detailModal, setDetailModal] = useState(false);
   const [editBarang, setEditBarang] = useState(false);
   const [tambahBarang, setTambahBarang] = useState(false);
-  // const [cariBarang, setCariBarang] = useState(false);
+  const [cariBarang, setCariBarang] = useState(false);
   const [jmlDataBaru, setJmlDataBaru] = useState(1);
+  const [dataQuery, setDataQuery] = useState(false);
 
   useEffect(() => {
     if (state.user == null) {
@@ -96,9 +100,9 @@ const Barang = () => {
             </button>
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle font-bold text-lg items-center"
-              // onClick={() => {
-              //   setCariBarang(true);
-              // }}
+              onClick={() => {
+                setCariBarang(true);
+              }}
             >
               <SearchIcon className="w-6 h-6 mr-2" />
               Cari
@@ -140,22 +144,29 @@ const Barang = () => {
               ))}
             </tbody>
           </table>
-          <div className="text-center my-6">
-            <button
-              disabled={jmlDataBaru !== 0 ? false : true}
-              className={
-                jmlDataBaru !== 0
-                  ? "px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black"
-                  : "px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50"
-              }
-              onClick={handleLoadMore(allBarang.length)}
-            >
-              {jmlDataBaru !== 0 ? "Load More..." : "Semua barang sudah tampil"}
-            </button>
-          </div>
+          {dataQuery ? (
+            ""
+          ) : (
+            <div className="text-center my-6">
+              <button
+                disabled={jmlDataBaru !== 0 ? false : true}
+                className={
+                  jmlDataBaru !== 0
+                    ? "px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black"
+                    : "px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50"
+                }
+                onClick={handleLoadMore(allBarang.length)}
+              >
+                {jmlDataBaru !== 0
+                  ? "Load More..."
+                  : "Semua barang sudah tampil"}
+              </button>
+            </div>
+          )}
         </div>
       </section>
       {tambahBarang && <ModalCreateBarang closeModal={setTambahBarang} />}
+
       {detailModal && (
         <ModalDetailBarang
           closeModal={setDetailModal}
@@ -163,10 +174,21 @@ const Barang = () => {
           editBarang={setEditBarang}
         />
       )}
+
       {editBarang && (
         <ModalEditBarang dataBarang={dataBarang} closeModal={setEditBarang} />
       )}
-      {/* {cari} */}
+
+      <barangContext.Provider
+        value={{
+          setCariBarang,
+          allBarang,
+          setAllBarang,
+          setDataQuery,
+        }}
+      >
+        {cariBarang && <ModalFilterBarang />}
+      </barangContext.Provider>
     </div>
   );
 };

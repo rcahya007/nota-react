@@ -43,19 +43,19 @@ const Dashboard = () => {
             All Transaksi Kodehack
           </h1>
           <div className="float-right flex">
-            <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2">
+            <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg">
               Tanggal Awal : {tglAwal === "" ? "-" : tglAwal}
             </button>
-            <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2">
+            <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg">
               Tanggal Awal : {tglAkhir === "" ? "-" : tglAkhir}
             </button>
             <button
-              className="bg-black text-white px-3 py-2 rounded-xl flex align-middle "
+              className="bg-black text-white px-3 py-2 rounded-xl flex align-middle font-bold text-lg"
               onClick={() => {
                 setOpenModal(true);
               }}
             >
-              <SearchIcon className="w-6 h-6 mr-2" />
+              <SearchIcon className="w-6 h-6 mr-2 " />
               Cari
             </button>
           </div>
