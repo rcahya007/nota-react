@@ -83,11 +83,15 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
       formData.append("pembuat", state.user.name);
       formData.append("file", file);
       try {
-        await axios.post("http://localhost:8080/simpanNota", formData, {
-          headers: {
-            "Content-type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          "http://benotareact.rendycahyae.my.id/simpanNota",
+          formData,
+          {
+            headers: {
+              "Content-type": "multipart/form-data",
+            },
+          }
+        );
         navigate("/nota");
       } catch (error) {
         setErrorImg(error.response.data.msg);

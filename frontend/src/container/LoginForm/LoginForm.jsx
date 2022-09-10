@@ -41,7 +41,7 @@ const LoginForm = () => {
     });
     try {
       await axios
-        .post("http://localhost:8080/login", {
+        .post("http://benotareact.rendycahyae.my.id/login", {
           name: data.name,
           password: data.password,
         })
@@ -51,18 +51,15 @@ const LoginForm = () => {
               type: "LOGIN",
               payload: res.data,
             });
-            // console.log(res.data)
             navigate("/dashboard");
           }
         });
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.msg);
         setData({
           ...data,
           errorMessage: error.response.data.msg,
         });
-        console.log(data);
       }
     }
   };

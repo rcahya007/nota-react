@@ -11,7 +11,9 @@ const ModalFilterBarang = () => {
   const [namaBarang, setNamaBarang] = useState("");
 
   const getData = async () => {
-    const respon = await axios.get("http://localhost:8080/categoryBarang");
+    const respon = await axios.get(
+      "http://benotareact.rendycahyae.my.id/categoryBarang"
+    );
     setCateBarang(respon.data.category);
   };
   useEffect(() => {
@@ -21,10 +23,13 @@ const ModalFilterBarang = () => {
   }, []);
 
   const handleCari = async () => {
-    const getData = await axios.post("http://localhost:8080/queryCariBarang", {
-      nama_barang: namaBarang,
-      id_category_barang: selectedOption,
-    });
+    const getData = await axios.post(
+      "http://benotareact.rendycahyae.my.id/queryCariBarang",
+      {
+        nama_barang: namaBarang,
+        id_category_barang: selectedOption,
+      }
+    );
     setAllBarang(getData.data.dataBarang);
     setCariBarang(false);
     setDataQuery(true);

@@ -20,10 +20,13 @@ const ModalFilter = () => {
 
   const handleCari = async (e) => {
     e.preventDefault();
-    const fetch = await axios.post("http://localhost:8080/filterDashboard", {
-      tglAwal: tglAwal,
-      tglAkhir: tglAkhir,
-    });
+    const fetch = await axios.post(
+      "http://benotareact.rendycahyae.my.id/filterDashboard",
+      {
+        tglAwal: tglAwal,
+        tglAkhir: tglAkhir,
+      }
+    );
     if (tglAkhir && tglAwal !== "") {
       setDataPemasukan({
         ...dataPemasukan,
@@ -33,7 +36,9 @@ const ModalFilter = () => {
         hasilBanyakOut: fetch.data.hasilBanyakOut,
       });
     } else {
-      const respon = await axios.get("http://localhost:8080/dataPemasukan");
+      const respon = await axios.get(
+        "http://benotareact.rendycahyae.my.id/dataPemasukan"
+      );
       setDataPemasukan(respon.data);
     }
     setOpenModal(false);
