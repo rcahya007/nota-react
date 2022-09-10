@@ -4,7 +4,7 @@ import axios from "axios";
 import { barangContext } from "../../container/Barang/Barang";
 
 const ModalFilterBarang = () => {
-  const { setCariBarang, allBarang, setAllBarang, setDataQuery } =
+  const { setCariBarang, setAllBarang, setDataQuery } =
     useContext(barangContext);
   const [cateBarang, setCateBarang] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -13,7 +13,6 @@ const ModalFilterBarang = () => {
   const getData = async () => {
     const respon = await axios.get("http://localhost:8080/categoryBarang");
     setCateBarang(respon.data.category);
-    // console.log(respon);
   };
   useEffect(() => {
     getData();
@@ -30,30 +29,6 @@ const ModalFilterBarang = () => {
     setCariBarang(false);
     setDataQuery(true);
   };
-
-  // console.log(selectedOption);
-  // console.log(namaBarang);
-
-  // const handleCari = async (e) => {
-  //   e.preventDefault();
-  //   const fetch = await axios.post("http://localhost:8080/filterDashboard", {
-  //     tglAwal: tglAwal,
-  //     tglAkhir: tglAkhir,
-  //   });
-  //   if (tglAkhir && tglAwal !== "") {
-  //     setDataPemasukan({
-  //       ...dataPemasukan,
-  //       hasilJumlahIn: fetch.data.hasilJumlahIn,
-  //       hasilBanyakIn: fetch.data.hasilBanyakIn,
-  //       hasilJumlahOut: fetch.data.hasilJumlahOut,
-  //       hasilBanyakOut: fetch.data.hasilBanyakOut,
-  //     });
-  //   } else {
-  //     const respon = await axios.get("http://localhost:8080/dataPemasukan");
-  //     setDataPemasukan(respon.data);
-  //   }
-  //   setOpenModal(false);
-  // };
 
   return (
     <div

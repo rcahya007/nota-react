@@ -12,10 +12,9 @@ const ModalCreateCateBarang = ({ closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const send = await axios.post("http://localhost:8080/addCategory", {
+      await axios.post("http://localhost:8080/addCategory", {
         category_barang: namaCategory,
       });
-      console.log(send.data.msg);
       closeModal(false);
     } catch (error) {
       console.log(error.response.data.msg);

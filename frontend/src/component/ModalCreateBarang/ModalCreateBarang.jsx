@@ -13,9 +13,6 @@ const ModalCreateBarang = ({ closeModal }) => {
   const [preview, setPreview] = useState("");
   const [NoImage, setNoImage] = useState("");
 
-  // console.log(file);
-  // console.log(cateBarang);
-
   useEffect(() => {
     getData();
 
@@ -31,7 +28,6 @@ const ModalCreateBarang = ({ closeModal }) => {
   const getData = async () => {
     const respon = await axios.get("http://localhost:8080/categoryBarang");
     setCateBarang(respon.data.category);
-    // console.log(respon);
   };
 
   const SimpanData = async (e) => {

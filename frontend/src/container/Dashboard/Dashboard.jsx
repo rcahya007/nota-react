@@ -12,13 +12,11 @@ export const dashboardContext = createContext();
 const Dashboard = () => {
   const { state } = useContext(AuthContext);
   const navigate = useNavigate();
-  // console.log(state);
   const [openModal, setOpenModal] = useState(false);
   const [dataPemasukan, setDataPemasukan] = useState("");
   const [tglAwal, setTglAwal] = useState("");
   const [tglAkhir, setTglAkhir] = useState("");
 
-  console.log(dataPemasukan);
   useEffect(() => {
     if (state.user == null) {
       navigate("/");

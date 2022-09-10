@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 
 const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
-  // const [dataBarangSemua, setDataBarangSemua] = useState([]);
   const [hasilAmbilData, setHasilAmbilData] = useState([]);
   const [dataDipilih, setDataDipilih] = useState([]);
   const [maxPesan, setMaxPesan] = useState(1);
@@ -13,8 +12,6 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
   const [stock, setStock] = useState(0);
   const namaBarang = useRef();
   const hargaBarang = useRef();
-
-  console.log(hasilAmbilData.length);
 
   const TambahBarang = () => {
     setDataBarang((oldState) => [
@@ -32,7 +29,6 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
     closeModal(false);
   };
 
-  // console.log(dataBarangSemua);
   useEffect(() => {
     return () => {};
   }, []);
@@ -85,7 +81,6 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
         "http://localhost:8080/getBarangFormTambah",
         { nama_barang: nama_barang }
       );
-      // console.log(fetch.data.result.length);
       if (fetch.data.result.length > 0) {
         setHasilAmbilData(fetch.data.result);
       } else {

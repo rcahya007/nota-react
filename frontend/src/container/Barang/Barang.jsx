@@ -36,7 +36,6 @@ const Barang = () => {
       getDataBarang();
     }
   }, [tambahBarang, editBarang]);
-  console.log(allBarang);
 
   const getDataBarang = async () => {
     const respon = await axios.get("http://localhost:8080/barang");
@@ -65,10 +64,7 @@ const Barang = () => {
       );
       const banyak = dataTambah.data.DataBarang;
       setJmlDataBaru(banyak.length);
-      // console.log(jmlDataBaru);
-      banyak.map((hasil) => {
-        setAllBarang((allBarang) => [...allBarang, hasil]);
-      });
+      banyak.map((hasil) => setAllBarang((allBarang) => [...allBarang, hasil]));
     } catch (error) {
       console.log(error);
     }
@@ -84,13 +80,6 @@ const Barang = () => {
             SEMUA BARANG
           </h1>
           <div className="float-right mb-5 flex">
-            {/* <button
-              className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center"
-              onClick={() => setTambahBarang(true)}
-            >
-              <PlusIcon className="w-6 h-6 mr-2" />
-              Tambah Category Barang
-            </button> */}
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-4 font-bold text-lg items-center"
               onClick={() => setTambahBarang(true)}
