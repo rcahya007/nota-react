@@ -161,7 +161,12 @@ exports.deleteNotaTransaksi = async (req, res) => {
   if (getOne) {
     if (getOne.metode_pembayaran === "Transfer") {
       const filePath = `./public/dataTF/${getOne.bukti_tf}`;
-      fs.unlinkSync(filePath);
+      fs.unlinkSync(filePath, function (err) {
+        if (err) {
+          console.error(err);
+          console.log("File not found");
+        }
+      });
       Transactions.destroy({
         where: {
           id: req.params.id,
@@ -175,8 +180,8 @@ exports.deleteNotaTransaksi = async (req, res) => {
           id: req.params.id,
         },
       });
+      res.status(200).json({ msg: "Barang Berhasil Dihapus!" });
     }
-    res.status(200).json({ msg: "Barang Berhasil Dihapus!" });
   } else {
     res.status(404).json({ msg: "No Data Found!" });
   }

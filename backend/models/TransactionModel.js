@@ -1,5 +1,10 @@
 module.exports = (sequelize,Sequelize) => {
     const TransactionModel = sequelize.define('transactions',{
+        id:{
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
         total_semua:{
             type: Sequelize.FLOAT,
             allowNull:true
