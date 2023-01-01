@@ -34,7 +34,6 @@ const reducer = (state, action) => {
 
 const Home = () => {
   const [state, fungsi] = useReducer(reducer, initialState);
-  console.log(state);
 
   return (
     <div>

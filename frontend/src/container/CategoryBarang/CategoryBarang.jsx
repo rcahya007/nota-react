@@ -27,13 +27,17 @@ const CategoryBarang = () => {
   }, [category]);
 
   const getDataCategory = async () => {
-    const respon = await axios.get("http://localhost:8080/categoryBarang");
+    const respon = await axios.get(
+      "https://benotareact.rendycahyae.my.id/categoryBarang"
+    );
     setCategory(respon.data.category);
   };
 
   const handleDelete = (id) => async () => {
     try {
-      await axios.delete("http://localhost:8080/categoryBarang/" + id);
+      await axios.delete(
+        "https://benotareact.rendycahyae.my.id/categoryBarang/" + id
+      );
       getDataCategory();
     } catch (error) {
       console.log(error);

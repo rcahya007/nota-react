@@ -13,9 +13,6 @@ const ModalCreateBarang = ({ closeModal }) => {
   const [preview, setPreview] = useState("");
   const [NoImage, setNoImage] = useState("");
 
-  // console.log(file);
-  // console.log(cateBarang);
-
   useEffect(() => {
     getData();
 
@@ -29,9 +26,10 @@ const ModalCreateBarang = ({ closeModal }) => {
   };
 
   const getData = async () => {
-    const respon = await axios.get("http://localhost:8080/categoryBarang");
+    const respon = await axios.get(
+      "https://benotareact.rendycahyae.my.id/categoryBarang"
+    );
     setCateBarang(respon.data.category);
-    // console.log(respon);
   };
 
   const SimpanData = async (e) => {
@@ -44,11 +42,15 @@ const ModalCreateBarang = ({ closeModal }) => {
     formData.append("deskripsi_barang", deskripsiBarang);
     formData.append("file", file);
     try {
-      await axios.post("http://localhost:8080/barang", formData, {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        "https://benotareact.rendycahyae.my.id/barang",
+        formData,
+        {
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        }
+      );
       closeModal(false);
     } catch (error) {
       setNoImage(error.response.data.msg);

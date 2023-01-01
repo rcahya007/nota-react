@@ -19,10 +19,6 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
   const [dataEdit, setDataEdit] = useState("");
   const [ErrorImg, setErrorImg] = useState("");
 
-  useEffect(() => {
-    if (barang.length > 0) console.log(barang);
-  }, [barang]);
-
   const loadImage = (e) => {
     const image = e.target.files[0];
     setErrorImg("");
@@ -65,7 +61,6 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
 
   const handleEdit = (id) => {
     const getBarang = barang.find((x) => x.id === id);
-    // console.log(getBarang)
     setDataEdit(getBarang);
     setCloseModal(true);
   };
@@ -87,15 +82,16 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
       formData.append("kembali", kembali);
       formData.append("pembuat", state.user.name);
       formData.append("file", file);
-      console.log(JSON.parse(formData.get("barang")));
-      console.log(formData.get("file"));
       try {
-        await axios.post("http://localhost:8080/simpanNota", formData, {
-          headers: {
-            "Content-type": "multipart/form-data",
-          },
-        });
-        console.log("data Masuk");
+        await axios.post(
+          "https://benotareact.rendycahyae.my.id/simpanNota",
+          formData,
+          {
+            headers: {
+              "Content-type": "multipart/form-data",
+            },
+          }
+        );
         navigate("/nota");
       } catch (error) {
         setErrorImg(error.response.data.msg);

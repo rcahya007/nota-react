@@ -31,7 +31,9 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
   }, []);
 
   const getData = async () => {
-    const respon = await axios.get("http://localhost:8080/categoryBarang");
+    const respon = await axios.get(
+      "https://benotareact.rendycahyae.my.id/categoryBarang"
+    );
     setCateBarang(respon.data.category);
   };
 
@@ -46,7 +48,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
     formData.append("file", file);
     try {
       await axios.patch(
-        `http://localhost:8080/barang/${dataBarang.id}`,
+        `https://benotareact.rendycahyae.my.id/barang/${dataBarang.id}`,
         formData,
         {
           headers: {
