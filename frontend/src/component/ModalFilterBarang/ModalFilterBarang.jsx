@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import { barangContext } from "../../container/Barang/Barang";
+import React, { useContext, useEffect, useState } from 'react';
+import { XCircleIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import { barangContext } from '../../container/Barang/Barang';
 
 const ModalFilterBarang = () => {
   const { setCariBarang, setAllBarang, setDataQuery } =
     useContext(barangContext);
   const [cateBarang, setCateBarang] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [namaBarang, setNamaBarang] = useState("");
+  const [selectedOption, setSelectedOption] = useState('');
+  const [namaBarang, setNamaBarang] = useState('');
 
   const getData = async () => {
     const respon = await axios.get(
-      "https://benotareact.rendycahyae.my.id/categoryBarang"
+      'https://be-notareact.opwarnet.my.id/categoryBarang'
     );
     setCateBarang(respon.data.category);
   };
@@ -24,7 +24,7 @@ const ModalFilterBarang = () => {
 
   const handleCari = async () => {
     const getData = await axios.post(
-      "https://benotareact.rendycahyae.my.id/queryCariBarang",
+      'https://be-notareact.opwarnet.my.id/queryCariBarang',
       {
         nama_barang: namaBarang,
         id_category_barang: selectedOption,
@@ -81,8 +81,8 @@ const ModalFilterBarang = () => {
                 name="category"
                 id="category"
                 className="mt-2 block border-2 border-blue-400 rounded-lg w-full py-1 bg-white px-2 "
-                value={selectedOption || ""}
-                onChange={(e) => setSelectedOption(e.target.value || "")}
+                value={selectedOption || ''}
+                onChange={(e) => setSelectedOption(e.target.value || '')}
               >
                 <option key="-" value="">
                   -

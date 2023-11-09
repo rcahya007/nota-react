@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ModalEditBarang from "../../component/ModalEditBarang/ModalEditBarang";
-import ModalDetailBarang from "../../component/ModalDetailBarang/ModalDetailBarang";
-import Navigation from "../../component/Navigation/Navigation";
-import { AuthContext } from "../Home/Home";
-import { PlusIcon, SearchIcon } from "@heroicons/react/solid";
-import ModalCreateBarang from "../../component/ModalCreateBarang/ModalCreateBarang";
-import ModalFilterBarang from "../../component/ModalFilterBarang/ModalFilterBarang";
+import axios from 'axios';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ModalEditBarang from '../../component/ModalEditBarang/ModalEditBarang';
+import ModalDetailBarang from '../../component/ModalDetailBarang/ModalDetailBarang';
+import Navigation from '../../component/Navigation/Navigation';
+import { AuthContext } from '../Home/Home';
+import { PlusIcon, SearchIcon } from '@heroicons/react/solid';
+import ModalCreateBarang from '../../component/ModalCreateBarang/ModalCreateBarang';
+import ModalFilterBarang from '../../component/ModalFilterBarang/ModalFilterBarang';
 
 export const barangContext = createContext();
 
@@ -25,7 +25,7 @@ const Barang = () => {
 
   useEffect(() => {
     if (state.user == null) {
-      navigate("/");
+      navigate('/');
     }
   }, [state, navigate]);
 
@@ -39,14 +39,14 @@ const Barang = () => {
 
   const getDataBarang = async () => {
     const respon = await axios.get(
-      "https://benotareact.rendycahyae.my.id/barang"
+      'https://be-notareact.opwarnet.my.id/barang'
     );
     setAllBarang(respon.data.DataBarang);
   };
 
   const handleDetail = (id) => async () => {
     const getId = await axios.get(
-      "https://benotareact.rendycahyae.my.id/barang/" + id
+      'https://be-notareact.opwarnet.my.id/barang/' + id
     );
     setDataBarang(getId.data.results[0]);
     setDetailModal(true);
@@ -54,7 +54,7 @@ const Barang = () => {
 
   const handleDelete = (id) => async () => {
     try {
-      await axios.delete("https://benotareact.rendycahyae.my.id/barang/" + id);
+      await axios.delete('https://be-notareact.opwarnet.my.id/barang/' + id);
       setAllBarang(allBarang.filter((data) => data.id !== id));
     } catch (error) {
       console.log(error);
@@ -64,7 +64,7 @@ const Barang = () => {
   const handleLoadMore = (length) => async () => {
     try {
       const dataTambah = await axios.get(
-        "https://benotareact.rendycahyae.my.id/loadMoreBarang/" + length
+        'https://be-notareact.opwarnet.my.id/loadMoreBarang/' + length
       );
       const banyak = dataTambah.data.DataBarang;
       setJmlDataBaru(banyak.length);
@@ -124,7 +124,7 @@ const Barang = () => {
                       onClick={handleDetail(hasil.id)}
                     >
                       Detail
-                    </button>{" "}
+                    </button>{' '}
                     |
                     <button
                       className="p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300"
@@ -138,21 +138,21 @@ const Barang = () => {
             </tbody>
           </table>
           {dataQuery ? (
-            ""
+            ''
           ) : (
             <div className="text-center my-6">
               <button
                 disabled={jmlDataBaru !== 0 ? false : true}
                 className={
                   jmlDataBaru !== 0
-                    ? "px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black"
-                    : "px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50"
+                    ? 'px-4 py-2  bg-yellow-400 border border-neutral-800 rounded-lg hover:bg-yellow-600 hover:duration-300 text-black'
+                    : 'px-4 py-2  bg-yellow-400 border border-slate-500 rounded-lg text-slate-500 bg-opacity-50'
                 }
                 onClick={handleLoadMore(allBarang.length)}
               >
                 {jmlDataBaru !== 0
-                  ? "Load More..."
-                  : "Semua barang sudah tampil"}
+                  ? 'Load More...'
+                  : 'Semua barang sudah tampil'}
               </button>
             </div>
           )}

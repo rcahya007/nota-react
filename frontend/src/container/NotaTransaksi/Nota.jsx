@@ -1,10 +1,10 @@
-import { PlusIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import ModalDetailNota from "../../component/ModalDetailNota/ModalDetailNota";
-import Navigation from "../../component/Navigation/Navigation";
-import { AuthContext } from "../Home/Home";
+import { PlusIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import ModalDetailNota from '../../component/ModalDetailNota/ModalDetailNota';
+import Navigation from '../../component/Navigation/Navigation';
+import { AuthContext } from '../Home/Home';
 
 const Nota = () => {
   const { state } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const Nota = () => {
 
   useEffect(() => {
     if (state.user == null) {
-      navigate("/");
+      navigate('/');
     }
   }, [state, navigate]);
 
@@ -25,14 +25,14 @@ const Nota = () => {
 
   const getAllTransactions = async () => {
     const fetch = await axios.get(
-      "https://benotareact.rendycahyae.my.id/transactions"
+      'https://be-notareact.opwarnet.my.id/transactions'
     );
     setAllTransactions(fetch.data.DataBarang);
   };
 
   const getDetail = async (id) => {
     const getDetailNota = await axios.get(
-      "https://benotareact.rendycahyae.my.id/transactions/" + id
+      'https://be-notareact.opwarnet.my.id/transactions/' + id
     );
     setdetailNota(getDetailNota.data);
     setModalDetail(true);
@@ -41,7 +41,7 @@ const Nota = () => {
   const getDelete = async (id) => {
     try {
       await axios.delete(
-        "https://benotareact.rendycahyae.my.id/transactions/" + id
+        'https://be-notareact.opwarnet.my.id/transactions/' + id
       );
       getAllTransactions();
     } catch (error) {
@@ -59,7 +59,7 @@ const Nota = () => {
             NOTA TRANSAKSI
           </h1>
           <div className="float-right mb-5">
-            <Link to={"/transaction/tambah"}>
+            <Link to={'/transaction/tambah'}>
               <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg items-center">
                 <PlusIcon className="w-6 h-6 mr-2" /> Tambah Transaksi
               </button>
@@ -81,23 +81,23 @@ const Nota = () => {
                     {hasil.nama_pembeli}
                   </td>
                   <td className="border-b-2 text-left">
-                    {new Intl.NumberFormat("id-ID", {
-                      style: "currency",
-                      currency: "IDR",
+                    {new Intl.NumberFormat('id-ID', {
+                      style: 'currency',
+                      currency: 'IDR',
                       minimumFractionDigits: 0,
                     }).format(hasil.total_semua)}
                   </td>
                   <td className="border-b-2 text-center">
                     {new Date(hasil.updatedAt)
-                      .toLocaleString("id-ID", {
-                        weekday: "long",
-                        day: "numeric",
-                        month: "2-digit",
-                        year: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
+                      .toLocaleString('id-ID', {
+                        weekday: 'long',
+                        day: 'numeric',
+                        month: '2-digit',
+                        year: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
                       })
-                      .replace(".", ":")}
+                      .replace('.', ':')}
                   </td>
                   <td className="border-b-2 text-center">
                     <button
@@ -105,7 +105,7 @@ const Nota = () => {
                       onClick={() => getDetail(hasil.id)}
                     >
                       Detail
-                    </button>{" "}
+                    </button>{' '}
                     |
                     <button
                       className="p-2 ml-2 text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white hover:duration-300"

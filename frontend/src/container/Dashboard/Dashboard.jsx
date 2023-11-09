@@ -1,11 +1,11 @@
-import { SearchIcon } from "@heroicons/react/solid";
-import React, { createContext, useEffect, useState } from "react";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Home/Home";
-import ModalFilter from "../../component/ModalFilter/ModalFilter";
-import Navigation from "../../component/Navigation/Navigation";
-import axios from "axios";
+import { SearchIcon } from '@heroicons/react/solid';
+import React, { createContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Home/Home';
+import ModalFilter from '../../component/ModalFilter/ModalFilter';
+import Navigation from '../../component/Navigation/Navigation';
+import axios from 'axios';
 
 export const dashboardContext = createContext();
 
@@ -13,20 +13,20 @@ const Dashboard = () => {
   const { state } = useContext(AuthContext);
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
-  const [dataPemasukan, setDataPemasukan] = useState("");
-  const [tglAwal, setTglAwal] = useState("");
-  const [tglAkhir, setTglAkhir] = useState("");
+  const [dataPemasukan, setDataPemasukan] = useState('');
+  const [tglAwal, setTglAwal] = useState('');
+  const [tglAkhir, setTglAkhir] = useState('');
 
   useEffect(() => {
     if (state.user == null) {
-      navigate("/");
+      navigate('/');
     }
   }, [state, navigate]);
 
   useEffect(() => {
     const getData = async () => {
       const respon = await axios.get(
-        "https://benotareact.rendycahyae.my.id/dataPemasukan"
+        'https://be-notareact.opwarnet.my.id/dataPemasukan'
       );
       setDataPemasukan(respon.data);
     };
@@ -44,10 +44,10 @@ const Dashboard = () => {
           </h1>
           <div className="float-right flex">
             <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg">
-              Tanggal Awal : {tglAwal === "" ? "-" : tglAwal}
+              Tanggal Awal : {tglAwal === '' ? '-' : tglAwal}
             </button>
             <button className="bg-black text-white px-3 py-2 rounded-xl flex align-middle mr-2 font-bold text-lg">
-              Tanggal Awal : {tglAkhir === "" ? "-" : tglAkhir}
+              Tanggal Awal : {tglAkhir === '' ? '-' : tglAkhir}
             </button>
             <button
               className="bg-black text-white px-3 py-2 rounded-xl flex align-middle font-bold text-lg"
@@ -60,15 +60,15 @@ const Dashboard = () => {
             </button>
           </div>
 
-          {dataPemasukan === "" ? (
+          {dataPemasukan === '' ? (
             <div className="flex flex-row -m-4 clear-right">
               <div className="basis-1/2 m-6">
                 <div className="h-full bg-gray-100 p-6 rounded flex">
                   <div>
                     <p className="text-4xl">
-                      {new Intl.NumberFormat("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
+                      {new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
                         minimumFractionDigits: 0,
                       }).format(0)}
                     </p>
@@ -80,9 +80,9 @@ const Dashboard = () => {
                 <div className="h-full bg-gray-100 p-6 rounded flex">
                   <div>
                     <p className="text-4xl">
-                      {new Intl.NumberFormat("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
+                      {new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
                         minimumFractionDigits: 0,
                       }).format(0)}
                     </p>
@@ -97,9 +97,9 @@ const Dashboard = () => {
                 <div className="h-full bg-gray-100 p-6 rounded flex">
                   <div>
                     <p className="text-4xl">
-                      {new Intl.NumberFormat("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
+                      {new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
                         minimumFractionDigits: 0,
                       }).format(dataPemasukan.hasilJumlahIn)}
                     </p>
@@ -114,9 +114,9 @@ const Dashboard = () => {
                 <div className="h-full bg-gray-100 p-6 rounded flex">
                   <div>
                     <p className="text-4xl">
-                      {new Intl.NumberFormat("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
+                      {new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
                         minimumFractionDigits: 0,
                       }).format(dataPemasukan.hasilJumlahOut)}
                     </p>

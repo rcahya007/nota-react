@@ -1,12 +1,12 @@
-import { XCircleIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { XCircleIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 
 const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
   const [hasilAmbilData, setHasilAmbilData] = useState([]);
   const [dataDipilih, setDataDipilih] = useState([]);
   const [maxPesan, setMaxPesan] = useState(1);
-  const [deskripsi, setDeskripsi] = useState("");
+  const [deskripsi, setDeskripsi] = useState('');
   const [banyak, setBanyak] = useState(1);
   const [total, setTotal] = useState(0);
   const [stock, setStock] = useState(0);
@@ -48,7 +48,7 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
 
   const getId = async (id) => {
     const getDataById = await axios.post(
-      `https://benotareact.rendycahyae.my.id/barang/selectId/` + id
+      `https://be-notareact.opwarnet.my.id/barang/selectId/` + id
     );
     setDataDipilih([getDataById.data.getOne]);
     namaBarang.current.value = getDataById.data.getOne.nama_barang;
@@ -74,11 +74,11 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
 
   const getBarang = async (e) => {
     const nama_barang = e.target.value;
-    if (nama_barang === "") {
+    if (nama_barang === '') {
       setHasilAmbilData([]);
     } else {
       const fetch = await axios.post(
-        "https://benotareact.rendycahyae.my.id/getBarangFormTambah",
+        'https://be-notareact.opwarnet.my.id/getBarangFormTambah',
         { nama_barang: nama_barang }
       );
       if (fetch.data.result.length > 0) {
@@ -107,7 +107,7 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
         <div className="mt-3 mx-4">
           <div className="mx-5 mt-2 mb-4">
             <label htmlFor="nama" className="">
-              Nama Barang / Jasa :{" "}
+              Nama Barang / Jasa :{' '}
             </label>
             <input
               id="nama_barang"
@@ -150,7 +150,7 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
         <div className="mt-3 mx-4">
           <div className="mx-5 mt-2 mb-4">
             <label htmlFor="deskripsi" className="">
-              Deskripsi :{" "}
+              Deskripsi :{' '}
             </label>
             <textarea
               id="deskripsi"
@@ -168,7 +168,7 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
         <div className="mt-3 mx-4">
           <div className="mx-5 mt-2 mb-4">
             <label htmlFor="harga" className="">
-              Harga :{" "}
+              Harga :{' '}
             </label>
             <input
               id="harga"
@@ -182,7 +182,7 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
         <div className="mt-3 mx-4">
           <div className="mx-5 mt-2 mb-4">
             <label htmlFor="banyak" className="">
-              Banyak :{" "}
+              Banyak :{' '}
             </label>
 
             <div className="flex">
@@ -230,7 +230,7 @@ const ModalFormTambahNota = ({ closeModal, setDataBarang }) => {
         <div className="mt-3 mx-4">
           <div className="mx-5 mt-2 mb-4">
             <label htmlFor="total" className="">
-              Total :{" "}
+              Total :{' '}
             </label>
             <input
               id="total"

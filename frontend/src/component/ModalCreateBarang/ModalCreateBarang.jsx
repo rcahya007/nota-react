@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/solid";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { XCircleIcon } from '@heroicons/react/solid';
+import axios from 'axios';
 
 const ModalCreateBarang = ({ closeModal }) => {
   const [cateBarang, setCateBarang] = useState([]);
-  const [namaBarang, setNamaBarang] = useState("");
-  const [hargaBarang, setHargaBarang] = useState("");
-  const [stockBarang, setStockBarang] = useState("");
-  const [deskripsiBarang, setDeskripsiBarang] = useState("");
+  const [namaBarang, setNamaBarang] = useState('');
+  const [hargaBarang, setHargaBarang] = useState('');
+  const [stockBarang, setStockBarang] = useState('');
+  const [deskripsiBarang, setDeskripsiBarang] = useState('');
   const [selectedOption, setSelectedOption] = useState(1);
-  const [file, setFile] = useState("");
-  const [preview, setPreview] = useState("");
-  const [NoImage, setNoImage] = useState("");
+  const [file, setFile] = useState('');
+  const [preview, setPreview] = useState('');
+  const [NoImage, setNoImage] = useState('');
 
   useEffect(() => {
     getData();
@@ -27,7 +27,7 @@ const ModalCreateBarang = ({ closeModal }) => {
 
   const getData = async () => {
     const respon = await axios.get(
-      "https://benotareact.rendycahyae.my.id/categoryBarang"
+      'https://be-notareact.opwarnet.my.id/categoryBarang'
     );
     setCateBarang(respon.data.category);
   };
@@ -35,22 +35,18 @@ const ModalCreateBarang = ({ closeModal }) => {
   const SimpanData = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("nama_barang", namaBarang);
-    formData.append("harga_barang", hargaBarang);
-    formData.append("id_category_barang", selectedOption);
-    formData.append("stok_barang", stockBarang);
-    formData.append("deskripsi_barang", deskripsiBarang);
-    formData.append("file", file);
+    formData.append('nama_barang', namaBarang);
+    formData.append('harga_barang', hargaBarang);
+    formData.append('id_category_barang', selectedOption);
+    formData.append('stok_barang', stockBarang);
+    formData.append('deskripsi_barang', deskripsiBarang);
+    formData.append('file', file);
     try {
-      await axios.post(
-        "https://benotareact.rendycahyae.my.id/barang",
-        formData,
-        {
-          headers: {
-            "Content-type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post('https://be-notareact.opwarnet.my.id/barang', formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      });
       closeModal(false);
     } catch (error) {
       setNoImage(error.response.data.msg);
@@ -76,7 +72,7 @@ const ModalCreateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4 border-slate-400 border-b">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="nama" className="">
-                Nama Barang :{" "}
+                Nama Barang :{' '}
               </label>
               <input
                 id="nama"
@@ -90,7 +86,7 @@ const ModalCreateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="harga" className="">
-                Harga Barang :{" "}
+                Harga Barang :{' '}
               </label>
               <input
                 id="harga"
@@ -104,7 +100,7 @@ const ModalCreateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4 border-t border-slate-400 border-b">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="category" className="">
-                Category Barang :{" "}
+                Category Barang :{' '}
               </label>
               <select
                 name="category"
@@ -124,7 +120,7 @@ const ModalCreateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="stock" className="">
-                Stock Barang :{" "}
+                Stock Barang :{' '}
               </label>
               <input
                 id="stock"
@@ -138,7 +134,7 @@ const ModalCreateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4 border-t border-slate-400 border-b">
             <div className="mx-5 mt-2 mb-2">
               <label htmlFor="deskripsi" className="">
-                Deskripsi Barang :{" "}
+                Deskripsi Barang :{' '}
               </label>
               <textarea
                 id="deskripsi"
@@ -153,7 +149,7 @@ const ModalCreateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="foto" className="">
-                Foto Barang :{" "}
+                Foto Barang :{' '}
               </label>
               <input
                 id="foto"
@@ -170,7 +166,7 @@ const ModalCreateBarang = ({ closeModal }) => {
               <div className="mx-5 mt-2 mb-4 text-red-500">{NoImage}</div>
             </div>
           ) : (
-            ""
+            ''
           )}
           {preview ? (
             <div className="mt-3 mx-4">
@@ -179,7 +175,7 @@ const ModalCreateBarang = ({ closeModal }) => {
               </div>
             </div>
           ) : (
-            ""
+            ''
           )}
 
           <div className="border-t border-slate-400 flex justify-end ">

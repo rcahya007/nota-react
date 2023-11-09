@@ -1,10 +1,10 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Navigation from "../../component/Navigation/Navigation";
-import { AuthContext } from "../Home/Home";
-import { PlusIcon } from "@heroicons/react/solid";
-import ModalCreateCateBarang from "../../component/ModalCreateCateBarang/ModalCreateCateBarang";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../../component/Navigation/Navigation';
+import { AuthContext } from '../Home/Home';
+import { PlusIcon } from '@heroicons/react/solid';
+import ModalCreateCateBarang from '../../component/ModalCreateCateBarang/ModalCreateCateBarang';
 
 const CategoryBarang = () => {
   const { state } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const CategoryBarang = () => {
 
   useEffect(() => {
     if (state.user == null) {
-      navigate("/");
+      navigate('/');
     }
   }, [state, navigate]);
 
@@ -28,7 +28,7 @@ const CategoryBarang = () => {
 
   const getDataCategory = async () => {
     const respon = await axios.get(
-      "https://benotareact.rendycahyae.my.id/categoryBarang"
+      'https://be-notareact.opwarnet.my.id/categoryBarang'
     );
     setCategory(respon.data.category);
   };
@@ -36,7 +36,7 @@ const CategoryBarang = () => {
   const handleDelete = (id) => async () => {
     try {
       await axios.delete(
-        "https://benotareact.rendycahyae.my.id/categoryBarang/" + id
+        'https://be-notareact.opwarnet.my.id/categoryBarang/' + id
       );
       getDataCategory();
     } catch (error) {

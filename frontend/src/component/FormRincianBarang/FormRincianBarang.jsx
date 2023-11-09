@@ -1,38 +1,38 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../container/Home/Home";
-import ModalEditRincianBarang from "../ModalEditRincianBarang/ModalEditRincianBarang";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../container/Home/Home';
+import ModalEditRincianBarang from '../ModalEditRincianBarang/ModalEditRincianBarang';
 
 const FormRincianBarang = ({ barang, setDataBarang }) => {
   const navigate = useNavigate();
   const { state } = useContext(AuthContext);
   const [total_harga, setTotalHarga] = useState(0);
-  const [metod_pembayaran, setMetodPembayaran] = useState("");
-  const [jenis_transaksi, setJenisTransaksi] = useState("");
-  const [pembeli, setPembeli] = useState("");
+  const [metod_pembayaran, setMetodPembayaran] = useState('');
+  const [jenis_transaksi, setJenisTransaksi] = useState('');
+  const [pembeli, setPembeli] = useState('');
   const [kembali, setKembali] = useState(0);
-  const [dibayar, setDibayar] = useState("");
+  const [dibayar, setDibayar] = useState('');
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
   const [closeModal, setCloseModal] = useState(false);
-  const [dataEdit, setDataEdit] = useState("");
-  const [ErrorImg, setErrorImg] = useState("");
+  const [dataEdit, setDataEdit] = useState('');
+  const [ErrorImg, setErrorImg] = useState('');
 
   const loadImage = (e) => {
     const image = e.target.files[0];
-    setErrorImg("");
+    setErrorImg('');
     setFile(image);
     setPreview(URL.createObjectURL(image));
   };
 
   const handleMetode = (e) => {
-    if (e.target.value === "Cash") {
+    if (e.target.value === 'Cash') {
       setFile(null);
-      setPreview("");
+      setPreview('');
       setMetodPembayaran(e.target.value);
     }
-    if (e.target.value === "Transfer") {
+    if (e.target.value === 'Transfer') {
       setMetodPembayaran(e.target.value);
     }
   };
@@ -73,31 +73,31 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
     e.preventDefault();
     if (barang.length > 0 && kembali >= 0) {
       const formData = new FormData();
-      formData.append("barang", JSON.stringify(barang));
-      formData.append("total", total_harga);
-      formData.append("metode_pembayaran", metod_pembayaran);
-      formData.append("jenis_transaksi", jenis_transaksi);
-      formData.append("pembeli", pembeli);
-      formData.append("dibayar", dibayar);
-      formData.append("kembali", kembali);
-      formData.append("pembuat", state.user.name);
-      formData.append("file", file);
+      formData.append('barang', JSON.stringify(barang));
+      formData.append('total', total_harga);
+      formData.append('metode_pembayaran', metod_pembayaran);
+      formData.append('jenis_transaksi', jenis_transaksi);
+      formData.append('pembeli', pembeli);
+      formData.append('dibayar', dibayar);
+      formData.append('kembali', kembali);
+      formData.append('pembuat', state.user.name);
+      formData.append('file', file);
       try {
         await axios.post(
-          "https://benotareact.rendycahyae.my.id/simpanNota",
+          'https://be-notareact.opwarnet.my.id/simpanNota',
           formData,
           {
             headers: {
-              "Content-type": "multipart/form-data",
+              'Content-type': 'multipart/form-data',
             },
           }
         );
-        navigate("/nota");
+        navigate('/nota');
       } catch (error) {
         setErrorImg(error.response.data.msg);
       }
     } else {
-      console.log("Isilah data dengan benar");
+      console.log('Isilah data dengan benar');
     }
   };
 
@@ -135,16 +135,16 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
                 {data.banyak_barang}
               </div>
               <div className="col-span-1 text-left flex items-center py-2 px-2">
-                {new Intl.NumberFormat("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
+                {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
                   minimumFractionDigits: 0,
                 }).format(data.harga_barang)}
               </div>
               <div className="col-span-1 text-left flex items-center py-2 px-2">
-                {new Intl.NumberFormat("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
+                {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
                   minimumFractionDigits: 0,
                 }).format(data.total_harga)}
               </div>
@@ -156,7 +156,7 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
                   }}
                 >
                   Edit
-                </button>{" "}
+                </button>{' '}
                 |
                 <button
                   className="border-2 border-red-700 p-2 rounded-md hover:bg-red-700 hover:duration-300 text-red-700 hover:text-white ml-1"
@@ -183,9 +183,9 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
       <div className="grid grid-cols-7 w-full border-b-2 border-slate-400 space-b">
         <div className="col-span-5 text-right py-2 px-2 font-bold">TOTAL :</div>
         <div className="col-span-2 text-left py-2 px-2 font-bold">
-          {new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
+          {new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
             minimumFractionDigits: 0,
           }).format(total_harga)}
         </div>
@@ -213,25 +213,25 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
           />
           <label htmlFor="Transfer"> Transfer</label>
           <br></br>
-          {metod_pembayaran === "Transfer" ? (
+          {metod_pembayaran === 'Transfer' ? (
             <div className="ml-5">
               Masukkan Bukti Transfer
               <div className="border-2 border-b-slate-600 rounded-md px-2 py-2 mt-1 truncate">
                 <input type="file" onChange={loadImage} accept="image/*" />
               </div>
-              {ErrorImg !== "" ? (
+              {ErrorImg !== '' ? (
                 <div className="mt-1">
                   <div className="text-red-500">{ErrorImg}</div>
                 </div>
               ) : (
-                ""
+                ''
               )}
               {preview ? (
                 <div className="my-2">
                   <img src={preview} className="w-1/3" alt="Preview IMG" />
                 </div>
               ) : (
-                ""
+                ''
               )}
             </div>
           ) : null}
@@ -298,9 +298,9 @@ const FormRincianBarang = ({ barang, setDataBarang }) => {
         </div>
         <div className="col-span-2 text-left py-2 px-2 font-bold">
           <p>
-            {new Intl.NumberFormat("id-ID", {
-              style: "currency",
-              currency: "IDR",
+            {new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
               minimumFractionDigits: 0,
             }).format(kembali)}
           </p>

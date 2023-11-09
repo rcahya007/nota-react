@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/solid";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { XCircleIcon } from '@heroicons/react/solid';
+import axios from 'axios';
 
 const ModalCreateCateBarang = ({ closeModal }) => {
   useEffect(() => {
     return () => {};
   }, []);
 
-  const [namaCategory, setNamaCategory] = useState("");
+  const [namaCategory, setNamaCategory] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://benotareact.rendycahyae.my.id/addCategory", {
+      await axios.post('https://be-notareact.opwarnet.my.id/addCategory', {
         category_barang: namaCategory,
       });
       closeModal(false);
@@ -40,7 +40,7 @@ const ModalCreateCateBarang = ({ closeModal }) => {
           <div className="mt-3 mx-4 border-slate-400">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="nama" className="">
-                Nama Category Barang :{" "}
+                Nama Category Barang :{' '}
               </label>
               <input
                 id="namaCategory"

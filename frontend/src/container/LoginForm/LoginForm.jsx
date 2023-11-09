@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
-import { UserCircleIcon, LockClosedIcon } from "@heroicons/react/solid";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { AuthContext } from "../Home/Home";
+import React, { useState, useContext, useEffect } from 'react';
+import { UserCircleIcon, LockClosedIcon } from '@heroicons/react/solid';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../Home/Home';
 
 const LoginForm = () => {
   const { state, fungsi } = useContext(AuthContext);
@@ -10,13 +10,13 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (state.user != null) {
-      navigate("/dashboard");
+      navigate('/dashboard');
     }
   }, [state, navigate]);
 
   const tampungData = {
-    name: "",
-    password: "",
+    name: '',
+    password: '',
     isSubmitting: false,
     errorMessage: null,
   };
@@ -41,17 +41,17 @@ const LoginForm = () => {
     });
     try {
       await axios
-        .post("https://benotareact.rendycahyae.my.id/login", {
+        .post('https://be-notareact.opwarnet.my.id/login', {
           name: data.name,
           password: data.password,
         })
         .then((res) => {
           if (res.status === 200) {
             fungsi({
-              type: "LOGIN",
+              type: 'LOGIN',
               payload: res.data,
             });
-            navigate("/dashboard");
+            navigate('/dashboard');
           }
         });
     } catch (error) {

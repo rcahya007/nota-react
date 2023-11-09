@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
-import { XCircleIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import { dashboardContext } from "../../container/Dashboard/Dashboard";
+import React, { useContext, useEffect } from 'react';
+import { XCircleIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import { dashboardContext } from '../../container/Dashboard/Dashboard';
 
 const ModalFilter = () => {
   const {
@@ -21,13 +21,13 @@ const ModalFilter = () => {
   const handleCari = async (e) => {
     e.preventDefault();
     const fetch = await axios.post(
-      "https://benotareact.rendycahyae.my.id/filterDashboard",
+      'https://be-notareact.opwarnet.my.id/filterDashboard',
       {
         tglAwal: tglAwal,
         tglAkhir: tglAkhir,
       }
     );
-    if (tglAkhir && tglAwal !== "") {
+    if (tglAkhir && tglAwal !== '') {
       setDataPemasukan({
         ...dataPemasukan,
         hasilJumlahIn: fetch.data.hasilJumlahIn,
@@ -37,7 +37,7 @@ const ModalFilter = () => {
       });
     } else {
       const respon = await axios.get(
-        "https://benotareact.rendycahyae.my.id/dataPemasukan"
+        'https://be-notareact.opwarnet.my.id/dataPemasukan'
       );
       setDataPemasukan(respon.data);
     }

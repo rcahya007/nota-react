@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { XCircleIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { XCircleIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ModalEditBarang = ({ closeModal, dataBarang }) => {
   const [cateBarang, setCateBarang] = useState([]);
@@ -15,7 +15,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
     dataBarang.deskripsi_barang
   );
   const [file, setFile] = useState(dataBarang.url);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
 
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
 
   const getData = async () => {
     const respon = await axios.get(
-      "https://benotareact.rendycahyae.my.id/categoryBarang"
+      'https://be-notareact.opwarnet.my.id/categoryBarang'
     );
     setCateBarang(respon.data.category);
   };
@@ -40,24 +40,24 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
   const simpanEditBarang = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("nama_barang", namaBarang);
-    formData.append("harga_barang", hargaBarang);
-    formData.append("id_category_barang", selectedOption);
-    formData.append("stok_barang", stockBarang);
-    formData.append("deskripsi_barang", deskripsiBarang);
-    formData.append("file", file);
+    formData.append('nama_barang', namaBarang);
+    formData.append('harga_barang', hargaBarang);
+    formData.append('id_category_barang', selectedOption);
+    formData.append('stok_barang', stockBarang);
+    formData.append('deskripsi_barang', deskripsiBarang);
+    formData.append('file', file);
     try {
       await axios.patch(
-        `https://benotareact.rendycahyae.my.id/barang/${dataBarang.id}`,
+        `https://be-notareact.opwarnet.my.id/barang/${dataBarang.id}`,
         formData,
         {
           headers: {
-            "Content-type": "multipart/form-data",
+            'Content-type': 'multipart/form-data',
           },
         }
       );
       closeModal(false);
-      navigate("/barang");
+      navigate('/barang');
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +82,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
           <div className="mt-3 mx-4 border-t border-slate-400 border-b">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="nama" className="">
-                Nama Barang :{" "}
+                Nama Barang :{' '}
               </label>
               <input
                 id="nama"
@@ -96,7 +96,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
           <div className="mt-3 mx-4">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="harga" className="">
-                Harga Barang :{" "}
+                Harga Barang :{' '}
               </label>
               <input
                 id="harga"
@@ -110,7 +110,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
           <div className="mt-3 mx-4 border-t border-slate-400 border-b">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="category" className="">
-                Category Barang :{" "}
+                Category Barang :{' '}
               </label>
               <select
                 name="category"
@@ -130,7 +130,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
           <div className="mt-3 mx-4">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="stock" className="">
-                Stock Barang :{" "}
+                Stock Barang :{' '}
               </label>
               <input
                 id="stock"
@@ -144,7 +144,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
           <div className="mt-3 mx-4 border-t border-slate-400 border-b">
             <div className="mx-5 mt-2 mb-2">
               <label htmlFor="deskripsi" className="">
-                Deskripsi Barang :{" "}
+                Deskripsi Barang :{' '}
               </label>
               <textarea
                 id="deskripsi"
@@ -159,7 +159,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
           <div className="mt-3 mx-4">
             <div className="mx-5 mt-2 mb-4">
               <label htmlFor="foto" className="">
-                Foto Barang :{" "}
+                Foto Barang :{' '}
               </label>
               <input
                 id="foto"
@@ -177,7 +177,7 @@ const ModalEditBarang = ({ closeModal, dataBarang }) => {
               </div>
             </div>
           ) : (
-            ""
+            ''
           )}
 
           <div className="border-t border-slate-400 flex justify-end ">
